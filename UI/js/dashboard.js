@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // initialize Burger Button for mobile navbar
+  const menuBtn = document.getElementById('menu');
+  const tabList = document.getElementById('list');
   // initialize Tab Buttons into variables
   const sendTabBtn = document.getElementById('send-tab-btn');
   const viewAllTabBtn = document.getElementById('view-all-tab-btn');
@@ -33,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     viewParcelInfo[i].addEventListener("click", function() {
       parcelInfo = this.parentNode.nextElementSibling;
       addressNode = parcelInfo.childNodes[15];
-      editBtnNode = parcelInfo.childNodes[19];
+      editBtnNode = parcelInfo.childNodes[21];
       if (parcelInfo.style.display === "flex") {
         nodeDisplay(parcelInfo, "none");
         childNodeDisplay(this, 1, "block");
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editParcelInfo[i].addEventListener("click", function() {
       parcelInfo = this.parentNode.nextElementSibling;
       addressNode = parcelInfo.childNodes[15];
-      editBtnNode = parcelInfo.childNodes[19];
+      editBtnNode = parcelInfo.childNodes[21];
       if (parcelInfo.style.display === "flex") {
         nodeDisplay(parcelInfo, "none");
         childNodeDisplay(this.nextElementSibling, 1, "block");
@@ -81,6 +84,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const removeActiveClass = (arr) => {
     arr.filter((button) => button.classList.contains('active')).forEach((button) => button.classList.remove('active'));
   }
+
+  menuBtn.addEventListener('click', function() {
+    if (this.classList.contains('active')) {
+      this.classList.remove('active'); 
+      tabList.classList.remove('active'); 
+    } else {
+      this.classList.add('active');
+      tabList.classList.add('active'); 
+    }
+  })
 
   sendTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);

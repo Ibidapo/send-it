@@ -1,8 +1,6 @@
 /* Styling for Body */
-html, body {
-  height: 100%;
-}
 body {
+  background: whitesmoke;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -107,11 +105,38 @@ body {
 }
 
 /* Styling for logo */
-.login > div > .logo {
+.login > .logo {
+  position: relative;
+  top: 2rem;
+  left: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 .logo {
-  width: 150px;
+  width: 125px;
+}
+
+/* Styling for burger */
+#menu {
+  display: none;
+  margin: 2rem;
+  float: right;
+  cursor: pointer;
+}
+#menu > .bar1, #menu > .bar2, #menu > .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+#menu.active > .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+#menu.active > .bar2 {opacity: 0;}
+#menu.active > .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
 }
 
 /* Styling for Display Flex */
@@ -138,7 +163,9 @@ body {
 
 /* Styling for Login Page */
 .login-box {
+  position: relative;
   background: white;
+  top: 100px;
   width: 400px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
@@ -240,35 +267,40 @@ button {
 }
 
 /* Styling for Dashboard */
-.container {
-  height: 100%;
-}
 .side-bar {
-  flex: 1;
-  height: 100%;
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  width: 17.5%;
+  height: 100vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
-.list {
+#list {
   position: relative;
 }
-.list > ul {
+#list > ul {
   list-style: none;
   padding: 0;
 }
-.list > ul > li {
+#list > ul > li {
   padding: 1rem 0;
 }
-.list > ul > li > a {
+#list > ul > li > a {
   text-decoration: none;
 }
 .main-content {
-  flex: 5;
-  padding: 2rem;
+  position: relative;
+  top: 0;
+  left: 17.5%;
+  width: 82.5%;
+  margin-top: 3rem;
 }
 .box {
+  background: white;
   margin-left: auto;
   margin-right: auto;
-  max-width: 900px;
+  max-width: 90%;
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
@@ -279,22 +311,42 @@ button {
 #send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, .less {
   display: none;
 }
-/* , .parcel-state */
-.parcel-box, .status-report {
+.status-report {
   font-size: 0.875rem;
 }
 .parcel-box > .icon > a  {
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
 }
 
 @media screen and (max-width: 800px) {
+  /* Styling for Side-bar on mobile */
+  .side-bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    flex: unset;
+  }
+  #menu {
+    display: block;
+  }
+  #list {
+    display: none;
+  }
+  #list > ul > li {
+    padding: 0.5rem 0;
+  }
+  #list.active {
+    display: block;
+  }
   .logo {
     width: 100px;
   }
   .main-content {
-    padding: 1rem;
+    left: 0;
+    width: 100%;
   }
   .px-2 {
     padding-left: 1rem;
@@ -303,6 +355,7 @@ button {
 }
 
 @media screen and (max-width: 650px) {
+  /* Styling for width sizes on mobile */
   .w-90, .w-60, .w-50, .w-40, .w-30, .w-20, .w-10  {
     width: 100%;
   }

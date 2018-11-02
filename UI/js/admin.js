@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // initialize Burger Button for mobile navbar
+  const menuBtn = document.getElementById('menu');
+  const tabList = document.getElementById('list');
   // Initialize all the parcel-box elements
   let viewParcelInfo = document.getElementsByClassName("view-parcel-info");
   let editParcelInfo = document.getElementsByClassName("edit-parcel-info");
@@ -55,4 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  menuBtn.addEventListener('click', function() {
+    if (this.classList.contains('active')) {
+      this.classList.remove('active'); 
+      tabList.classList.remove('active'); 
+    } else {
+      this.classList.add('active');
+      tabList.classList.add('active'); 
+    }
+  });
 });
