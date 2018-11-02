@@ -1,0 +1,315 @@
+/* Styling for Body */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.login {
+  background: url(../images/city-courier.jpg) no-repeat center;
+  background-size: cover;
+  margin: 0;
+  min-height: 100vh; 
+}
+
+/* Styling for Texts */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+
+/* Styling for Padding */
+.px-2 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.px-1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.pt-1, .py-1{
+  padding-top: 1rem;
+}
+.pb-1, .py-1{
+  padding-bottom: 1rem;
+}
+
+/* Styling for Margin */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.m-2 {
+  margin: 2rem;
+}
+.my-1 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.mt-05, .my-05 {
+  margin-top: 0.5rem;
+}
+.mb-05, .my-05 {
+  margin-bottom: 0.5rem;
+}
+.mt-0, .my-0 {
+  margin-top: 0;
+}
+.mb-0, .my-0 {
+  margin-bottom: 0;
+}
+
+/* Styling for color */
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.green {
+  color: green;
+}
+.not-allowed {
+  color: grey;
+  cursor: not-allowed !important;
+}
+
+/* Styling for Width */
+.w-100, .w-90, .w-60, .w-30, .w-40 {
+  position: relative;
+}
+.w-100 {
+  width: 100%;
+}
+.w-90 {
+  width: 90%;
+}
+.w-60 {
+  width: 60%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-40 {
+  width: 40%;
+}
+.w-30 {
+  width: 30%;
+}
+.w-20 {
+  width: 20%;
+}
+.w-10 {
+  width: 10%;
+}
+
+/* Styling for logo */
+.login > div > .logo {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+.logo {
+  width: 150px;
+}
+
+/* Styling for Display Flex */
+.d-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.space-start {
+  justify-content: flex-start;
+}
+.space-between {
+  justify-content: space-between;
+}
+.space-around {
+  justify-content: space-around;
+}
+.space-evenly {
+  justify-content: space-evenly;
+}
+.vertical-bottom {
+  align-self: flex-end;
+}
+
+/* Styling for Login Page */
+.login-box {
+  background: white;
+  width: 400px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+}
+.error {
+  display: none;
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+}
+.tab-group li {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+.tab-group li a {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background: #d2d8d8;
+  color: #666666;
+  text-decoration: none; 
+} 
+.tab-group li:first-child a {
+  border-top-left-radius: 1rem;
+}
+.tab-group li:last-child a {
+  border-top-right-radius: 1rem;
+}
+.tab-group li a.active {
+  background:white;
+}
+.help-text {
+  color: #666666;
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin: 0.5rem 0;
+}
+.help-text:hover, .help-text.focus {
+  color: blue;
+}
+
+/* Styling for Form elements */
+.login-box > form {
+  display: none;
+  width: 320px;
+  margin-top: 1.5rem;
+}
+.login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active, #view-delivered-tab.active,
+#profile-tab.active {
+  display: block;
+}
+.box > form, .parcel-box {
+  width: 90%;
+}
+label {
+  font-size: 0.875rem;
+  color: grey;
+}
+input:not([type="checkbox"]){
+  position: relative;
+  height: 1.5rem;
+  font-size: 1rem;
+  width: 100%;
+  border-bottom-color: rgb(238, 238, 238);
+  border-radius: 0;
+  border-width: 0 0 2px 0;
+}
+.login-box > forma.active input:not([type="checkbox"]) {
+  width: 320px;
+}
+input:not([type="checkbox"]):focus {
+  outline: none;
+  border-width: 0 0 2px 0;
+  border-color: blue;
+}
+.address-to-parcel > input, .present-location-parcel > input {
+  height: 1rem;
+  max-width: 250px;
+  font-size: 0.875rem;
+} 
+
+/* Styling for Button */
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  outline: none;
+}
+.parcel-info > div > button {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Styling for Dashboard */
+.container {
+  height: 100%;
+}
+.side-bar {
+  flex: 1;
+  height: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+.list {
+  position: relative;
+}
+.list > ul {
+  list-style: none;
+  padding: 0;
+}
+.list > ul > li {
+  padding: 1rem 0;
+}
+.list > ul > li > a {
+  text-decoration: none;
+}
+.main-content {
+  flex: 5;
+  padding: 2rem;
+}
+.box {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+}
+#send-tab-btn.active, #view-all-tab-btn.active, #view-pending-tab-btn.active, #view-delivered-tab-btn.active,
+#profile-tab-btn.active {
+  text-decoration: underline;
+}
+#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, .less {
+  display: none;
+}
+/* , .parcel-state */
+.parcel-box, .status-report {
+  font-size: 0.875rem;
+}
+.parcel-box > .icon > a  {
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .logo {
+    width: 100px;
+  }
+  .main-content {
+    padding: 1rem;
+  }
+  .px-2 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .w-90, .w-60, .w-50, .w-40, .w-30, .w-20, .w-10  {
+    width: 100%;
+  }
+  .w-20, .w-30, .w-40 {
+    margin-top: 0.5rem
+  }
+  .login-box, .login-box > form {
+    width: 80%;
+  }
+}
