@@ -18,3 +18,6 @@ deploy:
   provider: heroku
   api_key:
    secure: "80778298-3f41-4a7f-882e-299701b084ab"
+  on:
+    repo: ibidapo/send-it
+    branch: api-v1
