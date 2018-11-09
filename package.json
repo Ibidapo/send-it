@@ -8,7 +8,7 @@
     "start": "npm run build && nodemon dist/index.js",
     "serve": "node dist/index.js",
     "lint": "eslint lib/",
-    "test": "mocha dist/test/index.test.js"
+    "test": "npm run build && mocha dist/**/*.test.js"
   },
   "repository": {
     "type": "git",
