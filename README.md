@@ -2,18 +2,17 @@
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
 [![Build Status](https://travis-ci.com/Ibidapo/send-it.svg?branch=api-v1)](https://travis-ci.com/Ibidapo/send-it)
-
+[![Coverage Status](https://coveralls.io/repos/github/Ibidapo/send-it/badge.svg?branch=api-v1)](https://coveralls.io/github/Ibidapo/send-it?branch=api-v1)
 
 ## Getting Started
 
 ### Prerequisites
 
-These tools are important to have to application up and running
+These tools are required to have to application up and running
 
-```
-* [Node](https://nodejs.org/en/)
-* [NPM](https://www.npmjs.com/)
-```
+[Node](https://nodejs.org/en/)
+[NPM](https://www.npmjs.com/)
+
 Then use
 
 ```
@@ -24,9 +23,7 @@ To download all depending modules
 
 ## Deployment
 
-```
-* [Heroku](https://www.heroku.com/)
-```
+[Heroku](https://www.heroku.com/)
 
 ## Built With
 
