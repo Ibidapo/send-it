@@ -1,9 +1,9 @@
 env:
- global:
-  - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
+  global:
+    - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
- - "node"
+  - "node"
 addons:
   chrome: stable
 before_script:
@@ -11,6 +11,10 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
- - nyc npm test && nyc report --reporter=text-lcov | coveralls
+  - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
- - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+deploy:
+  provider: heroku
+  api_key:
+   secure: "80778298-3f41-4a7f-882e-299701b084ab"
