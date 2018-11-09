@@ -10,8 +10,8 @@ SendIT is a courier service that helps users deliver parcels to different destin
 
 These tools are required to have to application up and running
 
-[Node](https://nodejs.org/en/)
-[NPM](https://www.npmjs.com/)
+* [Node](https://nodejs.org/en/)
+* [NPM](https://www.npmjs.com/)
 
 Then use
 
