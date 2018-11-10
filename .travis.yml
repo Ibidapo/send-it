@@ -3,21 +3,22 @@ env:
   - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
-  - node
+- node
 addons:
   chrome: stable
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - nyc npm test && nyc report --reporter=text-lcov | coveralls
+- nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 deploy:
   provider: heroku
   api_key:
-    secure: HCCn5M3h1ZvRj4CeATN5aL0tLmVo0uK/+d7it/MildpsvKNrK6r12LZG7gEW+2OscY5jR3vIAuwWmQaKMM1Cm2FV8QWHyqddNt4+TzTW14nfjv9eXcRAv0AH/8t3wZYk53J1VXlaeLUG22I80X2N6Ij4WQ319RVgZKO3fJL25TvANt89ejLIC1N+hrATFUBhPG4YiQd7EP5vJfaaeLhHWUaJBFokwzDt0/FpRV71S+ewMGLg6tWc9iWy5XVXbdonlpYRhWPo9QSnRjVBvAExLm4HnOSLVq8tIR7w4ih9Cy5KgIHzaVRG55ECtmBYbhN0OvN7DGLizrLZkNgYDOmbBXT7RXHMqok8cJt7/RuHnBE5wATt3qPsW7A/hDq1XPuVvVFvsDUpjoz/FAHNgy5YX1BdSZ1hqmh9jlcJJrqoI/8GfLB+u9yqg4lvfi8dwtF6md3NFen7IOFukOBMoyATEwmygW2Ezwe5eZZDO+gFSfAqWKbGCMgeluv45QBd4TREv3Bhl3ivw9BwoRBftuuqdv5gUGUBlwzBN43VOo8Ii3dVeUFUkhkV18/dIINvqsCLH7zTT3utWs7UB2J/YBza8nEt6mXnV4dF3h8IoFUw0lyCvd1HLDU/PkF5h19PaO/Y90QFnfGjupItneez6bCqM67GtjuLPOHhufJPEADQfck=
+    secure: KDdrybeVFyXYL3XtRsImnou3Vw7pzLbmuIWk3r14a9pRPJmf3wR2QATS/rO4idR1neHwJg01xCmmANSed1BfnjF1u67w6goOR88ltXGTlEmJC9YNKr6v98dJSMzd+CMPWbWlpEbGo20In0RhI4pJS4fIMetkLnK5WW12Zb3/wbHcUiLsxbbg+lcjI2IegV8Pp6OquE9OykOR4nvw7upeZkQFmXDHzC6zvFuPhp4pmNqPNqRi9s/KT8FH/jIRt/8r3U04483JxWxGg8u23ImKZNtLP6mfS1AnLqUO0wf8UemFwmdqkiQ+HKNxsSw3RcNepwNXcf2QoF+4KqGVHEeI3MvnPzhOOpRMia3RUEnvdyq1/WKC6yGtY8NFkxPbrqLqI8S2iQ4r+M22kBtlC6cnOPA74TkhjiNiAssnm7n4GP+UBJqmuQ6mQi5BrP0ljxMpJWDrVFXaT33xsaT6WnxGrcoZBQcGsvdwqiIYai0eJ8WykqIJHRoMnqCyI0hidLf4/u/VX59W+ffgykoOumxwwQYiMQ/2/FreSy+PCUS4VS+HRusmcrxYDEaI/veC1izz5O6ygomNMUNRxO7V0LfhMTyL3v3TfK7cWkhbCyjLPR9xDAjROrO2baIf1YqsVmlG47L7PRZfOGFsRPetxUAbgR5eUlIYd8vn9QoPK/1XDZE=
   app: travissend-it
   on:
     repo: Ibidapo/send-it
