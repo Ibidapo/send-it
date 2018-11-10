@@ -10,7 +10,7 @@
     "lint": "eslint lib/",
     "test": "npm run build && mocha dist/test/*.test.js --exit"
   },
-  "repository": {
+  "repository": { 
     "type": "git",
     "url": "git+https://github.com/Ibidapo/send-it.git"
   },

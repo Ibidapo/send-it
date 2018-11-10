@@ -24,7 +24,7 @@ To download dependencies
 
 ## Deployment
 
-[Heroku](https://www.heroku.com/)
+[Heroku](https://travissend-it.herokuapp.com/api/v1/parcels) - click
 
 ## Built With
 
