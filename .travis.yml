@@ -17,7 +17,7 @@ after_script:
 deploy:
   provider: heroku
   api_key:
-    secure: WwcrvjTqZwLSfIXmRTcH6rtNInJ5JBUS0oWH2YB89I6XOzagP7raS9mAWeDqlufgn71Y201U3Zi5duLTEJ5/6N6/LgwSpG4sAi+8OAilqu2o7GTg9vCHsiFlz9cmvUAm7eNR+vz+6xqChpgxLXGPNETTrd3otxM4pEiFAnJeg66uQAbuZpTqa7hwXtYyNtdiAXg+czF1CBVSDqdkn67qdUqtLX8grQ0tY+L1L0DqGu0YcohiEx/42KgRepkCZ7G2Ti3h1aWTSQcwYlBqQ8X8+wmOwe1d1/vRXLJuuU2FWb8JKrqySb+6HqwbzlUuFBhq7IvvDUCuMNsuCYwArKy90G0YD4trpIr/7mvfxleVNSmeMiZ+DvNnOqgyuz/XxsCvnmLuREzKswwLFCRzeudlPV1UTXFQwn3tEme1T0xHabycgcFmRyDOXZhbDcqUIiR6OnsKuP4k8fIEB31kCo8xlfMOXP3pIwtfDfRxxb6CQDEsSW5JPntAPLEZMIvbnpwzH+PurtVy802Nd16AWOVkC+2D+L4UAYsuqdcMzTwHCMInM3ZgZpYnho/2w449TSFhaUL4jaDZ1jR5I5PHcQs0OGhE2L2x0BEpRP/Zrpp6JRIebMls7s/YoJm5SBG2JtvR8le3s4O6X/hOEaA1nq+bwGrjU50vqGi+jYx71myj29w=
+    secure: 232f49f2-098e-448c-8177-aab531976d7b
   app: travissend-it
   on:
     repo: Ibidapo/send-it
