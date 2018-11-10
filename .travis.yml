@@ -3,7 +3,7 @@ env:
   - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
-- node
+  - node
 addons:
   chrome: stable
 before_script:
@@ -17,7 +17,7 @@ after_script:
 deploy:
   provider: heroku
   api_key:
-    secure: 232f49f2-098e-448c-8177-aab531976d7b
+    secure: 1wW6onwOkaimA1xAn2velfRIAfzt/7JhVS9bML3cHl/rn/PUDjJGrTCC5iWaeJG5BJQOb5xKHRm61EywCyIIxAvPTcIVR9V/A6wBVwEeM3wdJI7/yTO/Ybz3wuFe9zbiHrqnbG8RknReWAEoqKXTEsCSs6m0BD/0yUcthvfapyRSUdTthIktYVd0RtEwy2++n3ipTT8g6NzSk/ZbZZzUvLJ5fnBt5VMU/DiXI804q9s5Boz7VeJ/0AS2oGFFv6rJApuQoZ8Brqwom2GH/OkXOeGGOTDUzyvtEDKfRbZSejtIT4SGPSOqQzABPdhNQOlthrEoetEf3/VLrsJgSNV9agjCpKe4Rr0JFPAbr42loALwJ5jSNsFdAqKrANz+7k9ceJGfmkql35WOrGUu+eiOfrX+PtMkDJBjt5wiib2d1c7AzPgTHzCCAgJ7UkAB1ujNxrh/UsuoMEU+QbO3O54vUlEIX6YJcaqxEjb/PJO70wVWSv3YT3uHkY18ocshs/CWxro2rcINusE6baBw+xZJvyIfVyhpqaPA14mENnPxNVrWkZGi2tuYYTN8Lsf+P0xHmNwYleGINBGP6Wa7BLob2ybyl4kUMJTfSJwbfp1RkaRyBgQHDUjCg83ouNJ5n1GTH+yQAhFWcMxh2QDFBWjE7WDvY6FhWmKslICfIEIvFvk=
   app: travissend-it
   on:
     repo: Ibidapo/send-it
