@@ -7,18 +7,17 @@ node_js:
 addons:
   chrome: stable
 before_script:
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-  > ./cc-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
-- "./cc-test-reporter before-build"
+- ./cc-test-reporter before-build
 script:
 - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
-- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
   provider: heroku
   api_key:
-    secure: KDdrybeVFyXYL3XtRsImnou3Vw7pzLbmuIWk3r14a9pRPJmf3wR2QATS/rO4idR1neHwJg01xCmmANSed1BfnjF1u67w6goOR88ltXGTlEmJC9YNKr6v98dJSMzd+CMPWbWlpEbGo20In0RhI4pJS4fIMetkLnK5WW12Zb3/wbHcUiLsxbbg+lcjI2IegV8Pp6OquE9OykOR4nvw7upeZkQFmXDHzC6zvFuPhp4pmNqPNqRi9s/KT8FH/jIRt/8r3U04483JxWxGg8u23ImKZNtLP6mfS1AnLqUO0wf8UemFwmdqkiQ+HKNxsSw3RcNepwNXcf2QoF+4KqGVHEeI3MvnPzhOOpRMia3RUEnvdyq1/WKC6yGtY8NFkxPbrqLqI8S2iQ4r+M22kBtlC6cnOPA74TkhjiNiAssnm7n4GP+UBJqmuQ6mQi5BrP0ljxMpJWDrVFXaT33xsaT6WnxGrcoZBQcGsvdwqiIYai0eJ8WykqIJHRoMnqCyI0hidLf4/u/VX59W+ffgykoOumxwwQYiMQ/2/FreSy+PCUS4VS+HRusmcrxYDEaI/veC1izz5O6ygomNMUNRxO7V0LfhMTyL3v3TfK7cWkhbCyjLPR9xDAjROrO2baIf1YqsVmlG47L7PRZfOGFsRPetxUAbgR5eUlIYd8vn9QoPK/1XDZE=
+    secure: "KDdrybeVFyXYL3XtRsImnou3Vw7pzLbmuIWk3r14a9pRPJmf3wR2QATS/rO4idR1neHwJg01xCmmANSed1BfnjF1u67w6goOR88ltXGTlEmJC9YNKr6v98dJSMzd+CMPWbWlpEbGo20In0RhI4pJS4fIMetkLnK5WW12Zb3/wbHcUiLsxbbg+lcjI2IegV8Pp6OquE9OykOR4nvw7upeZkQFmXDHzC6zvFuPhp4pmNqPNqRi9s/KT8FH/jIRt/8r3U04483JxWxGg8u23ImKZNtLP6mfS1AnLqUO0wf8UemFwmdqkiQ+HKNxsSw3RcNepwNXcf2QoF+4KqGVHEeI3MvnPzhOOpRMia3RUEnvdyq1/WKC6yGtY8NFkxPbrqLqI8S2iQ4r+M22kBtlC6cnOPA74TkhjiNiAssnm7n4GP+UBJqmuQ6mQi5BrP0ljxMpJWDrVFXaT33xsaT6WnxGrcoZBQcGsvdwqiIYai0eJ8WykqIJHRoMnqCyI0hidLf4/u/VX59W+ffgykoOumxwwQYiMQ/2/FreSy+PCUS4VS+HRusmcrxYDEaI/veC1izz5O6ygomNMUNRxO7V0LfhMTyL3v3TfK7cWkhbCyjLPR9xDAjROrO2baIf1YqsVmlG47L7PRZfOGFsRPetxUAbgR5eUlIYd8vn9QoPK/1XDZE="
   app: travissend-it
   on:
     repo: Ibidapo/send-it
