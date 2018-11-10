@@ -1,23 +1,23 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
+  - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
-  - "node"
+- node
 addons:
   chrome: stable
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - nyc npm test && nyc report --reporter=text-lcov | coveralls
+- nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 deploy:
   provider: heroku
   api_key:
-   secure: "80778298-3f41-4a7f-882e-299701b084ab"
+    secure: GjSZVTMgA50G92oKGJ4aJDa4uoJLL2UzKyBUWtchYMOhZCZoK77ry+OKZqqpnEns0XNg8NY3cLXRhZ9qod2FSnfzwb9KM++Mgv6oCnKakark+CNdyP4fvUFzmhbl5mAK+P2Q44DzwY4z8rHimPdj6PhQVIp465iuFt0jqaPngj34zQRyEecCYU5Ajwl6Xofdad5Aa8AtY01M2N2aIDfwY7WkEizlg9ErHA5mdoHfajEu8omEaKkgC0IkoLehjD8h+JiXHD+X1f5/ybLXRRXC1mFyDXL5fuL7jkhSlYuZS72Mmfi4XFxobTF5zlA8dtcs2ok3Kg3uUQYeTFEZnmABdboD+odUvvQGbR9EsMbDzqxw9tKeYiM0WULv7jIueVDThmXtP2H9d7d5LNbn1nSgdrwFoq1OVB88KZd7wtEnILNrL/tP+yl90luoIMDTt1395DpGuZUt8DvUMDa2INwcPnaNBMiHi8vN28OmjZZoUYDvXiwHOF+2biBHHS7dqRhefs4kuQIIXtbqLSYqr9CNZZ2CSepHWtUI8xLEe+MujTPqtv8cupKSOJeZGuoM2SOBBnD5Xayht++yGrnEwwZHOwiN5rFzKhI4GegJXadMLwVeO6wjmSGmGUfgTJiYy52t69y5nn+gHhI9rQQmalSwkC1menaqN+hfGEnD5NYX5SQ=
   app: travissend-it
   on:
     repo: Ibidapo/send-it
