@@ -11,13 +11,13 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-- nyc npm test && nyc report --reporter=text-lcov | coveralls
+  - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
   provider: heroku
   api_key:
-    secure: "DL0pyp5WU/XSVBUOlcWdQmz5kuOUZNMg9jaNcfJtOZIzmTxZwfWANIXKStmhH9v1BJRVeRdFh6nuY4JaTDfhQgK0GTWB+CnYxq6HDRNgOC71ehU44DnlVGjafY18w+kIK/FVntX2EBsP5csOki/ZYf595BVM6tZFZlqTUCwKYwDxaTS9krnuPJWSkRvVZiosRyxxIrLGFI4kCAj9phAGTf/Lb0Vkq3+uSilv7BT1xvrcXN44auRkChYm8Tdu326dXVju8Mf+e1Pl1FtvD2x/Vp4C5Nu4iWKOU/kgmxBaugL4QcK8VNkBqFxC/knI+UCxXjRtIyFwhQrhYWv62VFEM2SoZaA/4J4IrSPCwWYHEx6GcBE7u2qJInHJiw3HQrBWdbvV48NmCNVc6IzriQyir3Dl5JxF/0wBWC0UCKD4LBJFegW1kHjjsn5NFMVJLAp80JkGLCSwouE0KhbZxxVu7fO/SSWN7OorpyV/sPEICObUINXz603nKvYlxV6YD1X6CxwChAYU93a7Z5Vrf1HHL+g0FuLaOTsTEMYftTOs0TNX7YuER5ghdNJwQGDOirmvCKq+oZ+DLW986A3rA9X8u2qPSKNgepqL166+h6TeQIS+uTptVdwF35VsHpnneqp/zuqu9ynU4+14JZu7W5lc67vN8gNJ21ZDRwL0IyewBno="
+    secure: "T8HIRKYzeb2MB//bqE4YTfDZYbXT87qzfkNAW6gP2Yl6BsjoZjY0bhmsGZ+dsHAUTozF5x9rdbd4YEmR4jFMKUi0rlryyAmOQVrhe6FX2PYVrk4UVFnPYQbaAjR+aRgmPSb2CEEcG7ANVkj06a2o1jxFtMD2hNReY3Thw8VZRut2CUt9BRmMsvS9wTDmxTiu7gTsq+uVvJ4rk5GrelHfcVdgT3ynNk9IJH20Xkx5i3dwYF6znELjayeykUXBGPdJpWEkeaSSMuuUc+7gf5EJn1cdxiEoUk2a/dZQ1DCcoRXgyhtEomUYkp/0wD9FqteyxXVTMc6swDPsbnCuDylANCnOl00CKQAgDkMBSQCUf4zBrC5zliSRhJLs2IpjHwnIQvH2JcngKZQZltKsmdO8kEpmQMr3sgbLPyiOC2gLBIt+lwSc3WEPhnK/sVrrou8eg16XcA10xBWW1yuwxSGGPm1Uy3v/lK5hLAalVk/wmNArjEuHWiwcrtCXMFpiqRGtC44P6p+gfC5OGI+ASrcaH4uaYBifw0wW2Li6vL8wAahMLyU9CuLmYgoZJVRy2lUHBFu53jrO+WxQHBeacRs2pReB9oWYl4119V2XzwswAtvYlSAp7cDOReP7EIGRzD3oxyXorV1fNtw7kTB3HNs82vm7OWu6162dSAXPRdt6bcw="
   app: travissend-it
   on:
     repo: Ibidapo/send-it
