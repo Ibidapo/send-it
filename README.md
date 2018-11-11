@@ -14,17 +14,29 @@ These tools are required to have to application up and running
 * [Node](https://nodejs.org/en/)
 * [NPM](https://www.npmjs.com/)
 
-Then use
+To download dependencies 
 
 ```
 npm install 
 ```
-To download dependencies
 
+To start application
+
+```
+npm start
+```
 
 ## Deployment
 
-[Heroku](https://travissend-it.herokuapp.com/api/v1/parcels) - click
+```
+Heroku
+```
+
+* [Get all parcel orders](https://travissend-it.herokuapp.com/api/v1/parcels) -GET
+* [Get parcel by Id](https://travissend-it.herokuapp.com/api/v1/parcels/100001) - GET
+* [Get parcels by User](https://travissend-it.herokuapp.com/api/v1/users/900001/parcels) - GET
+* [Add parcel order](https://travissend-it.herokuapp.com/api/v1/parcels) - POST (Use Postman)
+* [Delete parcel by Id](https://travissend-it.herokuapp.com/api/v1/parcels/100001/cancel) -PUT (Use Postman)
 
 ## Built With
 
