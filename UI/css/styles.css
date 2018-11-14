@@ -336,7 +336,7 @@ button {
 .parcel-info > div > button {
   padding: 0.25rem 0.5rem;
 }
-.view-parcel-info.active {
+.view-parcel-info.active, .edit-parcel-info.active {
   transform: rotate(180deg);
 }
 

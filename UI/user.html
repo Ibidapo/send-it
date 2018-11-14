@@ -361,10 +361,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title="Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -416,10 +413,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title="Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -476,10 +470,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -531,10 +522,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -586,10 +574,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -665,49 +650,48 @@
   <!-- Quote Modal -->
   <div class="modal" id="quote-modal">
     <div class="modal-content box w-50 mx-auto">
-        <div class="modal-header">
-          <span id="close-modal">&times;</span>
-        </div>
-        <div class="modal-body">
-            <div><h3>From</h1></div>
-            <div class="d-flex space-between mb-1">
-              <div class="w-40">
-                <label for="username" class="">First Name</label>
-                <input id="username" type="text" placeholder="" readonly>
-              </div>
-              <div class="w-40">
-                <label for="weight" class="">Last Name</label>
-                <input id="weight" type="number" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="d-flex space-between">
-              <div class="w-60">
-                <label for="username" class="">Address</label>
-                <input id="username" type="text" placeholder="" readonly>
-              </div>
-              <div class="w-30">
-                <label for="weight" class="">Parcel Weight</label>
-                <input id="weight" type="number" placeholder="" readonly>
-              </div>
-            </div>
-            <br>
-            <div><h3>To</h1></div>
-            <div class="d-flex space-between">
-              <div class="w-60">
-                <label for="username" class="">Address</label>
-                <input id="username" type="text" placeholder="" readonly>
-              </div>
-              <div class="w-30">
-                <label for="weight" class="">Phone Number</label>
-                <input id="weight" type="number" placeholder="" readonly>
-              </div>
-            </div>
-            <div class="text-center py-1">
-              <button id="confirm">Confirm Order</button>
-            </div>
+      <div class="modal-header">
+        <span id="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div><h3>From</h1></div>
+        <div class="d-flex space-between mb-1">
+          <div class="w-40">
+            <label for="username" class="">First Name</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-40">
+            <label for="weight" class="">Last Name</label>
+            <input id="weight" type="number" placeholder="" readonly>
           </div>
         </div>
+        <div class="d-flex space-between">
+          <div class="w-60">
+            <label for="username" class="">Address</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-30">
+            <label for="weight" class="">Parcel Weight</label>
+            <input id="weight" type="number" placeholder="" readonly>
+          </div>
+        </div>
+        <br>
+        <div><h3>To</h1></div>
+        <div class="d-flex space-between">
+          <div class="w-60">
+            <label for="username" class="">Address</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-30">
+            <label for="weight" class="">Phone Number</label>
+            <input id="weight" type="number" placeholder="" readonly>
+          </div>
+        </div>
+        <div class="text-center py-1">
+          <button id="confirm">Confirm Order</button>
+        </div>
       </div>
+    </div>
   </div>
   <script src="js/dashboard.js"></script>
 </body>    

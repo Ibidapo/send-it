@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   for (let i = 0; i < editParcelInfo.length; i += 1) {
     editParcelInfo[i].addEventListener('click', () => {
+      editParcelInfo[i].classList.toggle('active')
       parcelInfo = editParcelInfo[i].parentNode.nextElementSibling;
       addressNode = parcelInfo.childNodes[15];
       editBtnNode = parcelInfo.childNodes[21];
