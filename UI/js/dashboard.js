@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabList = document.getElementById('list');
   // initialize Tab Buttons into variables
   const sendTabBtn = document.getElementById('send-tab-btn');
+  const sendTabBtn2 = document.getElementById('send-tab-btn-2')
   const viewAllTabBtn = document.getElementById('view-all-tab-btn');
   const viewPendingTabBtn = document.getElementById('view-pending-tab-btn');
   const viewDeliveredTabBtn = document.getElementById('view-delivered-tab-btn');
@@ -103,6 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     sendTab.classList.add('active');
   });
 
+  sendTabBtn2.addEventListener('click', () => {
+    removeActiveClass(arrayTab);
+    sendTabBtn.classList.add('active');
+    sendTab.classList.add('active');
+  });
+
   // Event listening for a click event on the View All Tab
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
@@ -129,15 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
     profileTabBtn.classList.add('active');
     profileTab.classList.add('active');
   });
-
-  // Get quote modal
-  const quoteModal = document.getElementById('quote-modal');
-
-  // Get the button that opens the modal
-  const quoteBtn = document.getElementById('get-quote-btn');
-
-  // Get the <span> element that closes the modal
-  const closeModalBtn = document.getElementById('close-modal');
 
   // When the user clicks on the button, open the modal
   quoteBtn.addEventListener('click', () => {
