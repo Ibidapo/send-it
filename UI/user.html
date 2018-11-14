@@ -4,32 +4,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SendIT - User Dashboard</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
   <!-- Sidebar with links for activating the Tabs below -->
   <div class="side-bar">
-    <img src="images/logo.png" alt="SendIT-logo" class="logo py-1 px-1">
+    <a href="index.html"><img src="images/logo.png" alt="SendIT-logo" class="logo py-1 px-1"></a>
     <div id="menu">
       <div class="bar1"></div>
       <div class="bar2"></div>
       <div class="bar3"></div>
     </div>
-    <div class=" py-1 px-2" id="list">
-      <h3>Parcel</h3>
+    <div class="py-1 px-1" id="list">
+      <h3>My Orders</h3>
       <ul>
-        <li><a href="#" id="send-tab-btn">Send</a></li>
+        <li><a href="#" id="send-tab-btn">Create</a></li>
         <li><a href="#" class="active" id="view-all-tab-btn">View All</a></li>
-      </ul>
-      <br>
-      <h3>Profile</h3>
-      <ul>
-        <li><a href="#" id="profile-tab-btn">Personal Info</a></li>
         <li><a href="#" id="view-pending-tab-btn">View Pending</a></li>
         <li><a href="#" id="view-delivered-tab-btn">View Delivered</a></li>
       </ul>
+      <br>
+      <h3>My Profile</h3>
+      <ul>
+        <li><a href="#" id="profile-tab-btn">Personal Info</a></li>
+      </ul>
     </div>
   </div>
-  <!-- Tab containing all parcel delivery orders created by User -->
+  <!-- Header for Dashboarder -->
+  <header class="user-header px-2">
+    <span class="greetings"><b>User:</b> Ibidapo Rasheed</span>
+    <div id="list">
+      <ul class="m-0">
+        <li><a href="#login">Logout</a></li>
+      </ul>
+    </div>
+  </header>
+  <!-- Tab containing form for creating parcel delivery order -->
   <div class="main-content" id="send-tab">
     <h2 class="text-center">Send Parcel</h2>
     <div class="box py-1">
@@ -59,7 +69,7 @@
         </div>
         <br>
         <div class="text-center py-1">
-          <button id="quote">Get Quote</button>
+          <button id="get-quote-btn">Get Quote</button>
         </div>
       </form>
     </div>
@@ -86,10 +96,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title="Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -141,10 +148,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title=" Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -196,10 +200,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -251,10 +252,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -306,10 +304,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -366,10 +361,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title="Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -421,10 +413,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a title="Click to delete" class="red delete-parcel-info">&#x2716;</a>
           <a title="Click to edit" class="blue edit-parcel-info">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -481,10 +470,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -536,10 +522,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -591,10 +574,7 @@
         <div class="w-20 icon d-flex space-evenly">
           <a class="red not-allowed">&#x2716;</a>
           <a class="blue not-allowed">&#x270E;</a>
-          <a title="Click to view" class="green view-parcel-info">
-            <span class="more">&#x271A;</span>
-            <span class="less">&#x2796;</span>
-          </a> 
+          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-angle-down"></i></a> 
         </div>
         <div class="w-90 parcel-info d-flex space-start mt-05 mx-auto text-left">
           <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
@@ -666,6 +646,52 @@
           </div>
         </form>
       </div>
+  </div>
+  <!-- Quote Modal -->
+  <div class="modal" id="quote-modal">
+    <div class="modal-content box w-50 mx-auto">
+      <div class="modal-header">
+        <span id="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div><h3>From</h1></div>
+        <div class="d-flex space-between mb-1">
+          <div class="w-40">
+            <label for="username" class="">First Name</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-40">
+            <label for="weight" class="">Last Name</label>
+            <input id="weight" type="number" placeholder="" readonly>
+          </div>
+        </div>
+        <div class="d-flex space-between">
+          <div class="w-60">
+            <label for="username" class="">Address</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-30">
+            <label for="weight" class="">Parcel Weight</label>
+            <input id="weight" type="number" placeholder="" readonly>
+          </div>
+        </div>
+        <br>
+        <div><h3>To</h1></div>
+        <div class="d-flex space-between">
+          <div class="w-60">
+            <label for="username" class="">Address</label>
+            <input id="username" type="text" placeholder="" readonly>
+          </div>
+          <div class="w-30">
+            <label for="weight" class="">Phone Number</label>
+            <input id="weight" type="number" placeholder="" readonly>
+          </div>
+        </div>
+        <div class="text-center py-1">
+          <button id="confirm">Confirm Order</button>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="js/dashboard.js"></script>
 </body>    

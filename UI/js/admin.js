@@ -1,33 +1,33 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint-env browser */
+
 document.addEventListener('DOMContentLoaded', () => {
   // initialize Burger Button for mobile navbar
   const menuBtn = document.getElementById('menu');
   const tabList = document.getElementById('list');
   // Initialize all the parcel-box elements
-  let viewParcelInfo = document.getElementsByClassName("view-parcel-info");
-  let editParcelInfo = document.getElementsByClassName("edit-parcel-info");
+  const viewParcelInfo = document.getElementsByClassName('view-parcel-info');
+  const editParcelInfo = document.getElementsByClassName('edit-parcel-info');
 
-  let nodeDisplay = (node, val) => {
+  const nodeDisplay = (node, val) => {
     node.style.display = val;
-  }
+  };
 
-  let childNodeDisplay = (node, nodeIndex, val) => {
+  const childNodeDisplay = (node, nodeIndex, val) => {
     node.childNodes[nodeIndex].style.display = val;
   };
 
-  for (let i = 0; i < viewParcelInfo.length; i++) {
-    viewParcelInfo[i].addEventListener("click", function() {
-      parcelInfo = this.parentNode.nextElementSibling;
+  for (let i = 0; i < viewParcelInfo.length; i += 1) {
+    viewParcelInfo[i].addEventListener('click', () => {
+      viewParcelInfo[i].classList.toggle('active');
+      parcelInfo = viewParcelInfo[i].parentNode.nextElementSibling;
       parcelStateNode = parcelInfo.childNodes[17];
       newLocationNode = parcelInfo.childNodes[19];
       editBtnNode = parcelInfo.childNodes[23];
       if (parcelInfo.style.display === "flex") {
         nodeDisplay(parcelInfo, "none");
-        childNodeDisplay(this, 1, "block");
-        childNodeDisplay(this, 3, "none");
       } else {
         nodeDisplay(parcelInfo, "flex");
-        childNodeDisplay(this, 1, "none");
-        childNodeDisplay(this, 3, "block");
         childNodeDisplay(parcelStateNode, 3, "inline");
         childNodeDisplay(parcelStateNode, 5, "none");
         nodeDisplay(newLocationNode, "none");
@@ -36,20 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  for (let i = 0; i < editParcelInfo.length; i++) {
-    editParcelInfo[i].addEventListener("click", function() {
-      parcelInfo = this.parentNode.nextElementSibling;
+  for (let i = 0; i < editParcelInfo.length; i += 1) {
+    editParcelInfo[i].addEventListener('click', () => {
+      editParcelInfo[i].classList.toggle('active');
+      parcelInfo = editParcelInfo[i].parentNode.nextElementSibling;
       parcelStateNode = parcelInfo.childNodes[17];
       newLocationNode = parcelInfo.childNodes[19];
       editBtnNode = parcelInfo.childNodes[23];
       if (parcelInfo.style.display === "flex") {
         nodeDisplay(parcelInfo, "none");
-        childNodeDisplay(this.nextElementSibling, 1, "block");
-        childNodeDisplay(this.nextElementSibling, 3, "none");
       } else {
         nodeDisplay(parcelInfo, "flex");
-        childNodeDisplay(this.nextElementSibling, 1, "none");
-        childNodeDisplay(this.nextElementSibling, 3, "block");
         childNodeDisplay(parcelStateNode, 3, "none");
         childNodeDisplay(parcelStateNode, 5, "inline");
         nodeDisplay(newLocationNode, "block");
@@ -59,13 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  menuBtn.addEventListener('click', function() {
-    if (this.classList.contains('active')) {
-      this.classList.remove('active'); 
-      tabList.classList.remove('active'); 
+  menuBtn.addEventListener('click', () => {
+    if (menuBtn.classList.contains('active')) {
+      menuBtn.classList.remove('active');
+      tabList.classList.remove('active');
     } else {
-      this.classList.add('active');
-      tabList.classList.add('active'); 
+      menuBtn.classList.add('active');
+      tabList.classList.add('active');
     }
   });
 });
