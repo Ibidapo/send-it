@@ -26,17 +26,41 @@ To start application
 npm start
 ```
 
+## User Interafce
+
+Find below, the links to the various page for the UI
+
+* [Home Page](https://ibidapo.github.io/send-it/UI/)
+* [User Dashboard](https://ibidapo.github.io/send-it/UI/user.html)
+* [Admin Dashboard](https://ibidapo.github.io/send-it/UI/admin.html)
+
+
 ## Deployment
 
+API endpoint to fetch all parcels for as a User
 ```
-Heroku
+https://travissend-it.herokuapp.com/api/v1/parcels
 ```
 
-* [Get all parcel orders](https://travissend-it.herokuapp.com/api/v1/parcels) -GET
-* [Get parcel by Id](https://travissend-it.herokuapp.com/api/v1/parcels/100001) - GET
-* [Get parcels by User](https://travissend-it.herokuapp.com/api/v1/users/900001/parcels) - GET
-* [Add parcel order](https://travissend-it.herokuapp.com/api/v1/parcels) - POST (Use Postman)
-* [Delete parcel by Id](https://travissend-it.herokuapp.com/api/v1/parcels/100001/cancel) -PUT (Use Postman)
+API endpoint to fetch a parcel, using the Parcel ID
+```
+https://travissend-it.herokuapp.com/api/v1/parcels/id
+```
+
+API endpoint to fetch parcels created by a  User, using the User ID
+```
+https://travissend-it.herokuapp.com/api/v1/users/900001/parcels
+```
+
+API endpoint to add parcels
+```
+https://travissend-it.herokuapp.com/api/v1/parcels
+```
+
+API endpoint to delete a parcel, using the Parcel ID
+```
+https://travissend-it.herokuapp.com/api/v1/parcels/100001/cancel
+```
 
 
 ## Built With
