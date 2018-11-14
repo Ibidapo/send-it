@@ -37,25 +37,30 @@ Find below, the links to the various page for the UI
 
 ## Deployment
 
+
 API endpoint to fetch all parcels for as a User
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels
 ```
+
 
 API endpoint to fetch a parcel, using the Parcel ID
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels/id
 ```
 
+
 API endpoint to fetch parcels created by a  User, using the User ID
 ```
 https://travissend-it.herokuapp.com/api/v1/users/900001/parcels
 ```
 
+
 API endpoint to add parcels
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels
 ```
+
 
 API endpoint to delete a parcel, using the Parcel ID
 ```
