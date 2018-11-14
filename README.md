@@ -1,8 +1,8 @@
 # SendIT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
-[![Build Status](https://travis-ci.com/Ibidapo/send-it.svg?branch=api-v1)](https://travis-ci.com/Ibidapo/send-it)
-[![Coverage Status](https://coveralls.io/repos/github/Ibidapo/send-it/badge.svg?branch=api-v1)](https://coveralls.io/github/Ibidapo/send-it?branch=api-v1)
+[![Build Status](https://travis-ci.com/Ibidapo/send-it.svg?branch=develop)](https://travis-ci.com/Ibidapo/send-it)
+[![Coverage Status](https://coveralls.io/repos/github/Ibidapo/send-it/badge.svg?branch=develop)](https://coveralls.io/github/Ibidapo/send-it?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d353faef4c2e5fe9f6a/maintainability)](https://codeclimate.com/github/Ibidapo/send-it/maintainability)
 
 ## Getting Started
