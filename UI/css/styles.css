@@ -144,11 +144,15 @@ body {
   height: 75px;
   line-height: 75px;
 }
-#list > ul > li > a:hover {
+#list > ul > li > a:hover, .user-header > #list > ul > li > a {
   background-color: whitesmoke;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.main-header > #list > ul > li:last-child > a, #list > ul > li > a.active, .user-header > #list > ul > li > a {
+.user-header > #list > ul > li > a {
+  background-color: white;
+}
+.main-header > #list > ul > li:last-child > a, #list > ul > li > a.active,
+.user-header > #list > ul > li:last-child > a {
   background-color: #4a08ef;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -180,7 +184,9 @@ body {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px);
   transform: rotate(-45deg) translate(-9px, 6px);
 }
-#menu.active > .bar2 {opacity: 0;}
+#menu.active > .bar2 {
+  opacity: 0;
+}
 #menu.active > .bar3 {
   -webkit-transform: rotate(45deg) translate(-8px, -8px);
   transform: rotate(45deg) translate(-8px, -8px);
@@ -283,8 +289,8 @@ body {
   width: 320px;
   margin-top: 1.5rem;
 }
-.login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active, #view-delivered-tab.active,
-#profile-tab.active {
+.login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
+ #view-delivered-tab.active, #profile-tab.active {
   display: block;
 }
 .box > form, .parcel-box {
@@ -397,6 +403,9 @@ button {
   color: #4a08ef;
   left: 20%;
   line-height: 75px;
+  font-size: 1.25rem;
+}
+#send-tab-btn-2 {
   font-size: 1.25rem;
 }
 
