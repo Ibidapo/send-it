@@ -30,13 +30,13 @@ var Parcel = function () {
       // Finds the validation errors in this request and wraps them in an object with handy functions
       var errors = (0, _check.validationResult)(req);
       if (!errors.isEmpty()) {
-        res.status(404).send({ error: errors.array() });
+        return res.status(404).send({ error: errors.array() });
       }
 
       var newParcel = req.body;
 
       _parcel2.default.push(newParcel);
-      res.send({ success: 'Your order was created successfully' });
+      return res.send({ success: 'Order was successfully created' });
     }
 
     // method to delete parcel by Id
@@ -58,7 +58,7 @@ var Parcel = function () {
       }
 
       _parcel2.default.splice(_parcel2.default.indexOf(foundParcel[0]), 1);
-      res.status(200).send(_parcel2.default);
+      res.status(200).send({ success: 'Order was successfully deleted' });
     }
 
     // method to get parcel by Id

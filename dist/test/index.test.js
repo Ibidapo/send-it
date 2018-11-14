@@ -49,7 +49,7 @@ describe('SendIT Server', function () {
   // Testing for POST parcel
   describe('Request to add parcel', function () {
     it('should return a status code of 200 and add parcel', function (done) {
-      var newParcel = {
+      (0, _supertest2.default)(_index2.default).post('/api/v1/parcels/').send({
         parcelId: 100004,
         userId: 900000,
         from: {
@@ -61,10 +61,8 @@ describe('SendIT Server', function () {
           phone: '08011111111'
         },
         presentLocation: 'Ikorodu Road, Lagos.'
-      };
-
-      (0, _supertest2.default)(_index2.default).post('/api/v1/parcels/').send(newParcel).set('Accept', 'application/json').expect(200).expect(function (res) {
-        (0, _expect2.default)(res.body).toContainEqual(newParcel);
+      }).set('Accept', 'application/json').expect(200).expect(function (res) {
+        (0, _expect2.default)(res.body).toEqual({ success: 'Order was successfully created' });
       }).end(function (err, res) {
         var param = err || res;
         return param === err ? done(err) : done();
@@ -75,19 +73,7 @@ describe('SendIT Server', function () {
   describe('Request to delete parcel', function () {
     it('should return a status code of 200 and delete parcel', function (done) {
       (0, _supertest2.default)(_index2.default).put('/api/v1/parcels/100001/cancel').expect(200).expect(function (res) {
-        (0, _expect2.default)(res.body).not.toContainEqual({
-          parcelId: 100001,
-          userId: 900000,
-          from: {
-            address: 'Yaba, Lagos.',
-            weight: 12.5
-          },
-          to: {
-            address: 'Lekki, Lagos',
-            phone: '08011111111'
-          },
-          presentLocation: 'Third Mainland Bridge, Lagos.'
-        });
+        (0, _expect2.default)(res.body).toEqual({ success: 'Order was successfully deleted' });
       }).end(done);
     });
   });
