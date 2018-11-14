@@ -12,6 +12,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _expressValidator = require('express-validator');
+
+var _expressValidator2 = _interopRequireDefault(_expressValidator);
+
 var _parcelRoutes = require('./routes/parcelRoutes');
 
 var _parcelRoutes2 = _interopRequireDefault(_parcelRoutes);
@@ -27,6 +31,7 @@ var port = process.env.PORT || 3000;
 
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
+app.use((0, _expressValidator2.default)());
 app.use('/api/v1/parcels', _parcelRoutes2.default);
 app.use('/api/v1/users', _userRoutes2.default);
 

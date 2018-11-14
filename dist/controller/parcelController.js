@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _check = require('express-validator/check');
+
 var _parcel = require('../db/parcel');
 
 var _parcel2 = _interopRequireDefault(_parcel);
@@ -25,9 +27,16 @@ var Parcel = function () {
 
     // method to add Parcel
     value: function addParcel(req, res) {
+      // Finds the validation errors in this request and wraps them in an object with handy functions
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        res.status(404).send({ error: errors.array() });
+      }
+
       var newParcel = req.body;
+
       _parcel2.default.push(newParcel);
-      res.send(_parcel2.default);
+      res.send({ success: 'Your order was created successfully' });
     }
 
     // method to delete parcel by Id
@@ -45,12 +54,11 @@ var Parcel = function () {
       });
 
       if (foundParcel.length === 0) {
-        res.status(404).send('Cannot fetch Parcel...');
+        res.status(404).send({ error: 'Cannot fetch Parcel' });
       }
 
       _parcel2.default.splice(_parcel2.default.indexOf(foundParcel[0]), 1);
-
-      res.send(_parcel2.default);
+      res.status(200).send(_parcel2.default);
     }
 
     // method to get parcel by Id
@@ -71,7 +79,7 @@ var Parcel = function () {
         res.status(404).send('Cannot fetch Parcel...');
       }
 
-      res.send(findParcel[0]);
+      res.status(200).send(findParcel[0]);
     }
 
     // method to get parcel by User ID
@@ -92,7 +100,7 @@ var Parcel = function () {
         res.status(404).send('Cannot fetch Parcel...');
       }
 
-      res.send(foundParcels);
+      res.status(200).send(foundParcels);
     }
 
     // method to get all parcels
@@ -100,7 +108,12 @@ var Parcel = function () {
   }, {
     key: 'getParcels',
     value: function getParcels(req, res) {
-      res.send(_parcel2.default);
+      // Check if parcel datastructure is empty
+      if (_parcel2.default.length === 0) {
+        res.status(404).send({ error: 'You have no orders' });
+      }
+
+      res.status(200).send(_parcel2.default);
     }
   }]);
 
