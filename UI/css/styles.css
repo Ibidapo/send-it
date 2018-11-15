@@ -128,12 +128,12 @@ body {
 .main-header {
   position: relative;
   background-color: white;
+  padding-left: 2rem;
+  padding-right: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 .main-header > #list, .user-header > #list {
-  display: inline-block;
   width: auto;
-  overflow: hidden;
   float: right;
 }
 .main-header > #list > ul > li, .user-header > #list > ul > li {
@@ -144,16 +144,11 @@ body {
   height: 75px;
   line-height: 75px;
 }
-.main-header > #list > ul > li:not(:last-child) > a:hover, .white-btn,
- .side-bar > #list > ul > li > a:hover {
+.main-header > #list > ul > li:not(:last-child) > a:hover, .side-bar > #list > ul > li > a:hover {
   background-color: whitesmoke;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.white-btn {
-  background-color: white;
-  font-weight: 600;
-}
-.purple-btn, #list > ul > li > a.active {
+#list > ul > li > a.active {
   background-color: #4a08ef;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -332,18 +327,32 @@ button {
   border-radius: 0.25rem;
   cursor: pointer;
   outline: none;
+  border: none;
 }
-.purple-btn {
-  display: inline-block;
-  background-color: #4a08ef;
-  color: white;
+.purple-btn, .grey-btn {
   padding: 1rem;
   border-radius: 0.5rem;
   text-decoration: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+.purple-btn, .parcel-info > div > button:hover, .login-box > form > div > button:hover {
+  background-color: #4a08ef;
+  color: white;
+}
+.plus-btn {
+  background-color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.grey-btn, .parcel-info > div > button, .login-box > form > div > button {
+  background-color: #d2d8d8;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+}
 .parcel-info > div > button {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.5rem;
+}
+.parcel-info > div > button, .login-box > form > div > button {
+  color: #4a08ef;
 }
 .view-parcel-info.active, .edit-parcel-info.active {
   transform: rotate(180deg);
@@ -406,7 +415,7 @@ button {
   color: #4a08ef;
   left: 20%;
   line-height: 75px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 /* The Modal (background) */
@@ -447,9 +456,10 @@ button {
 
 /* Styling for Footer */
 footer {
-  background-color: #c1c1c1;
+  background-color: #696767;
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   line-height: 1.25;
+  color: white;
 }
 footer > .w-60 {
   font-size: 0.75rem;
@@ -459,18 +469,35 @@ footer > .w-60 {
 /* Styling for Tablet and Mobile devices */
 @media screen and (max-width: 1024px) {
   /* Styling for Side-bar on mobile */
-  .side-bar {
+  .side-bar, .main-header {
     position: relative;
     display: block;
     width: 100%;
     height: auto;
     flex: unset;
   }
+  .main-header {
+    padding: 0;
+  }
+  .main-header > #list > ul > li:not(:last-child) > a, .main-header > #list > ul > li:last-child > a {
+    height: 50px;
+    line-height: 50px;
+  }
+  .main-header > #list {
+    padding-bottom: 1rem;
+  }
+  .main-header > a > .logo {
+    padding: 1rem;
+  }
   #menu {
     display: block;
   }
-  #list {
+  #list, .main-header > #list {
     display: none;
+    float: none;
+  }
+  .main-header > #list > ul > li{
+    display: list-item;
   }
   #list > ul > li {
     padding: 0.5rem 0;
@@ -488,6 +515,14 @@ footer > .w-60 {
   .px-2 {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .greetings {
+    left: 2rem;
+    font-size: 1.25rem;
+  }
+  #banner > .intro > h1 {
+    font-size: 1.5rem;
+    padding: 1rem;
   }
 }
 
@@ -508,7 +543,7 @@ footer > .w-60 {
     left: 0;
     text-align: center;
   }
-  .main-header > #list, .user-header > #list {
+  .user-header > #list {
     display: block;
     width: 100%;
     text-align: center;

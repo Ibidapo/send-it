@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // initialize Tab Buttons into variables
   const sendTabBtn = document.getElementById('send-tab-btn');
-  const sendTabBtn2 = document.getElementById('send-tab-btn-2')
+  const sendTabBtn2 = document.getElementById('send-tab-btn-2');
   const viewAllTabBtn = document.getElementById('view-all-tab-btn');
   const viewPendingTabBtn = document.getElementById('view-pending-tab-btn');
   const viewDeliveredTabBtn = document.getElementById('view-delivered-tab-btn');
@@ -24,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sendTabBtn, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
 
   // Initialize all the parcel-box elements
-  const viewParcelInfo = document.getElementsByClassName('view-parcel-info');
-  const editParcelInfo = document.getElementsByClassName('edit-parcel-info');
-  const deleteParcelInfo = document.getElementsByClassName('delete-parcel-info');
+  const viewParcelBtns = document.getElementsByClassName('view-parcel-info');
+  const editParcelBtns = document.getElementsByClassName('edit-parcel-info');
   let parcelInfo;
   let addressNode;
   let editBtnNode;
@@ -44,30 +43,31 @@ document.addEventListener('DOMContentLoaded', () => {
     node.childNodes[nodeIndex].style.display = val;
   };
 
-  for (let i = 0; i < viewParcelInfo.length; i += 1) {
-    viewParcelInfo[i].addEventListener('click', () => {
-      viewParcelInfo[i].classList.toggle('active')
-      parcelInfo = viewParcelInfo[i].parentNode.nextElementSibling;
-      addressNode = parcelInfo.childNodes[15];
-      editBtnNode = parcelInfo.childNodes[21];
-      if (parcelInfo.style.display === "flex") {
-        nodeDisplay(parcelInfo, "none"); 
-        
+  const getChildNode = (node, nodeIndex) => node.childNodes[nodeIndex];
+
+  [...viewParcelBtns].forEach((viewParcelBtn) => {
+    viewParcelBtn.addEventListener('click', () => {
+      viewParcelBtn.classList.toggle('active');
+      parcelInfo = viewParcelBtn.parentNode.nextElementSibling;
+      addressNode = getChildNode(parcelInfo, 15);
+      editBtnNode = getChildNode(parcelInfo, 21);
+      if (parcelInfo.style.display === 'flex') {
+        nodeDisplay(parcelInfo, 'none');
       } else {
-        nodeDisplay(parcelInfo, "flex");
-        childNodeDisplay(addressNode, 3, "inline");
-        childNodeDisplay(addressNode, 5, "none");
-        nodeDisplay(editBtnNode, "none");
+        nodeDisplay(parcelInfo, 'flex');
+        childNodeDisplay(addressNode, 3, 'inline');
+        childNodeDisplay(addressNode, 5, 'none');
+        nodeDisplay(editBtnNode, 'none');
       }
     });
-  }
+  });
 
-  for (let i = 0; i < editParcelInfo.length; i += 1) {
-    editParcelInfo[i].addEventListener('click', () => {
-      editParcelInfo[i].classList.toggle('active')
-      parcelInfo = editParcelInfo[i].parentNode.nextElementSibling;
-      addressNode = parcelInfo.childNodes[15];
-      editBtnNode = parcelInfo.childNodes[21];
+  [...editParcelBtns].forEach((editParcelBtn) => {
+    editParcelBtn.addEventListener('click', () => {
+      editParcelBtn.classList.toggle('active');
+      parcelInfo = editParcelBtn.parentNode.nextElementSibling;
+      addressNode = getChildNode(parcelInfo, 15);
+      editBtnNode = getChildNode(parcelInfo, 21);
       if (parcelInfo.style.display === 'flex') {
         nodeDisplay(parcelInfo, 'none');
       } else {
@@ -78,14 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nodeDisplay(editBtnNode, 'block');
       }
     });
-  }
-
-  for (let i = 0; i < deleteParcelInfo.length; i += 1) {
-    deleteParcelInfo[i].addEventListener('click', () => {
-      const outmostBox = deleteParcelInfo[i].parentNode.parentNode.parentNode;
-      outmostBox.parentNode.removeChild(outmostBox);
-    });
-  }
+  });
 
   // menu button transitions and toggles list item
   menuBtn.addEventListener('click', () => {
