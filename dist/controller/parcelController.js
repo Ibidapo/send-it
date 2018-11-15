@@ -36,7 +36,7 @@ var Parcel = function () {
       var newParcel = req.body;
 
       _parcel2.default.push(newParcel);
-      return res.send({ success: 'Order was successfully created' });
+      return res.status(201).send({ success: 'Order was successfully created' });
     }
 
     // method to delete parcel by Id
