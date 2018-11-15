@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // initialize Burger Button for mobile navbar
   const menuBtn = document.getElementById('menu');
   const tabList = document.getElementById('list');
+
   // initialize Tab Buttons into variables
   const sendTabBtn = document.getElementById('send-tab-btn');
   const sendTabBtn2 = document.getElementById('send-tab-btn-2')
@@ -29,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let parcelInfo;
   let addressNode;
   let editBtnNode;
+
+  // Initialiaze all modal elements
+  const quoteBtn = document.getElementById('get-quote-btn');
+  const quoteModal = document.getElementById('quote-modal');
+  const closeModalBtn = document.getElementById('close-modal');
 
   const nodeDisplay = (node, val) => {
     node.style.display = val;
@@ -104,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sendTab.classList.add('active');
   });
 
+  // Event listening for a click event on the + button
   sendTabBtn2.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     sendTabBtn.classList.add('active');
@@ -131,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     viewDeliveredTab.classList.add('active');
   });
 
+  // Event listening for a click event on the Profile Tab
   profileTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     profileTabBtn.classList.add('active');
@@ -142,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quoteModal.style.display = 'block';
   });
 
-  // When the user clicks on <span> (x), close the modal
+  // Event listening for a click on the close symbol on modal
   closeModalBtn.addEventListener('click', () => {
     quoteModal.style.display = 'none';
   });

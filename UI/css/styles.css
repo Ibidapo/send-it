@@ -85,7 +85,7 @@ body {
   color: red;
 }
 .blue {
-  color: blue;
+  color: #4a08ef;
 }
 .green {
   color: green;
@@ -140,24 +140,27 @@ body {
   display: inline-block;
   padding: 0 0.5rem;
 }
-.main-header > #list > ul > li > a, .user-header > #list > ul > li, .greetings {
+.main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, .greetings {
   height: 75px;
   line-height: 75px;
 }
-#list > ul > li > a:hover, .user-header > #list > ul > li > a {
+.main-header > #list > ul > li:not(:last-child) > a:hover, .white-btn,
+ .side-bar > #list > ul > li > a:hover {
   background-color: whitesmoke;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.user-header > #list > ul > li > a {
+.white-btn {
   background-color: white;
+  font-weight: 600;
 }
-.main-header > #list > ul > li:last-child > a, #list > ul > li > a.active,
-.user-header > #list > ul > li:last-child > a {
+.purple-btn, #list > ul > li > a.active {
   background-color: #4a08ef;
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.main-header > #list > ul > li:last-child > a:hover {
+.purple-btn:hover, #list > ul > li > a.active {
+  background-color: #4a08ef !important;
+  color: #ffc107;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -337,7 +340,7 @@ button {
   padding: 1rem;
   border-radius: 0.5rem;
   text-decoration: none;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .parcel-info > div > button {
   padding: 0.25rem 0.5rem;
@@ -405,9 +408,6 @@ button {
   line-height: 75px;
   font-size: 1.25rem;
 }
-#send-tab-btn-2 {
-  font-size: 1.25rem;
-}
 
 /* The Modal (background) */
 .modal {
@@ -447,15 +447,13 @@ button {
 
 /* Styling for Footer */
 footer {
-  background-color: #d2d8d8;
+  background-color: #c1c1c1;
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
+  line-height: 1.25;
 }
-footer > .w-90 {
+footer > .w-60 {
   font-size: 0.75rem;
   border-top: 2px solid white
-}
-footer a {
-  text-decoration: none;
 }
 
 /* Styling for Tablet and Mobile devices */
