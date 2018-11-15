@@ -61,7 +61,7 @@ describe('SendIT Server', function () {
           phone: '08011111111'
         },
         presentLocation: 'Ikorodu Road, Lagos.'
-      }).set('Accept', 'application/json').expect(200).expect(function (res) {
+      }).set('Accept', 'application/json').expect(201).expect(function (res) {
         (0, _expect2.default)(res.body).toEqual({ success: 'Order was successfully created' });
       }).end(function (err, res) {
         var param = err || res;

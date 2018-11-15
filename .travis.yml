@@ -21,4 +21,4 @@ deploy:
   app: travissend-it
   on:
     repo: Ibidapo/send-it
-    branch: api-v1
+    branch: develop
