@@ -37,17 +37,17 @@ Find below, the links to the various page for the UI
 
 ## Deployment
 
-API endpoint to fetch all parcels for as a User
+API endpoint to fetch all parcel orders
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels
 ```
 
-API endpoint to fetch a parcel, using the Parcel ID
+API endpoint to fetch a parcel order, using the Parcel ID
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels/:id
 ```
 
-API endpoint to fetch parcels created by a  User, using the User ID
+API endpoint to fetch parcel orders created by a  User, using the User ID
 ```
 https://travissend-it.herokuapp.com/api/v1/users/:id/parcels
 ```
@@ -57,10 +57,36 @@ API endpoint to add parcels
 https://travissend-it.herokuapp.com/api/v1/parcels
 ```
 
-API endpoint to delete a parcel, using the Parcel ID
+API endpoint to cancel a parcel order, using the Parcel ID
 ```
 https://travissend-it.herokuapp.com/api/v1/parcels/:id/cancel
 ```
+
+API endpoint to register a User
+```
+https://travissend-it.herokuapp.com/api/v1/auth/signup
+```
+
+API endpoint to login a User
+```
+https://travissend-it.herokuapp.com/api/v1/auth/login
+```
+
+API endpoint to update destination of a parcel order
+```
+https://travissend-it.herokuapp.com/api/v1/parcels/:id/destination
+```
+
+API endpoint to update status of a parcel order
+```
+https://travissend-it.herokuapp.com/api/v1/parcels/:id/status
+```
+
+API endpoint to update present location of a parcel order
+```
+https://travissend-it.herokuapp.com/api/v1/parcels/:id/presentLocation
+```
+
 
 ## Built With
 

@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// Utility class controlling every request made for a parcel
+// Utility class controlling every request made for a user
 var User = function () {
   function User() {
     _classCallCheck(this, User);
@@ -25,20 +25,20 @@ var User = function () {
   _createClass(User, null, [{
     key: 'addUser',
 
-    // method to add Parcel
+    // method to add user
     value: function addUser(req, res) {
       var errors = (0, _check.validationResult)(req);
       if (!errors.isEmpty()) {
-        return res.status(404).send({ error: errors.array() });
+        return res.status(400).send({ error: errors.array() });
       }
 
       var newUser = req.body;
 
       _user2.default.push(newUser);
-      return res.status(201).send({ success: 'User was successfully created' });
+      return res.status(201).send({ success: 'User was successfully registered' });
     }
 
-    // method to delete parcel by Id
+    // method to validate user by Id
 
   }, {
     key: 'validateUser',

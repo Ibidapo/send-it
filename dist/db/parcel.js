@@ -14,6 +14,7 @@ var parcels = [{
     address: 'Lekki, Lagos',
     phone: '08011111111'
   },
+  status: 'Delivered',
   presentLocation: 'Third Mainland Bridge, Lagos.'
 }, {
   parcelId: 100002,
@@ -26,6 +27,7 @@ var parcels = [{
     address: 'Maryland, Lagos',
     phone: '08011111111'
   },
+  status: 'In Transit',
   presentLocation: 'Ikorodu Road, Lagos.'
 }, {
   parcelId: 100003,
@@ -38,6 +40,7 @@ var parcels = [{
     address: 'Maryland, Lagos',
     phone: '08011111111'
   },
+  status: 'In Transit',
   presentLocation: 'Ikorodu Road, Lagos.'
 }];
 

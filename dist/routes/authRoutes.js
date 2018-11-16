@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-router.post('/signup', [(0, _check.check)('userId').optional(), (0, _check.check)('firstName').exists(), (0, _check.check)('lastName').exists(), (0, _check.check)('email').isEmail().withMessage('Enter a valid email address'), (0, _check.check)('password').isLength({ min: 4 }).withMessage('Password cannot be less than 4 characters')], _userController2.default.addUser);
+router.post('/signup', [(0, _check.check)('userId').optional(), (0, _check.check)('firstName').optional(), (0, _check.check)('lastName').optional(), (0, _check.check)('email').isEmail().withMessage('Enter a valid email address'), (0, _check.check)('password').isLength({ min: 4 }).withMessage('Password cannot be less than 4 characters')], _userController2.default.addUser);
 
 router.post('/login', [(0, _check.check)('email').isEmail().withMessage('Enter a valid email address'), (0, _check.check)('password').isLength({ min: 4 }).withMessage('Password cannot be less than 4 characters')], _userController2.default.validateUser);
 
