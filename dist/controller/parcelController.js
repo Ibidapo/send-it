@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint no-param-reassign: ["error", { "props": false }] */
 
 var _check = require('express-validator/check');
 
@@ -25,7 +25,7 @@ var Parcel = function () {
   _createClass(Parcel, null, [{
     key: 'addParcel',
 
-    // method to add Parcel
+    // method to add parcel order
     value: function addParcel(req, res) {
       // Finds the validation errors in this request and wraps them in an object with handy functions
       var errors = (0, _check.validationResult)(req);
@@ -36,32 +36,37 @@ var Parcel = function () {
       var newParcel = req.body;
 
       _parcel2.default.push(newParcel);
-      return res.send({ success: 'Order was successfully created' });
+      return res.status(201).send({ success: 'Order was successfully created' });
     }
 
-    // method to delete parcel by Id
+    // method to cancel parcel order by Id
 
   }, {
-    key: 'deleteParcel',
-    value: function deleteParcel(req, res) {
+    key: 'cancelParcel',
+    value: function cancelParcel(req, res) {
       var id = req.params.id;
 
 
-      var foundParcel = _parcel2.default.filter(function (parcel) {
+      var isChanged = _parcel2.default.some(function (parcel) {
         var parcelId = parcel.parcelId;
 
-        return parcelId.toString() === id.toString();
+
+        if (parcelId.toString() === id.toString()) {
+          parcel.status = 'Canceled';
+          return true;
+        }
+
+        return false;
       });
 
-      if (foundParcel.length === 0) {
-        res.status(404).send({ error: 'Cannot fetch Parcel' });
+      if (isChanged) {
+        res.status(200).send({ success: 'Order was successfully canceled' });
+      } else {
+        res.status(404).send({ error: 'Parcel was not found' });
       }
-
-      _parcel2.default.splice(_parcel2.default.indexOf(foundParcel[0]), 1);
-      res.status(200).send({ success: 'Order was successfully deleted' });
     }
 
-    // method to get parcel by Id
+    // method to get parcel order by Id
 
   }, {
     key: 'getParcelbyId',
@@ -76,13 +81,13 @@ var Parcel = function () {
       });
 
       if (findParcel.length === 0) {
-        res.status(404).send('Cannot fetch Parcel...');
+        res.status(404).send({ error: 'Parcel was not found' });
       }
 
       res.status(200).send(findParcel[0]);
     }
 
-    // method to get parcel by User ID
+    // method to get parcel order by User ID
 
   }, {
     key: 'getParcelbyUser',
@@ -97,13 +102,13 @@ var Parcel = function () {
       });
 
       if (foundParcels.length === 0) {
-        res.status(404).send('Cannot fetch Parcel...');
+        res.status(404).send({ error: 'Parcel was not found' });
       }
 
       res.status(200).send(foundParcels);
     }
 
-    // method to get all parcels
+    // method to get all parcel orders
 
   }, {
     key: 'getParcels',
@@ -114,6 +119,90 @@ var Parcel = function () {
       }
 
       res.status(200).send(_parcel2.default);
+    }
+
+    // method to change destination of a parcel order by Id
+
+  }, {
+    key: 'changeParcelDestination',
+    value: function changeParcelDestination(req, res) {
+      var id = req.params.id;
+      var destination = req.body.destination;
+
+
+      var isChanged = _parcel2.default.some(function (parcel) {
+        var parcelId = parcel.parcelId;
+
+
+        if (parcelId.toString() === id.toString()) {
+          parcel.to.address = destination;
+          return true;
+        }
+
+        return false;
+      });
+
+      if (isChanged) {
+        res.status(200).send({ success: 'Parcel destination was updated successfully' });
+      } else {
+        res.status(404).send({ error: 'Parcel was not found' });
+      }
+    }
+
+    // method to change present location of a parcel order by Id
+
+  }, {
+    key: 'changeParcelPresentLocation',
+    value: function changeParcelPresentLocation(req, res) {
+      var id = req.params.id;
+      var presentLocation = req.body.presentLocation;
+
+
+      var isChanged = _parcel2.default.some(function (parcel) {
+        var parcelId = parcel.parcelId;
+
+
+        if (parcelId.toString() === id.toString()) {
+          parcel.presentLocation = presentLocation;
+          return true;
+        }
+
+        return false;
+      });
+
+      if (isChanged) {
+        res.status(200).send({ success: 'Parcel present location was updated successfully' });
+      } else {
+        res.status(404).send({ error: 'Parcel was not found' });
+      }
+    }
+
+    // method to change status of a parcel order by Id
+
+  }, {
+    key: 'changeParcelStatus',
+    value: function changeParcelStatus(req, res) {
+      var id = req.params.id;
+      var status = req.body.status;
+
+
+      var isChanged = _parcel2.default.some(function (parcel) {
+        var parcelId = parcel.parcelId;
+
+
+        if (parcelId.toString() === id.toString()) {
+          parcel.status = status;
+          return true;
+        }
+
+        return false;
+      });
+
+      if (isChanged) {
+        res.status(200).send({ success: 'Parcel status was updated successfully' });
+      } else {
+        res.status(404).send({ error: 'Parcel was not found' });
+      }
     }
   }]);
 
