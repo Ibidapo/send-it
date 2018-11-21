@@ -8,9 +8,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _check = require('express-validator/check');
 
-var _parcel = require('../db/parcel');
+var _connection = require('../models/connection');
 
-var _parcel2 = _interopRequireDefault(_parcel);
+var _connection2 = _interopRequireDefault(_connection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27,16 +27,33 @@ var Parcel = function () {
 
     // method to add parcel order
     value: function addParcel(req, res) {
-      // Finds the validation errors in this request and wraps them in an object with handy functions
+      // Finds the validation errors in this request
       var errors = (0, _check.validationResult)(req);
       if (!errors.isEmpty()) {
-        return res.status(404).send({ error: errors.array() });
+        return res.status(400).send({ error: errors.array() });
       }
 
-      var newParcel = req.body;
+      var _req$body = req.body,
+          fromAddress = _req$body.fromAddress,
+          parcelKg = _req$body.parcelKg,
+          toAddress = _req$body.toAddress,
+          toPhone = _req$body.toPhone,
+          presentLocation = _req$body.presentLocation;
 
-      _parcel2.default.push(newParcel);
-      return res.status(201).send({ success: 'Order was successfully created' });
+      var status = 'In Transit';
+      var senderId = 1;
+
+      return _connection2.default.query('INSERT INTO parcels (parcel_kg, sender_address, recipient_address, status, present_location, recipient_phone, sender_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [parcelKg, fromAddress, toAddress, status, presentLocation, toPhone, senderId], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'An error occured' });
+        }
+        var rowCount = results.rowCount;
+
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'Order was not created' });
+        }
+        return res.status(201).send({ success: 'Order was successfully created' });
+      });
     }
 
     // method to cancel parcel order by Id
@@ -44,68 +61,27 @@ var Parcel = function () {
   }, {
     key: 'cancelParcel',
     value: function cancelParcel(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
       var id = req.params.id;
 
+      var status = 'Canceled';
+      var delivered = 'Delivered';
 
-      var isChanged = _parcel2.default.some(function (parcel) {
-        var parcelId = parcel.parcelId;
-
-
-        if (parcelId.toString() === id.toString()) {
-          parcel.status = 'Canceled';
-          return true;
+      return _connection2.default.query('UPDATE parcels SET status = $1 WHERE parcel_id = $2 AND status <> $3', [status, id, delivered], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'An error occured' });
         }
+        var rowCount = results.rowCount;
 
-        return false;
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'Order status is Delivered and cannot be updated' });
+        }
+        return res.status(200).send({ success: 'Order was canceled successfully' });
       });
-
-      if (isChanged) {
-        res.status(200).send({ success: 'Order was successfully canceled' });
-      } else {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
-    }
-
-    // method to get parcel order by Id
-
-  }, {
-    key: 'getParcelbyId',
-    value: function getParcelbyId(req, res) {
-      var id = req.params.id;
-
-
-      var findParcel = _parcel2.default.filter(function (parcel) {
-        var parcelId = parcel.parcelId;
-
-        return parcelId.toString() === id.toString();
-      });
-
-      if (findParcel.length === 0) {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
-
-      res.status(200).send(findParcel[0]);
-    }
-
-    // method to get parcel order by User ID
-
-  }, {
-    key: 'getParcelbyUser',
-    value: function getParcelbyUser(req, res) {
-      var id = req.params.id;
-
-
-      var foundParcels = _parcel2.default.filter(function (parcel) {
-        var userId = parcel.userId;
-
-        return userId.toString() === id.toString();
-      });
-
-      if (foundParcels.length === 0) {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
-
-      res.status(200).send(foundParcels);
     }
 
     // method to get all parcel orders
@@ -113,12 +89,62 @@ var Parcel = function () {
   }, {
     key: 'getParcels',
     value: function getParcels(req, res) {
-      // Check if parcel datastructure is empty
-      if (_parcel2.default.length === 0) {
-        res.status(404).send({ error: 'You have no orders' });
+      _connection2.default.query('SELECT * FROM parcels', function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: 'An error occured' });
+        }
+        var rows = results.rows;
+
+        return rows.length > 0 ? res.status(200).send(rows) : res.status(200).send({ success: 'You have made no orders' });
+      });
+    }
+
+    // method to get parcel order by Id
+
+  }, {
+    key: 'getParcelbyId',
+    value: function getParcelbyId(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
       }
 
-      res.status(200).send(_parcel2.default);
+      var id = req.params.id;
+
+
+      return _connection2.default.query('SELECT * FROM parcels WHERE parcel_id = $1', [id], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'Order was not found' });
+        }
+        var rows = results.rows;
+
+        return res.status(200).send({ success: 'Order was successfully retrieved', rows: rows });
+      });
+    }
+
+    // method to get parcel order by User ID
+
+  }, {
+    key: 'getParcelbyUser',
+    value: function getParcelbyUser(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
+
+      var id = req.params.id;
+
+
+      return _connection2.default.query('SELECT * FROM parcels WHERE sender_id = $1', [id], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: 'An error occured' });
+        }
+        var rows = results.rows;
+
+        return res.status(200).send(rows);
+      });
     }
 
     // method to change destination of a parcel order by Id
@@ -126,27 +152,28 @@ var Parcel = function () {
   }, {
     key: 'changeParcelDestination',
     value: function changeParcelDestination(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
+
       var id = req.params.id;
       var destination = req.body.destination;
 
+      var delivered = 'Delivered';
 
-      var isChanged = _parcel2.default.some(function (parcel) {
-        var parcelId = parcel.parcelId;
-
-
-        if (parcelId.toString() === id.toString()) {
-          parcel.to.address = destination;
-          return true;
+      return _connection2.default.query('UPDATE parcels SET recipient_address = $1 WHERE parcel_id = $2 AND status <> $3', [destination, id, delivered], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'Parcel was not found' });
         }
+        var rowCount = results.rowCount;
 
-        return false;
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'Order status is Delivered and so cannot be updated' });
+        }
+        return res.status(200).send({ success: 'Order destination was updated successfully' });
       });
-
-      if (isChanged) {
-        res.status(200).send({ success: 'Parcel destination was updated successfully' });
-      } else {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
     }
 
     // method to change present location of a parcel order by Id
@@ -154,27 +181,28 @@ var Parcel = function () {
   }, {
     key: 'changeParcelPresentLocation',
     value: function changeParcelPresentLocation(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
+
       var id = req.params.id;
       var presentLocation = req.body.presentLocation;
 
+      var delivered = 'Delivered';
 
-      var isChanged = _parcel2.default.some(function (parcel) {
-        var parcelId = parcel.parcelId;
-
-
-        if (parcelId.toString() === id.toString()) {
-          parcel.presentLocation = presentLocation;
-          return true;
+      return _connection2.default.query('UPDATE parcels SET present_location = $1 WHERE parcel_id = $2 AND status <> $3', [presentLocation, id, delivered], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'Parcel was not found' });
         }
+        var rowCount = results.rowCount;
 
-        return false;
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'Order status is Delivered and so cannot be updated' });
+        }
+        return res.status(200).send({ success: 'Order present location was updated successfully' });
       });
-
-      if (isChanged) {
-        res.status(200).send({ success: 'Parcel present location was updated successfully' });
-      } else {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
     }
 
     // method to change status of a parcel order by Id
@@ -182,27 +210,26 @@ var Parcel = function () {
   }, {
     key: 'changeParcelStatus',
     value: function changeParcelStatus(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
+
       var id = req.params.id;
       var status = req.body.status;
 
+      var delivered = 'Delivered';
 
-      var isChanged = _parcel2.default.some(function (parcel) {
-        var parcelId = parcel.parcelId;
-
-
-        if (parcelId.toString() === id.toString()) {
-          parcel.status = status;
-          return true;
+      return _connection2.default.query('UPDATE parcels SET status = $1 WHERE parcel_id = $2 AND status <> $3', [status, id, delivered], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: error, errorMsg: 'An error occurred' });
         }
-
-        return false;
+        if (results.rowCount === 0) {
+          return res.status(400).send({ error: 'Order status is Delivered and so cannot be updated' });
+        }
+        return res.status(200).send({ error: 'Order status was updated successfully' });
       });
-
-      if (isChanged) {
-        res.status(200).send({ success: 'Parcel status was updated successfully' });
-      } else {
-        res.status(404).send({ error: 'Parcel was not found' });
-      }
     }
   }]);
 

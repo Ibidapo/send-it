@@ -4,7 +4,9 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _check = require('express-validator/check');
+var _authValidation = require('../validation/authValidation');
+
+var _authValidation2 = _interopRequireDefault(_authValidation);
 
 var _userController = require('../controller/userController');
 
@@ -14,8 +16,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-router.post('/signup', [(0, _check.check)('userId').optional(), (0, _check.check)('firstName').optional(), (0, _check.check)('lastName').optional(), (0, _check.check)('email').isEmail().withMessage('Enter a valid email address'), (0, _check.check)('password').isLength({ min: 4 }).withMessage('Password cannot be less than 4 characters')], _userController2.default.addUser);
+// POST request to register user
+router.post('/signup', _authValidation2.default.registerUser, _userController2.default.registerUser);
 
-router.post('/login', [(0, _check.check)('email').isEmail().withMessage('Enter a valid email address'), (0, _check.check)('password').isLength({ min: 4 }).withMessage('Password cannot be less than 4 characters')], _userController2.default.validateUser);
+// POST request to login user
+router.post('/login', _authValidation2.default.loginUser, _userController2.default.loginUser);
 
 module.exports = router;

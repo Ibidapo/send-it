@@ -8,9 +8,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _check = require('express-validator/check');
 
-var _user = require('../db/user');
+var _connection = require('../models/connection');
 
-var _user2 = _interopRequireDefault(_user);
+var _connection2 = _interopRequireDefault(_connection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23,43 +23,61 @@ var User = function () {
   }
 
   _createClass(User, null, [{
-    key: 'addUser',
+    key: 'registerUser',
 
     // method to add user
-    value: function addUser(req, res) {
+    value: function registerUser(req, res) {
+      // Finds the validation errors in this request
       var errors = (0, _check.validationResult)(req);
       if (!errors.isEmpty()) {
         return res.status(400).send({ error: errors.array() });
-      }
-
-      var newUser = req.body;
-
-      _user2.default.push(newUser);
-      return res.status(201).send({ success: 'User was successfully registered' });
-    }
-
-    // method to validate user by Id
-
-  }, {
-    key: 'validateUser',
-    value: function validateUser(req, res) {
-      var errors = (0, _check.validationResult)(req);
-      if (!errors.isEmpty()) {
-        return res.status(404).send({ error: errors.array() });
       }
 
       var _req$body = req.body,
           email = _req$body.email,
           password = _req$body.password;
 
-      var isUserValid = _user2.default.some(function (user) {
-        var userEmail = user.email.toString();
-        var userPass = user.password.toString();
 
-        return userEmail === email.toString() && userPass === password.toString();
+      return _connection2.default.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, password], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: 'An error occurred' });
+        }
+        var rowCount = results.rowCount;
+
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'User was not registered' });
+        }
+        return res.status(201).send({ success: 'User was successfully registered' });
       });
+    }
 
-      return isUserValid ? res.status(200).send({ success: 'User was successfully logged in' }) : res.status(401).send({ error: 'Username or Password is invalid' });
+    // method to validate user by Id
+
+  }, {
+    key: 'loginUser',
+    value: function loginUser(req, res) {
+      // Finds the validation errors in this request
+      var errors = (0, _check.validationResult)(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ error: errors.array() });
+      }
+
+      var _req$body2 = req.body,
+          email = _req$body2.email,
+          password = _req$body2.password;
+
+
+      return _connection2.default.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], function (error, results) {
+        if (error) {
+          return res.status(400).send({ error: 'An error occurred' });
+        }
+        var rowCount = results.rowCount;
+
+        if (rowCount === 0) {
+          return res.status(400).send({ error: 'Username or Password is invalid' });
+        }
+        return res.status(200).send({ success: 'User was successfully logged in' });
+      });
     }
   }]);
 
