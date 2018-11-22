@@ -6,7 +6,12 @@ node_js:
   - node
 addons:
   chrome: stable
+service:
+  - postgres
 before_script:
+  - psql -c 'create database send_it;'; -U postgres
+  - psql -c 'CREATE USER travis_postgres WITH PASSWORD "postgres";' -U postgres
+  - npm run migration
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
