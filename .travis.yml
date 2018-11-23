@@ -1,6 +1,3 @@
-env:
-  global:
-  - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
   - node
@@ -9,9 +6,6 @@ addons:
 service:
   - postgres
 before_script:
-  - psql -c 'create database send_it;'; -U postgres
-  - psql -c 'CREATE USER travis_postgres WITH PASSWORD "postgres";' -U postgres
-  - npm run migration
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
@@ -19,4 +13,3 @@ script:
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
