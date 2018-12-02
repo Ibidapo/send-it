@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingTabBtn = document.getElementById('view-pending-tab-btn');
   const viewDeliveredTabBtn = document.getElementById('view-delivered-tab-btn');
   const profileTabBtn = document.getElementById('profile-tab-btn');
+  const editProfileBtn = document.getElementById('edit-profile');
+  const saveProfileBtn = document.getElementById('save-profile');
+  const createOrderBtn = document.getElementById('create-order-btn');
+  const confirmOrderBtn = document.getElementById('confirm-order-btn');
 
   // initialize Tab into variables
   const sendTab = document.getElementById('send-tab');
@@ -20,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingTab = document.getElementById('view-pending-tab');
   const viewDeliveredTab = document.getElementById('view-delivered-tab');
   const profileTab = document.getElementById('profile-tab');
+  const editProfile = document.getElementById('profile-form');
+  const viewProfile = document.getElementById('profile-view');
+  const createOrderForm = document.getElementById('create-order-form');
+  const confirmOrder = document.getElementById('confirm-order');
   const arrayTab = [sendTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab,
     sendTabBtn, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
 
@@ -29,11 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let parcelInfo;
   let addressNode;
   let editBtnNode;
-
-  // Initialiaze all modal elements
-  const quoteBtn = document.getElementById('get-quote-btn');
-  const quoteModal = document.getElementById('quote-modal');
-  const closeModalBtn = document.getElementById('close-modal');
 
   const nodeDisplay = (node, val) => {
     node.style.display = val;
@@ -47,13 +50,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [...viewParcelBtns].forEach((viewParcelBtn) => {
     viewParcelBtn.addEventListener('click', () => {
-      viewParcelBtn.classList.toggle('active');
       parcelInfo = viewParcelBtn.parentNode.nextElementSibling;
       addressNode = getChildNode(parcelInfo, 15);
       editBtnNode = getChildNode(parcelInfo, 21);
       if (parcelInfo.style.display === 'flex') {
-        nodeDisplay(parcelInfo, 'none');
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
       } else {
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
+        viewParcelBtn.classList.add('active');
         nodeDisplay(parcelInfo, 'flex');
         childNodeDisplay(addressNode, 3, 'inline');
         childNodeDisplay(addressNode, 5, 'none');
@@ -64,13 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [...editParcelBtns].forEach((editParcelBtn) => {
     editParcelBtn.addEventListener('click', () => {
-      editParcelBtn.classList.toggle('active');
       parcelInfo = editParcelBtn.parentNode.nextElementSibling;
       addressNode = getChildNode(parcelInfo, 15);
       editBtnNode = getChildNode(parcelInfo, 21);
       if (parcelInfo.style.display === 'flex') {
-        nodeDisplay(parcelInfo, 'none');
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
       } else {
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
+        editParcelBtn.classList.add('active');
         nodeDisplay(parcelInfo, 'flex');
         childNodeDisplay(addressNode, 3, 'none');
         childNodeDisplay(addressNode, 5, 'inline');
@@ -138,13 +159,27 @@ document.addEventListener('DOMContentLoaded', () => {
     profileTab.classList.add('active');
   });
 
-  // When the user clicks on the button, open the modal
-  quoteBtn.addEventListener('click', () => {
-    quoteModal.style.display = 'block';
+  // To edit Profile Tab
+  editProfileBtn.addEventListener('click', () => {
+    editProfile.classList.add('active');
+    viewProfile.classList.remove('active');
   });
 
-  // Event listening for a click on the close symbol on modal
-  closeModalBtn.addEventListener('click', () => {
-    quoteModal.style.display = 'none';
+  // To view Profile Tab
+  saveProfileBtn.addEventListener('click', () => {
+    viewProfile.classList.add('active');
+    editProfile.classList.remove('active');
+  });
+
+  // To create order
+  createOrderBtn.addEventListener('click', () => {
+    confirmOrder.classList.add('active');
+    createOrderForm.classList.remove('active');
+  });
+
+  // To confirm order
+  confirmOrderBtn.addEventListener('click', () => {
+    createOrderForm.classList.add('active');
+    confirmOrder.classList.remove('active');
   });
 });

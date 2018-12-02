@@ -25,14 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [...viewParcelBtns].forEach((viewParcelBtn) => {
     viewParcelBtn.addEventListener('click', () => {
-      viewParcelBtn.classList.toggle('active');
       parcelInfo = viewParcelBtn.parentNode.nextElementSibling;
       parcelStateNode = getChildNode(parcelInfo, 17);
       newLocationNode = getChildNode(parcelInfo, 19);
       editBtnNode = getChildNode(parcelInfo, 23);
       if (parcelInfo.style.display === 'flex') {
-        nodeDisplay(parcelInfo, 'none');
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
       } else {
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
+        viewParcelBtn.classList.add('active');
         nodeDisplay(parcelInfo, 'flex');
         childNodeDisplay(parcelStateNode, 3, 'inline');
         childNodeDisplay(parcelStateNode, 5, 'none');
@@ -44,14 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [...editParcelBtns].forEach((editParcelBtn) => {
     editParcelBtn.addEventListener('click', () => {
-      editParcelBtn.classList.toggle('active');
       parcelInfo = editParcelBtn.parentNode.nextElementSibling;
       parcelStateNode = getChildNode(parcelInfo, 17);
       newLocationNode = getChildNode(parcelInfo, 19);
       editBtnNode = getChildNode(parcelInfo, 23);
       if (parcelInfo.style.display === 'flex') {
-        nodeDisplay(parcelInfo, 'none');
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
       } else {
+        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
+          otherBtn.classList.remove('active');
+          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
+          nodeDisplay(otherParcelInfo, 'none');
+        });
+        editParcelBtn.classList.add('active');
         nodeDisplay(parcelInfo, 'flex');
         childNodeDisplay(parcelStateNode, 3, 'none');
         childNodeDisplay(parcelStateNode, 5, 'inline');
