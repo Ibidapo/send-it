@@ -270,6 +270,7 @@ body {
 }
 .tab-group li a.active {
   background:white;
+  color: #4a08ef;
 }
 .help-text {
   color: #666666;
@@ -278,7 +279,7 @@ body {
   margin: 0.5rem 0;
 }
 .help-text:hover, .help-text.focus {
-  color: blue;
+  color: #4a08ef;
 }
 
 /* Styling for Form elements */
@@ -288,27 +289,42 @@ body {
   margin-top: 1.5rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #confirm-order.active {
   display: block;
 }
-.box > form, .parcel-box {
+.box > form, .parcel-box, #profile-view {
   width: 90%;
 }
-label {
+label, .label {
   font-size: 0.875rem;
   color: grey;
 }
-input:not([type="checkbox"]){
+.input-icon, input:not([type="checkbox"]){
   position: relative;
-  height: 1.5rem;
+}
+input:not([type="checkbox"]), .input {
+  height: 1.75rem;
+  line-height: 1.75rem;
+}
+input:not([type="checkbox"]){
   font-size: 1rem;
-  width: 100%;
+  width: -webkit-fill-available;
   border-bottom-color: rgb(238, 238, 238);
   border-radius: 0;
   border-width: 0 0 2px 0;
 }
-.login-box > forma.active input:not([type="checkbox"]) {
-  width: 320px;
+
+.input-icon input {
+  padding-left: 1.75rem;
+}
+.input-icon .fa-eye, .input-icon .fa-eye-slash {
+  cursor: pointer;
+}
+.input-icon i {
+  position: absolute;
+  top: 2.5rem;
+  left: 0.25rem;
+  color: #d2d8d8;
 }
 input:not([type="checkbox"]):focus {
   outline: none;
@@ -318,7 +334,6 @@ input:not([type="checkbox"]):focus {
 .address-to-parcel > input, .present-location-parcel > input {
   height: 1rem;
   max-width: 250px;
-  font-size: 0.875rem;
 } 
 
 /* Styling for Button */
@@ -335,7 +350,7 @@ button {
   text-decoration: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.purple-btn, .parcel-info > div > button:hover, .login-box > form > div > button:hover {
+.purple-btn, .parcel-info > div > button:hover, .login-box > form > div > button:hover, #profile-tab button:hover, .box button:hover {
   background-color: #4a08ef;
   color: white;
 }
@@ -344,14 +359,14 @@ button {
   font-weight: 600;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.grey-btn, .parcel-info > div > button, .login-box > form > div > button {
+.grey-btn, .parcel-info > div > button, .login-box > form > div > button, #profile-tab button, .box button {
   background-color: #d2d8d8;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
 }
-.parcel-info > div > button {
+.parcel-info > div > button, #profile-tab button, .box button {
   padding: 0.5rem 0.5rem;
 }
-.parcel-info > div > button, .login-box > form > div > button {
+.parcel-info > div > button, .login-box > form > div > button, #profile-tab button, .box button {
   color: #4a08ef;
 }
 .view-parcel-info.active, .edit-parcel-info.active {
@@ -399,60 +414,31 @@ button {
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
-#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info {
+#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #confirm-order {
   display: none;
 }
 .status-report {
   font-size: 0.875rem;
 }
 .parcel-box > .icon > a  {
-  font-size: 1.25rem;
-  line-height: 1;
   cursor: pointer;
 }
 .greetings {
   position: relative;
   color: #4a08ef;
   left: 20%;
-  line-height: 75px;
+  line-height: 0;
   font-size: 1.5rem;
+}
+.greetings img {
+  height: 70px;
+  margin: 0.5rem 0.5rem 0 0;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.25);
+  vertical-align: middle;
 }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-/* Modal Content/Box */
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  padding: 2rem;
-  margin-top: 8rem;
-  border: 1px solid #888; 
-}
-/* The Close Modal Button */
-#close-modal {
-  position: absolute;
-  top: 0.25rem;
-  right: 1rem;
-  float: right;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-#close-modal:hover, #close-modal:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+
 
 /* Styling for Footer */
 footer {
@@ -501,9 +487,6 @@ footer > .w-60 {
   }
   #list > ul > li {
     padding: 0.5rem 0;
-  }
-  #list.active {
-    display: block;
   }
   .logo {
     width: 100px;

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   // const registerBtn = document.getElementById('register-btn');
   // const loginBtn = document.getElementById('login-btn');
+  const passwordBtns = document.getElementsByClassName('password');
 
   // This event triggers the register tab and form to be active and visible
   registerTab.addEventListener('click', (event) => {
@@ -41,5 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
       menuBtn.classList.add('active');
       tabList.classList.add('active');
     }
+  });
+
+  [...passwordBtns].forEach((passwordBtn) => {
+    passwordBtn.addEventListener('click', () => {
+      if (passwordBtn.classList.contains('fa-eye-slash')) {
+        passwordBtn.previousElementSibling.setAttribute('type', 'text');
+        passwordBtn.classList.remove('fa-eye-slash');
+        passwordBtn.classList.add('fa-eye');
+      } else {
+        passwordBtn.previousElementSibling.setAttribute('type', 'password');
+        passwordBtn.classList.remove('fa-eye');
+        passwordBtn.classList.add('fa-eye-slash');
+      }
+    });
   });
 });
