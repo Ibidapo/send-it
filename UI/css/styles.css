@@ -191,7 +191,7 @@ body {
 }
 
 /* Styling for Display Flex */
-.d-flex {
+.d-flex, #confirm-order.active {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -289,7 +289,7 @@ body {
   margin-top: 1.5rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #confirm-order.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -438,7 +438,11 @@ button {
   vertical-align: middle;
 }
 
-
+/* Styling for Google Maps */
+#map {
+  height: 100%;
+  border-radius: 1rem 0 0 1rem;
+}
 
 /* Styling for Footer */
 footer {
@@ -530,5 +534,9 @@ footer > .w-60 {
     display: block;
     width: 100%;
     text-align: center;
+  }
+  #map {
+    height: 300px;
+    border-radius: 1rem 1rem 0 0;
   }
 }

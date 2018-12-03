@@ -76,29 +76,35 @@
         </div>
       </form>
       <div id="confirm-order" class="d-flex mx-auto">
-        <div class="w-50"></div>
+        <div class="w-50">
+          <div id="map"></div>
+        </div>
         <div class="w-50 py-1">
           <br>
-          <div class="d-flex space-evenly">
+          <div class="d-flex space-evenly px-1">
             <div class="w-90 mt-1">
               <label for="origin" class="">Origin</label>
-              <input id="origin" type="text">
+              <input id="origin" value="Yaba, Lagos" type="text">
             </div>
             <div class="w-90 mt-1">
               <label for="destination" class="">Destination</label>
-              <input id="destination" type="text">
+              <input id="destination" value="Lekki, Lagos" type="text">
             </div>
             <div class="w-40 mt-1">
               <label for="weight" class="">Weight</label>
-              <input id="weight" type="number">
+              <input id="weight" type="number" readonly>
             </div>
             <div class="w-40 mt-1">
               <label for="phone" class="">Phone number</label>
-              <input id="phone" type="number">
+              <input id="phone" type="number" readonly>
             </div>
-            <div class="w-90 mt-1">
+            <div class="w-40 mt-1">
+              <label for="dist" class="">Distance</label>
+              <input id="dist" type="text" readonly>
+            </div>
+            <div class="w-40 mt-1">
               <label for="quote" class="">Quote</label>
-              <input id="quote" type="text" placeholder="">
+              <input id="quote" type="text" placeholder="" readonly>
             </div>
           </div>
           <br>
@@ -646,65 +652,119 @@
   </div>
   <!-- Tab containing form for viewing or editing User Info -->
   <div class="main-content" id="profile-tab">
-      <h2 class="text-center">My Profile</h2>
-      <div class="box py-1">
-        <br><br>
-        <div id="profile-view" class="mx-auto active">
-          <div class="d-flex space-evenly">
-            <div class="w-40">
-              <div class="label">First Name</div>
-              <div class="input">Ibidapo</div>
-            </div>
-            <div class="w-40">
-              <div class="label">Last Name</div>
-              <div class="input">Rasheed</div>
-            </div>
+    <h2 class="text-center">My Profile</h2>
+    <div class="box py-1">
+      <br><br>
+      <div id="profile-view" class="mx-auto active">
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <div class="label">First Name</div>
+            <div class="input">Ibidapo</div>
           </div>
-          <br><br>
-          <div class="d-flex space-evenly">
-            <div class="w-40">
-              <div class="label">Mobile Number</div>
-              <div class="input">08012345678</div>
-            </div>
-            <div class="w-40">
-              <div class="label">Email</div>
-              <div class="input">dapo@example.com</div>
-            </div>
-          </div>
-          <br>
-          <div class="text-center py-1">
-            <button id="edit-profile">Edit</button>
+          <div class="w-40">
+            <div class="label">Last Name</div>
+            <div class="input">Rasheed</div>
           </div>
         </div>
-        <form id="profile-form" class="mx-auto">
-          <div class="d-flex space-evenly">
-            <div class="w-40">
-              <label for="f-name" class="">First Name</label>
-              <input id="f-name" type="text" value="Ibidapo">
-            </div>
-            <div class="w-40">
-              <label for="l-name" class="">Last Name</label>
-              <input id="l-name" type="text" value="Rasheed">
-            </div>
+        <br><br>
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <div class="label">Mobile Number</div>
+            <div class="input">08012345678</div>
           </div>
-          <br><br>
-          <div class="d-flex space-evenly">
-            <div class="w-40">
-              <label for="mobile" class="">Mobile Number</label>
-              <input id="mobile" type="number" value="08012345678">
-            </div>
-            <div class="w-40">
-              <label for="email" class="">Email</label>
-              <input id="email" type="email" value="dapo@example.com">
-            </div>
+          <div class="w-40">
+            <div class="label">Email</div>
+            <div class="input">dapo@example.com</div>
           </div>
-          <br>
-          <div class="text-center py-1">
-            <button id="save-profile">Save</button>
-          </div>
-        </form>
+        </div>
+        <br>
+        <div class="text-center py-1">
+          <button id="edit-profile">Edit</button>
+        </div>
       </div>
+      <form id="profile-form" class="mx-auto">
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <label for="f-name" class="">First Name</label>
+            <input id="f-name" type="text" value="Ibidapo">
+          </div>
+          <div class="w-40">
+            <label for="l-name" class="">Last Name</label>
+            <input id="l-name" type="text" value="Rasheed">
+          </div>
+        </div>
+        <br><br>
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <label for="mobile" class="">Mobile Number</label>
+            <input id="mobile" type="number" value="08012345678">
+          </div>
+          <div class="w-40">
+            <label for="email" class="">Email</label>
+            <input id="email" type="email" value="dapo@example.com">
+          </div>
+        </div>
+        <br>
+        <div class="text-center py-1">
+          <button id="save-profile">Save</button>
+        </div>
+      </form>
+    </div>
   </div>
   <script src="js/dashboard.js"></script>
+  <script>
+    let map;
+    let marker;
+
+    const fromAddress = document.getElementById('origin').value;
+    const toAddress = document.getElementById('destination').value;
+    const distance = document.getElementById('dist').value;
+
+    function geocodeAddress(geocoder, resultsMap, location, description) {
+      return geocoder.geocode({ 'address': location }, (results, status) => {
+        if (status === 'OK') {
+          marker = new google.maps.Marker({
+            map: resultsMap,
+            position: results[0].geometry.location,
+            title: description,
+          });
+          console.log(results[0].geometry.location);
+          return results[0].geometry.location;
+        } 
+        return `Geocode error: ${status}`;
+      });
+    };
+
+    async function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10
+      });
+
+      const geocoder = new google.maps.Geocoder();
+      const origin = await geocodeAddress(geocoder, map, fromAddress, 'Origin');
+      const destination = await geocodeAddress(geocoder, map, toAddress, 'Destination');
+      console.log(origin, destination);
+      map.setCenter(origin);
+
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false,
+      }, (response, status) => {
+        console.log(response, status);
+        if (status === 'OK') {
+          const results = response.rows[0].elements[0];
+          console.log(results.distance.text);
+        } else {
+          console.log(`Distance Matrix error: ${status}`);
+        }
+      });
+    };
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnu0RsjnKPO6CqZ8-Uj9dXy62hvq3_Y9I&callback=initMap"></script>
 </body>    
 </html>
