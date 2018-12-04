@@ -1,24 +1,15 @@
-env:
-  global:
-  - CC_TEST_REPORTER_ID=645c83c85822da1d09d8a99819c62c7a7c5f3bdd3cc4f771a433c456fb559261
 language: node_js
 node_js:
   - node
 addons:
   chrome: stable
+service:
+  - postgres
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-# script:
-#   - nyc npm test && nyc report --reporter=text-lcov | coveralls
+script:
+  - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: 232f49f2-098e-448c-8177-aab531976d7b
-#   app: travissend-it
-#   on:
-#     repo: Ibidapo/send-it
-#     branch: api-v1
