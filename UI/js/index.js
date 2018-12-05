@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginTab = document.getElementById('login-tab');
   const registerForm = document.getElementById('register-form');
   const loginForm = document.getElementById('login-form');
-  // const registerBtn = document.getElementById('register-btn');
-  // const loginBtn = document.getElementById('login-btn');
+  const registerBtn = document.getElementById('register-btn');
+  const loginBtn = document.getElementById('login-btn');
   const passwordBtns = document.getElementsByClassName('password');
+
+  // Initialize content-type
+  const contentTypeJson = { 'Content-Type': 'application/json' };
 
   // This event triggers the register tab and form to be active and visible
   registerTab.addEventListener('click', (event) => {
@@ -22,6 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
     registerForm.classList.add('active');
     loginTab.classList.remove('active');
     loginForm.classList.remove('active');
+  });
+
+   // This event triggers the Fetch API to post the user details
+  registerBtn.addEventListener('click', (event) => {
+    fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': contentTypeJson },
+      body: JSON.stringify({
+        email: document.getElementById('reg-email').value,
+        password: document.getElementById('reg-pass').value,
+      })
+    })
+    .then((response) => response.JSON)
+    .then((data) => console.log(data))
+  });
+
+  loginBtn.addEventListener('click', (event) => {
+    fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': contentTypeJson },
+      body: JSON.stringify({
+        email: document.getElementById('reg-email').value,
+        password: document.getElementById('reg-pass').value,
+      })
+    })
+    .then((response) => response.JSON)
+    .then((data) => console.log(data))
   });
 
   // This event triggers the login tab and form to be active and visible
@@ -57,4 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+
 });
