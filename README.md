@@ -20,8 +20,6 @@ Find below, the links to the various page for the UI
 
 ## Built With
 
-## Built With
-
 * [HTML 5](https://www.w3.org/TR/html52/) - The markup language used for structuring and presenting content on the World Wide Web
 * [Vanilla JS](http://vanilla-js.com/) - A fast, lightweight, cross-platform framework for building incredible, powerful JavaScript applications.
 * [CSS 3](https://www.w3.org/standards/techs/css) - A style sheet language used for describing the presentation of a document written in a markup language like HTML
