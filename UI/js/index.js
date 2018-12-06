@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-pass').value;
-
+    console.log(email, password, contentTypeJson);
     fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': contentTypeJson },
@@ -40,20 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then((response) => response.json())
     .then((data) => console.log(data))
+    .catch((error) => console.log(error))
   });
 
   loginBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-pass').value;
-
+    console.log(email, password, contentTypeJson);
     fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': contentTypeJson },
-      body: JSON.stringify({ email, password}),
+      body: JSON.stringify({ 
+        email: document.getElementById('login-email').value, 
+        password: document.getElementById('login-pass').value
+      }),
     })
     .then((response) => response.JSON)
     .then((data) => console.log(data))
+    .catch((error) => console.log(error))
   });
 
   // This event triggers the login tab and form to be active and visible
