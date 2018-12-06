@@ -29,26 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // This event triggers the Fetch API to post the user details
   registerBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const email = document.getElementById('reg-email').value;
+    const password = document.getElementById('reg-pass').value;
+
     fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': contentTypeJson },
-      body: JSON.stringify({
-        email: document.getElementById('reg-email').value,
-        password: document.getElementById('reg-pass').value,
-      })
+      body: JSON.stringify({ email, password }),
     })
-    .then((response) => response.JSON)
+    .then((response) => response.json())
     .then((data) => console.log(data))
   });
 
   loginBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-pass').value;
+
     fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': contentTypeJson },
-      body: JSON.stringify({
-        email: document.getElementById('reg-email').value,
-        password: document.getElementById('reg-pass').value,
-      })
+      body: JSON.stringify({ email, password}),
     })
     .then((response) => response.JSON)
     .then((data) => console.log(data))
@@ -87,6 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-
 });
