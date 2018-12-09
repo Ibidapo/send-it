@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginBtn = document.getElementById('login-btn');
   const passwordBtns = document.getElementsByClassName('password');
 
-  // Initialize content-type
-  const contentTypeJson = { 'Content-Type': 'application/json' };
-
   // This event triggers the register tab and form to be active and visible
   registerTab.addEventListener('click', (event) => {
     event.preventDefault();
@@ -32,31 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-pass').value;
-    console.log(email, password, contentTypeJson);
-    fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', {
+
+    // Initialize content-type for Request Headers
+    const postOption = {
       method: 'POST',
-      headers: { 'Content-Type': contentTypeJson },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
-    })
+    }
+
+    fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', postOption)
     .then((response) => response.json())
     .then((data) => console.log(data))
-    .catch((error) => console.log(error))
+    .catch((error) => console.log(error ))
   });
 
   loginBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-pass').value;
-    console.log(email, password, contentTypeJson);
-    fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', {
+
+    // Initialize content-type for Request Headers
+    const postOption = {
       method: 'POST',
-      headers: { 'Content-Type': contentTypeJson },
-      body: JSON.stringify({ 
-        email: document.getElementById('login-email').value, 
-        password: document.getElementById('login-pass').value
-      }),
-    })
-    .then((response) => response.JSON)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }
+
+    fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', postOption)
+    .then((response) => response.json())
     .then((data) => console.log(data))
     .catch((error) => console.log(error))
   });
