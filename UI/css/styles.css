@@ -236,10 +236,9 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
 }
-.error {
+#error {
   display: none;
   color: red;
-  margin-top: 0.5rem;
   font-size: 0.875rem;
 }
 .tab-group {
@@ -289,7 +288,7 @@ body {
   margin-top: 1.5rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #error.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
