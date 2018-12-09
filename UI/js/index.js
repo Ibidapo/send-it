@@ -15,6 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginBtn = document.getElementById('login-btn');
   const passwordBtns = document.getElementsByClassName('password');
 
+  // Functions to abstract Fetch API
+  const redirectUser = (result) => {
+    const { token } = result
+    localStorage.setItem('token', token);
+    window.location.replace('https://ibidapo.github.io/send-it/UI/user.html');
+  }
+  const displayError = (errors) => {
+    const errorDiv = document.getElementById('error');
+    errorDiv.classList.add('active');
+    errorDiv.innerHTML = errors.error;
+  }
+  const validateResponse = (response) => {
+    return response.json()
+      .then(json => {
+        if (!response.ok) {
+          return Promise.reject(json)
+        }
+        return json
+      })
+  }
+  const fetchJSON = (pathToResource, user, pass) => {
+    fetch(pathToResource, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user, password: pass }),
+    })
+    .then(validateResponse)
+    .then(redirectUser)
+    .catch(displayError);
+  }
+
   // This event triggers the register tab and form to be active and visible
   registerTab.addEventListener('click', (event) => {
     event.preventDefault();
@@ -24,23 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.classList.remove('active');
   });
 
-   // This event triggers the Fetch API to post the user details
+  // This event triggers the Fetch API to post the user details
   registerBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-pass').value;
 
-    // Initialize content-type for Request Headers
-    const postOption = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    }
-
-    fetch('https://travissend-it.herokuapp.com/api/v1/auth/signup', postOption)
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error ))
+    fetchJSON('https://travissend-it.herokuapp.com/api/v1/auth/signup', email, password);
   });
 
   loginBtn.addEventListener('click', (event) => {
@@ -48,17 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-pass').value;
 
-    // Initialize content-type for Request Headers
-    const postOption = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    }
-
-    fetch('https://travissend-it.herokuapp.com/api/v1/auth/login', postOption)
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error))
+    fetchJSON('https://travissend-it.herokuapp.com/api/v1/auth/login', email, password);
   });
 
   // This event triggers the login tab and form to be active and visible

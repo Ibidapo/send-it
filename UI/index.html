@@ -48,23 +48,22 @@
           <li><a href="#" id="register-tab">Sign Up</a></li>
         </ul>
         <form id="login-form" class="mx-auto active">
-            <div class="pt-1 input-icon">
-              <label for="login-email">Email</label>
-              <input id="login-email" type="email" required>
-              <i class="fas fa-envelope"></i>
-            </div>
-            <br>
-            <div class="py-1 input-icon">
-              <label for="login-pass">Password</label>
-              <input id="login-pass" type="password" required>
-              <i class="fas fa-eye-slash password"></i>
-            </div>
-            <br>
-            <div class="text-center">
-              <div class="error">Username or Password is invalid</div>
-              <button id="login-btn">Login</button>
-              <div class="mt-05"><a class="help-text" href="#">Forget your password?</a></div>
-            </div>  
+          <div class="pt-1 input-icon">
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" required>
+            <i class="fas fa-envelope"></i>
+          </div>
+          <br>
+          <div class="py-1 input-icon">
+            <label for="login-pass">Password</label>
+            <input id="login-pass" type="password" required>
+            <i class="fas fa-eye-slash password"></i>
+          </div>
+          <br>
+          <div class="text-center">
+            <button id="login-btn">Login</button>
+            <div class="mt-05"><a class="help-text" href="#">Forget your password?</a></div>
+          </div>  
         </form>
         <form id="register-form" class="mx-auto">
           <div class="pt-1 input-icon">
@@ -85,9 +84,10 @@
           </div>
           <br>
           <div class="text-center">
-            <button id="register-btn">Sign Up</button>  
+            <button id="register-btn">Sign Up</button>
           </div>
         </form>
+        <div class="text-center mt-05" id="error"></div>  
         <br><br>
       </div>
     </div>

@@ -2,6 +2,10 @@
 /* eslint-env browser */
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('token')) {
+    window.location.replace('https://ibidapo.github.io/send-it/UI/');
+  }
+
   // initialize Burger Button for mobile navbar
   const menuBtn = document.getElementById('menu');
   const tabList = document.getElementById('list');
