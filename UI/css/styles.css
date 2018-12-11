@@ -137,7 +137,7 @@ body {
   float: right;
 }
 .main-header > #list > ul > li, .user-header > #list > ul > li {
-  display: inline-block;
+  display: inline-table;
   padding: 0 0.5rem;
 }
 .main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, .greetings {
@@ -236,7 +236,7 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
 }
-#error {
+#error, #send-error {
   display: none;
   color: red;
   font-size: 0.875rem;
@@ -288,7 +288,7 @@ body {
   margin-top: 1.5rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #error.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #error.active, #send-error.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -302,7 +302,7 @@ label, .label {
   position: relative;
 }
 input:not([type="checkbox"]), .input {
-  height: 1.75rem;
+  min-height: 1.75rem;
   line-height: 1.75rem;
 }
 input:not([type="checkbox"]){
@@ -425,13 +425,14 @@ button {
 .greetings {
   position: relative;
   color: #4a08ef;
+  top: 0.5rem;
   left: 20%;
   line-height: 0;
   font-size: 1.5rem;
 }
 .greetings img {
-  height: 70px;
-  margin: 0.5rem 0.5rem 0 0;
+  height: 60px;
+  margin-right: 0.5rem;
   border-radius: 50%;
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.25);
   vertical-align: middle;

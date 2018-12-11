@@ -5,6 +5,11 @@
   <title>SendIT - User Dashboard</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <!-- <script>
+    if (!localStorage.getItem('token')) {
+      window.location.replace('https://ibidapo.github.io/send-it/UI/');
+    }
+  </script> -->
 </head>
 <body>
   <!-- Sidebar with links for activating the Tabs below -->
@@ -33,10 +38,12 @@
   </div>
   <!-- Header for Dashboarder -->
   <header class="user-header px-2">
-    <span class="greetings"><img src="images/sm-avatar.png" alt="user-avatar"> Ibidapo Rasheed</span>
+    <span class="greetings"><img src="images/user.png" alt="user avatar">Ibidapo Rasheed</span>
     <div id="list">
       <ul class="m-0">
-        <li><a class="plus-btn" href="#" id="send-tab-btn-2" title="Create New Order">+</a></li>
+        <li>
+          <a class="plus-btn" href="#" id="send-tab-btn-2" title="Create New Order"><i class="fas fa-plus"></i></a>
+        </li>
         <li><a class="purple-btn" href="index.html">Logout</a></li>
       </ul>
     </div>
@@ -47,27 +54,28 @@
     <div class="box">
       <form id="create-order-form" class="mx-auto py-1 active">
         <br>
+        <div class="text-center mt-1" id="send-error"></div> 
         <div><h3>From</h1></div>
         <div class="d-flex space-between">
           <div class="w-60">
-            <label for="username" class="">Address</label>
-            <input id="username" type="text" required>
+            <label for="from-address" class="">Address</label>
+            <input id="from-address" type="text">
           </div>
           <div class="w-30">
-            <label for="weight" class="">Parcel Weight</label>
-            <input id="weight" type="number" required>
+            <label for="parcel-kg" class="">Parcel Weight</label>
+            <input id="parcel-kg" type="number">
           </div>
         </div>
         <br>
         <div><h3>To</h1></div>
         <div class="d-flex space-between">
           <div class="w-60">
-            <label for="username" class="">Address</label>
-            <input id="username" type="text" required>
+            <label for="to-address" class="">Address</label>
+            <input id="to-address" type="text">
           </div>
           <div class="w-30">
-            <label for="weight" class="">Phone Number</label>
-            <input id="weight" type="number" required>
+            <label for="to-phone" class="">Phone Number</label>
+            <input id="to-phone" type="number">
           </div>
         </div>
         <br>
@@ -81,30 +89,31 @@
         </div>
         <div class="w-50 py-1">
           <br>
-          <div class="d-flex space-evenly px-1">
+          <div class="text-center mt-1" id="confirm-error"></div> 
+          <div class="d-flex space-between px-1">
             <div class="w-90 mt-1">
-              <label for="origin" class="">Origin</label>
-              <input id="origin" value="Yaba, Lagos" type="text">
+              <div class="label">Origin</div>
+              <div class="input" id="origin"></div>
             </div>
             <div class="w-90 mt-1">
-              <label for="destination" class="">Destination</label>
-              <input id="destination" value="Lekki, Lagos" type="text">
+              <div class="label">Destination</div>
+              <div class="input" id="destination"></div>
             </div>
             <div class="w-40 mt-1">
-              <label for="weight" class="">Weight</label>
-              <input id="weight" type="number" readonly>
+              <div class="label">Weight</div>
+              <div class="input" id="weight"></div>
+            </div>
+            <div class="w-50 mt-1">
+              <div class="label">Phone number</div>
+              <div class="input" id="phone"></div>
             </div>
             <div class="w-40 mt-1">
-              <label for="phone" class="">Phone number</label>
-              <input id="phone" type="number" readonly>
+              <div class="label">Distance</div>
+              <div class="input" id="distance"></div>
             </div>
-            <div class="w-40 mt-1">
-              <label for="dist" class="">Distance</label>
-              <input id="dist" type="text" readonly>
-            </div>
-            <div class="w-40 mt-1">
-              <label for="quote" class="">Quote</label>
-              <input id="quote" type="text" placeholder="" readonly>
+            <div class="w-50 mt-1">
+              <div class="label">Quote</div>
+              <div class="input" id="quote"></div>
             </div>
           </div>
           <br>
@@ -712,60 +721,6 @@
     </div>
   </div>
   <script src="js/dashboard.js"></script>
-  <script>
-    let map;
-    let marker;
-    const fromAddress = document.getElementById('origin').value;
-    const toAddress = document.getElementById('destination').value;
-    const distance = document.getElementById('dist');
-
-    function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-      });
-
-      var geocoder = new google.maps.Geocoder();
-      geocodeAddress(geocoder, map, fromAddress, toAddress);
-
-      var service = new google.maps.DistanceMatrixService();
-      service.getDistanceMatrix({
-        origins: [fromAddress],
-        destinations: [toAddress],
-        travelMode: 'DRIVING',
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      }, (response, status) => {
-        if (status == 'OK') {
-          var results = response.rows[0].elements[0];
-          distance.value = results.distance.text;
-        }
-      });
-    }
-
-    function geocodeAddress(geocoder, resultsMap, from, to) {
-      const locations = [from, to];
-
-      locations.forEach((location) => {
-        geocoder.geocode({ address: location }, (results, status) => {
-          let markerTitle = 'Destination';
-          if (status === 'OK') {
-            if (locations.indexOf(location) === 0) {
-              resultsMap.setCenter(results[0].geometry.location);
-              markerTitle = 'Origin';
-            }
-            marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location,
-              title: markerTitle,
-            });
-          } else {
-            console.log(`Geocode was not successful for the following reason: ${status}`);
-          }
-        });
-      });
-    }
-  </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnu0RsjnKPO6CqZ8-Uj9dXy62hvq3_Y9I&callback=initMap"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnu0RsjnKPO6CqZ8-Uj9dXy62hvq3_Y9I"></script>
 </body>    
 </html>
