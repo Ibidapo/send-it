@@ -137,7 +137,7 @@ body {
   float: right;
 }
 .main-header > #list > ul > li, .user-header > #list > ul > li {
-  display: inline-block;
+  display: inline-table;
   padding: 0 0.5rem;
 }
 .main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, .greetings {
@@ -236,11 +236,6 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
 }
-#error {
-  display: none;
-  color: red;
-  font-size: 0.875rem;
-}
 .tab-group {
   list-style: none;
   padding: 0;
@@ -285,10 +280,10 @@ body {
 .login-box > form {
   display: none;
   width: 320px;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #error.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -302,7 +297,7 @@ label, .label {
   position: relative;
 }
 input:not([type="checkbox"]), .input {
-  height: 1.75rem;
+  min-height: 1.75rem;
   line-height: 1.75rem;
 }
 input:not([type="checkbox"]){
@@ -371,6 +366,11 @@ button {
 .view-parcel-info.active, .edit-parcel-info.active {
   transform: rotate(180deg);
 }
+button:disabled {
+  background-color: #d2d8d8 !important;
+  color: grey !important;
+  cursor: not-allowed;
+}
 
 /* Styling for Dashboard */
 .side-bar {
@@ -413,7 +413,7 @@ button {
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
-#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #confirm-order {
+#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error {
   display: none;
 }
 .status-report {
@@ -425,16 +425,36 @@ button {
 .greetings {
   position: relative;
   color: #4a08ef;
+  top: 0.5rem;
   left: 20%;
   line-height: 0;
   font-size: 1.5rem;
 }
 .greetings img {
-  height: 70px;
-  margin: 0.5rem 0.5rem 0 0;
+  height: 60px;
+  margin-right: 0.5rem;
   border-radius: 50%;
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.25);
   vertical-align: middle;
+}
+
+/* Styling for Alerts */
+.alert {
+  position: relative;
+  width: 70%;
+  padding: .25rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
+#confirm-success { 
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+#sign-error, #send-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
 
 /* Styling for Google Maps */
@@ -521,8 +541,8 @@ footer > .w-60 {
   .w-20, .w-30, .w-40 {
     margin-top: 0.5rem
   }
-  .login-box, .login-box > form {
-    width: 80%;
+  .login-box, .login-box > form, .alert {
+    width: 90%;
   }
   .greetings {
     display: block;
