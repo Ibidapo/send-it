@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.replace('https://ibidapo.github.io/send-it/UI/user.html');
   }
   const displayError = (errors) => {
-    const errorDiv = document.getElementById('error');
-    errorDiv.classList.add('active');
-    errorDiv.innerHTML = errors.error;
+    const errorMsg = document.getElementById('sign-error');
+    errorMsg.classList.add('active');
+    errorMsg.innerHTML = errors.error;
   }
   const validateResponse = (response) => {
     return response.json()

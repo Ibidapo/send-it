@@ -309,7 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // To confirm order
   confirmOrderBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    const errorDiv = document.getElementById('confirm-error');
+    const errorMsg = document.getElementById('confirm-error');
+    const successMsg = document.getElementById('confirm-success');
 
     fetch('https://travissend-it.herokuapp.com/api/v1/parcels/', {
       method: 'POST',
@@ -326,14 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(validateResponse)
     .then((data) => {
-      console.log(data);
-      confirmOrder.classList.add('active');
-      createOrderForm.classList.remove('active');
+      confirmOrderBtn.disabled = true;
+      successMsg.classList.add('active');
+      successMsg.innerHTML = data.success;
     })
     .catch((errors) => {
-      const errorDiv = document.getElementById('send-error');
-      errorDiv.classList.add('active');
-      errorDiv.innerHTML = errors.error;
+      errorMsg.classList.add('active');
+      errorMsg.innerHTML = errors.error;
     });
   });
 });
