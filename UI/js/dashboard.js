@@ -39,38 +39,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const distance = document.getElementById('distance');
   const quote = document.getElementById('quote');
 
-  // Initialize all the parcel-box elements
-  const viewParcelBtns = document.getElementsByClassName('view-parcel-info');
-  const editParcelBtns = document.getElementsByClassName('edit-parcel-info');
-  let parcelInfo;
-  let addressNode;
-  let editBtnNode;
+  // Initialize containers for dynamically generated parcel box
+  const viewAllBox = document.getElementById('view-all-box');
+  const viewPendingBox = document.getElementById('view-pending-box');
+  const viewDeliveredBox = document.getElementById('view-delivered-box');
 
+  // Initialize all the parcel-box elements
+  let parcelInfo;
+  let addressTextNode;
+  let addressInputNode;
+  let editBtnNode;
+ 
   // Functions for toggling Display
   const nodeDisplay = (node, val) => {
     node.style.display = val;
   };
-  const childNodeDisplay = (node, nodeIndex, val) => {
-    node.childNodes[nodeIndex].style.display = val;
-  };
-  const getChildNode = (node, nodeIndex) => node.childNodes[nodeIndex];
 
-  // Function filters an array of html element with the active class, then removes the active class.
+  // Function to remove active class
   const removeActiveClass = (arr) => {
-    arr.filter(button => button.classList.contains('active')).forEach(button => button.classList.remove('active'));
+    arr
+      .filter(button => button.classList.contains('active'))
+      .forEach(button => button.classList.remove('active'));
   };
 
-  // Functions to abstract Fetch API
-  // const redirectUser = (result) => {
-  //   const { token } = result
-  //   localStorage.setItem('token', token);
-  //   window.location.replace('https://ibidapo.github.io/send-it/UI/user.html');
-  // }
-  // const displayError = (errors) => {
-  //   const errorDiv = document.getElementById('error');
-  //   errorDiv.classList.add('active');
-  //   errorDiv.innerHTML = errors.error;
-  // }
+  // Variable for abstracting Fetch API
   const validateResponse = (response) => {
     return response.json()
       .then((json) => {
@@ -79,76 +71,140 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return json
       })
+  };
+  const headers = { 
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+  };
+
+  // Function to check for Parcel Status
+  const checkStatus = (status) => {
+    if (status === 'In Transit') {
+      return `
+        <a title="Click to cancel" class="red cancel-parcel"><i class="fas fa-times"></i></a>
+        <a title="Click to edit" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
+    }
+    return `
+    <a class="not-allowed"><i class="fas fa-times"></i></a>
+    <a class="not-allowed"><i class="fas fa-pencil-alt"></i></a>`;
   }
-  // const fetchJSON = (pathToResource, user, pass) => {
-  //   fetch(pathToResource, {
-  //     method: 'POST',
-  //     headers: { 
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${localStorage.getItem('token')}` 
-  //     },
-  //     body: JSON.stringify({
-  //       email: user, password: pass }),
-  //   })
-  //   .then(validateResponse)
-  //   .then(redirectUser)
-  //   .catch(displayError);
-  // }
 
-  [...viewParcelBtns].forEach((viewParcelBtn) => {
-    viewParcelBtn.addEventListener('click', () => {
-      parcelInfo = viewParcelBtn.parentNode.nextElementSibling;
-      addressNode = getChildNode(parcelInfo, 15);
-      editBtnNode = getChildNode(parcelInfo, 21);
-      if (parcelInfo.style.display === 'flex') {
-        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
-          otherBtn.classList.remove('active');
-          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
-          nodeDisplay(otherParcelInfo, 'none');
-        });
-      } else {
-        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
-          otherBtn.classList.remove('active');
-          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
-          nodeDisplay(otherParcelInfo, 'none');
-        });
-        viewParcelBtn.classList.add('active');
-        nodeDisplay(parcelInfo, 'flex');
-        childNodeDisplay(addressNode, 3, 'inline');
-        childNodeDisplay(addressNode, 5, 'none');
-        nodeDisplay(editBtnNode, 'none');
+  // Function to create new Parcel Node
+  const createParcelBox = (parcel) => `
+  <div class="box py-1 my-1">
+    <div class="parcel-box d-flex space-between mx-auto text-center">
+      <div class="w-20"><span>Order:</span> <b># ${parcel.parcel_id}</b></div>
+      <div class="w-20"><span>Status:</span> <b>${parcel.status}</b></div>
+      <div class="w-20"><span>Quote:</span> <b>&#8358; -----</b></div>
+      <div class="w-20"><span>${parcel.created}</span></div>
+      <div class="w-20 icon d-flex space-evenly">
+        ${checkStatus(parcel.status)}
+        <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>
+      </div>
+      <div class="w-100 parcel-info d-flex my-1 mx-auto text-left">
+        <div class="w-50">
+          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
+          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.sender_address}</b></div>
+          <div class="w-90 mt-05"><span>Weight</span> <b>${parcel.parcel_kg}kg</b></div>
+        </div>
+        <div class="w-50">
+            <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
+            <div class="w-100 mt-05">
+              <span>Address:</span> <b class="address-tag">${parcel.recipient_address}</b>
+              <input type="text" value="${parcel.recipient_address}">
+            </div>
+            <div class="w-100 mt-05"><span>Present Location:</span> <b>${parcel.present_location}</b></div>
+            <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
+        </div>
+        <div class="w-100 edit-parcel mt-1 text-center">
+          <button class="edit-parcel-button">save</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // Function to fetch 
+  const fetchParcels = (state, successId, errorId, container) => {
+    fetch('https://travissend-it.herokuapp.com/api/v1/parcels', { headers })
+    .then(validateResponse)
+    .then((data) => {
+      const successMsg = document.getElementById(successId);
+      const { parcels } = data
+
+      successMsg.classList.add('active');
+      successMsg.innerHTML = data.success;
+
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
       }
-    });
-  });
 
-  [...editParcelBtns].forEach((editParcelBtn) => {
-    editParcelBtn.addEventListener('click', () => {
-      parcelInfo = editParcelBtn.parentNode.nextElementSibling;
-      addressNode = getChildNode(parcelInfo, 15);
-      editBtnNode = getChildNode(parcelInfo, 21);
-      if (parcelInfo.style.display === 'flex') {
-        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
-          otherBtn.classList.remove('active');
-          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
-          nodeDisplay(otherParcelInfo, 'none');
-        });
+      if (state === 'In Transit' || state === 'Delivered') {
+        parcels.filter((parcel) => parcel.status === state).forEach((parcel) => {
+          let parcelBox = createParcelBox(parcel);
+          container.insertAdjacentHTML('beforeend', parcelBox);
+        })
       } else {
-        [...viewParcelBtns, ...editParcelBtns].forEach((otherBtn) => {
-          otherBtn.classList.remove('active');
-          const otherParcelInfo = otherBtn.parentNode.nextElementSibling;
-          nodeDisplay(otherParcelInfo, 'none');
-        });
-        editParcelBtn.classList.add('active');
-        nodeDisplay(parcelInfo, 'flex');
-        childNodeDisplay(addressNode, 3, 'none');
-        childNodeDisplay(addressNode, 5, 'inline');
-        addressNode.childNodes[5].value = addressNode.childNodes[3].innerHTML;
-        nodeDisplay(editBtnNode, 'block');
+        parcels.forEach((parcel) => {
+          let parcelBox = createParcelBox(parcel);
+          container.insertAdjacentHTML('beforeend', parcelBox);
+        })
       }
-    });
-  });
 
-  // menu button transitions and toggles list item
+      const viewParcelBtns = document.getElementsByClassName('view-parcel-info');
+      const editParcelBtns = document.getElementsByClassName('edit-parcel-info');
+      console.log('Abstracted', viewParcelBtns, editParcelBtns)
+      addAccordionListeners(viewParcelBtns, editParcelBtns, 'inline', 'none', 'none');
+      addAccordionListeners(editParcelBtns, viewParcelBtns, 'none', 'inline', 'block');
+    })
+    .catch((errors) => {
+      const errorMsg = document.getElementById(errorId);
+      errorMsg.classList.add('active');
+      errorMsg.innerHTML = errors.error;
+    });
+  };
+
+  // Event listeners for the View Parcel Icons in the parcel information boxes
+  const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
+    // Function to removing active buttons in accordions
+    const rmActiveAccordion = (btns) => {
+      btns
+        .filter((btn) => btn.classList.contains('active'))
+        .forEach((btn) => { 
+          btn.classList.remove('active')
+          const openBox =  btn.parentNode.nextElementSibling;
+          nodeDisplay(openBox, 'none');
+        })
+    };
+
+    const accordionCallback = (e) => {
+      console.log('A button was clicked');
+      parcelInfo = e.target.parentNode.parentNode.nextElementSibling;
+      addressTextNode = parcelInfo.children[1].children[1].children[1];
+      addressInputNode = parcelInfo.children[1].children[1].children[2];
+      editBtnNode = parcelInfo.children[2];
+      if (parcelInfo.style.display !== 'flex') {
+        rmActiveAccordion([...mainBtns, ...otherBtns]);
+        e.target.parentNode.classList.add('active');
+        nodeDisplay(parcelInfo, 'flex');
+        nodeDisplay(addressTextNode, txt);
+        nodeDisplay(addressInputNode, input);
+        nodeDisplay(editBtnNode, btn);
+        addressInputNode.value = addressTextNode.innerHTML;
+      } else {
+        rmActiveAccordion([...mainBtns, ...otherBtns]);
+      }
+    };
+
+    [...mainBtns].forEach((mainBtn) => {
+      mainBtn.removeEventListener('click', accordionCallback);
+    });
+
+    [...mainBtns].forEach((mainBtn) => {
+      mainBtn.addEventListener('click', accordionCallback);
+    });
+  };
+
+  // Event listener for the Menu burger on mobile viewports
   menuBtn.addEventListener('click', () => {
     if (menuBtn.classList.contains('active')) {
       menuBtn.classList.remove('active');
@@ -173,11 +229,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sendTab.classList.add('active');
   });
 
+  
   // Event listening for a click event on the View All Tab
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewAllTabBtn.classList.add('active');
     viewAllTab.classList.add('active');
+
+    fetchParcels('all', 'view-all-success', 'view-all-error', viewAllBox);
   });
 
   // Event listening for a click event on the View Pending Tab
@@ -185,6 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
     removeActiveClass(arrayTab);
     viewPendingTabBtn.classList.add('active');
     viewPendingTab.classList.add('active');
+
+    fetchParcels('In Transit', 'view-pending-success', 'view-pending-error', viewPendingBox);
   });
 
   // Event listening for a click event on the View Delivered Tab
@@ -192,6 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
     removeActiveClass(arrayTab);
     viewDeliveredTabBtn.classList.add('active');
     viewDeliveredTab.classList.add('active');
+
+    fetchParcels('Delivered', 'view-delivered-success', 'view-delivered-error', viewDeliveredBox);
   });
 
   // Event listening for a click event on the Profile Tab
@@ -314,10 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetch('https://travissend-it.herokuapp.com/api/v1/parcels/', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
+      headers,
       body: JSON.stringify({
         origin: origin.innerHTML, 
         destination: destination.innerHTML,

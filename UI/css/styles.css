@@ -132,6 +132,9 @@ body {
   padding-right: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
+.main-header, .user-header {
+  height: 90px;
+}
 .main-header > #list, .user-header > #list {
   width: auto;
   float: right;
@@ -141,8 +144,8 @@ body {
   padding: 0 0.5rem;
 }
 .main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, .greetings {
-  height: 75px;
-  line-height: 75px;
+  height: 90px;
+  line-height: 90px;
 }
 .main-header > #list > ul > li:not(:last-child) > a:hover, .side-bar > #list > ul > li > a:hover {
   background-color: whitesmoke;
@@ -283,7 +286,7 @@ body {
   margin-top: 1rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -325,7 +328,7 @@ input:not([type="checkbox"]):focus {
   border-width: 0 0 2px 0;
   border-color: blue;
 }
-.address-to-parcel > input, .present-location-parcel > input {
+.parcel-info input[type="text"] {
   height: 1rem;
   max-width: 250px;
 } 
@@ -413,7 +416,7 @@ button:disabled {
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
-#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error {
+#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error, #view-all-error, #view-all-success, #view-pending-error, #view-pending-success, #view-delivered-error, #view-delivered-success {
   display: none;
 }
 .status-report {
@@ -425,7 +428,7 @@ button:disabled {
 .greetings {
   position: relative;
   color: #4a08ef;
-  top: 0.5rem;
+  top: 1rem;
   left: 20%;
   line-height: 0;
   font-size: 1.5rem;
@@ -439,19 +442,19 @@ button:disabled {
 }
 
 /* Styling for Alerts */
-.alert {
+.alert-success, .alert-error {
   position: relative;
   width: 70%;
   padding: .25rem;
   font-size: 0.875rem;
   border-radius: 0.25rem;
 }
-#confirm-success { 
+.alert-success { 
   color: #155724;
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
-#sign-error, #send-error {
+.alert-error {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
