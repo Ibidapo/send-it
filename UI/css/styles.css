@@ -286,7 +286,7 @@ body {
   margin-top: 1rem;
 }
 .login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active, #modal.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -466,6 +466,37 @@ button:disabled {
   border-radius: 1rem 0 0 1rem;
 }
 
+/* Styling for Modal */
+#modal {
+  display: none; 
+  position: fixed;
+  z-index: 100;
+  padding-top: 250px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.3);
+}
+.modal-content {
+  margin: auto;
+  padding: 20px;
+  width: 40%;
+}
+#modal-close {
+  color: #aaaaaa;
+  line-height: 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
+#modal-close:hover, #modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* Styling for Footer */
 footer {
   background-color: #696767;
@@ -544,8 +575,11 @@ footer > .w-60 {
   .w-20, .w-30, .w-40 {
     margin-top: 0.5rem
   }
-  .login-box, .login-box > form, .alert {
+  .login-box, .login-box > form, .alert-success, .alert-error {
     width: 90%;
+  }
+  .modal-content {
+    width: 80%;
   }
   .greetings {
     display: block;

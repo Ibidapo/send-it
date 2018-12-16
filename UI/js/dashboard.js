@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all the parcel-box elements
   let parcelInfo;
+  let parcelId
   let addressTextNode;
   let addressInputNode;
   let editBtnNode;
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const createParcelBox = (parcel) => `
   <div class="box py-1 my-1">
     <div class="parcel-box d-flex space-between mx-auto text-center">
-      <div class="w-20"><span>Order:</span> <b># ${parcel.parcel_id}</b></div>
+      <div class="w-20"><span>Order:</span> <b>#</b> <b>${parcel.parcel_id}</b></div>
       <div class="w-20"><span>Status:</span> <b>${parcel.status}</b></div>
       <div class="w-20"><span>Quote:</span> <b>&#8358; -----</b></div>
       <div class="w-20"><span>${parcel.created}</span></div>
@@ -108,13 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="w-90 mt-05"><span>Weight</span> <b>${parcel.parcel_kg}kg</b></div>
         </div>
         <div class="w-50">
-            <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-            <div class="w-100 mt-05">
-              <span>Address:</span> <b class="address-tag">${parcel.recipient_address}</b>
-              <input type="text" value="${parcel.recipient_address}">
-            </div>
-            <div class="w-100 mt-05"><span>Present Location:</span> <b>${parcel.present_location}</b></div>
-            <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
+          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
+          <div class="w-100 mt-05">
+            <span>Address:</span> <b class="address-tag">${parcel.recipient_address}</b>
+            <input type="text" value="${parcel.recipient_address}">
+          </div>
+          <div class="w-100 mt-05"><span>Present Location:</span> <b>${parcel.present_location}</b></div>
+          <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
         </div>
         <div class="w-100 edit-parcel mt-1 text-center">
           <button class="edit-parcel-button">save</button>
@@ -123,16 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>`;
 
-  // Function to fetch 
+  // Function to fetch Parcels
   const fetchParcels = (state, successId, errorId, container) => {
     fetch('https://travissend-it.herokuapp.com/api/v1/parcels', { headers })
     .then(validateResponse)
     .then((data) => {
       const successMsg = document.getElementById(successId);
-      const { parcels } = data
+      const { success, parcels } = data
 
       successMsg.classList.add('active');
-      successMsg.innerHTML = data.success;
+      successMsg.innerHTML = success;
 
       while (container.firstChild) {
         container.removeChild(container.firstChild);
@@ -150,11 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       }
 
-      const viewParcelBtns = document.getElementsByClassName('view-parcel-info');
-      const editParcelBtns = document.getElementsByClassName('edit-parcel-info');
-      console.log('Abstracted', viewParcelBtns, editParcelBtns)
-      addAccordionListeners(viewParcelBtns, editParcelBtns, 'inline', 'none', 'none');
-      addAccordionListeners(editParcelBtns, viewParcelBtns, 'none', 'inline', 'block');
+      const viewExpandBtns = document.getElementsByClassName('view-parcel-info');
+      const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
+      const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
+      
+      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
+      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
+      editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
       const errorMsg = document.getElementById(errorId);
@@ -163,7 +166,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Event listeners for the View Parcel Icons in the parcel information boxes
+  // Function to fetch Parcels
+  const updatefetchParcel = (el, parcelId, destination) => {
+    fetch(`https://travissend-it.herokuapp.com/api/v1/parcels/${parcelId}/destination`, { 
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ destination }),
+     })
+    .then(validateResponse)
+    .then((data) => {
+      const { success, parcel } = data;
+      const element = el.parentNode.previousElementSibling.children[1];
+      console.log(element)
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-success');
+      modal.children[0].children[1].innerHTML = success;
+      element.children[1].innerHTML = parcel.recipient_address;
+      element.children[2].value = parcel.recipient_address;
+    })
+    .catch((errors) => {
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-error');
+      modal.children[0].children[1].innerHTML = errors.error;
+    });
+  };
+
+  // Administer eventlisteners to expand/destination of Accordions
   const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
     // Function to removing active buttons in accordions
     const rmActiveAccordion = (btns) => {
@@ -175,9 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
           nodeDisplay(openBox, 'none');
         })
     };
-
+    //Callback function for expanding and collapse
     const accordionCallback = (e) => {
-      console.log('A button was clicked');
       parcelInfo = e.target.parentNode.parentNode.nextElementSibling;
       addressTextNode = parcelInfo.children[1].children[1].children[1];
       addressInputNode = parcelInfo.children[1].children[1].children[2];
@@ -194,13 +221,32 @@ document.addEventListener('DOMContentLoaded', () => {
         rmActiveAccordion([...mainBtns, ...otherBtns]);
       }
     };
-
+    // Remove Eventlisteners for already (if any) created buttons
     [...mainBtns].forEach((mainBtn) => {
       mainBtn.removeEventListener('click', accordionCallback);
     });
-
+    // Add Eventlisteners to dynamically created buttons
     [...mainBtns].forEach((mainBtn) => {
       mainBtn.addEventListener('click', accordionCallback);
+    });
+  };
+
+  // Administer eventlisteners for Edit Buttons in Accordions
+  const editBtnListeners = (editBtns) => {
+    // Callback function for editing Parcel Destination
+    const editCallback = (e) => {
+      const node = e.target;
+      parcelId = node.parentNode.parentNode.parentNode.children[0].children[2].innerHTML;
+      addressInputNode = node.parentNode.previousElementSibling.children[1].children[2].value;
+      updatefetchParcel(node, parcelId, addressInputNode);
+    };
+    // Remove Eventlisteners for already (if any) created buttons
+    [...editBtns].forEach((editBtn) => {
+      editBtn.removeEventListener('click', editCallback);
+    });
+    // Add Eventlisteners to dynamically created buttons
+    [...editBtns].forEach((editBtn) => {
+      editBtn.addEventListener('click', editCallback);
     });
   };
 
