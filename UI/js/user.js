@@ -2,10 +2,6 @@
 /* eslint-env browser */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // initialize Burger Button for mobile navbar
-  const menuBtn = document.getElementById('menu');
-  const tabList = document.getElementById('list');
-
   // initialize Tab Buttons into variables
   const sendTabBtn = document.getElementById('send-tab-btn');
   const sendTabBtn2 = document.getElementById('send-tab-btn-2');
@@ -24,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingTab = document.getElementById('view-pending-tab');
   const viewDeliveredTab = document.getElementById('view-delivered-tab');
   const profileTab = document.getElementById('profile-tab');
-  const editProfile = document.getElementById('profile-form');
-  const viewProfile = document.getElementById('profile-view');
+  const editProfileTab = document.getElementById('profile-form');
+  const viewProfileTab = document.getElementById('profile-view');
   const createOrderForm = document.getElementById('create-order-form');
   const confirmOrder = document.getElementById('confirm-order');
   const arrayTab = [sendTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab,
     sendTabBtn, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
-
+    
   // initialize Confirm Order Input fields as variables;
   const origin = document.getElementById('origin');
   const destination = document.getElementById('destination');
@@ -117,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="w-100 mt-05"><span>Present Location:</span> <b>${parcel.present_location}</b></div>
           <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
         </div>
-        <div class="w-100 edit-parcel mt-1 text-center">
+        <div class="w-100 mt-1 text-center">
           <button class="edit-parcel-button">save</button>
         </div>
       </div>
@@ -216,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nodeDisplay(addressTextNode, txt);
         nodeDisplay(addressInputNode, input);
         nodeDisplay(editBtnNode, btn);
-        addressInputNode.value = addressTextNode.innerHTML;
       } else {
         rmActiveAccordion([...mainBtns, ...otherBtns]);
       }
@@ -250,17 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Event listener for the Menu burger on mobile viewports
-  menuBtn.addEventListener('click', () => {
-    if (menuBtn.classList.contains('active')) {
-      menuBtn.classList.remove('active');
-      tabList.classList.remove('active');
-    } else {
-      menuBtn.classList.add('active');
-      tabList.classList.add('active');
-    }
-  });
-
   // Event listening for a click event on the Create Tab
   sendTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
@@ -275,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sendTab.classList.add('active');
   });
 
-  
   // Event listening for a click event on the View All Tab
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
@@ -312,14 +295,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // To edit Profile Tab
   editProfileBtn.addEventListener('click', () => {
-    editProfile.classList.add('active');
-    viewProfile.classList.remove('active');
+    editProfileTab.classList.add('active');
+    viewProfileTab.classList.remove('active');
   });
 
   // To view Profile Tab
   saveProfileBtn.addEventListener('click', () => {
-    viewProfile.classList.add('active');
-    editProfile.classList.remove('active');
+    viewProfileTab.classList.add('active');
+    editProfileTab.classList.remove('active');
   });
 
   // To create order

@@ -20,12 +20,19 @@
       <div class="bar2"></div>
       <div class="bar3"></div>
     </div>
-    <div class="py-1 px-2" id="list">
+    <div class="px-1" id="list">
       <h3>Admin</h3>
       <ul>
         <li><a href="#" class="active" id="view-all-tab-btn">View All</a></li>
+        <li><a href="#" id="view-pending-tab-btn">View Pending</a></li>
+        <li><a href="#" id="view-delivered-tab-btn">View Delivered</a></li>
       </ul>
+      <hr>
       <br>
+      <h3>My Profile</h3>
+      <ul>
+        <li><a href="#" id="profile-tab-btn">Personal Info</a></li>
+      </ul>
     </div>
   </div>
   <!-- Header for Dashboarder -->
@@ -39,304 +46,96 @@
     </div>
   </header>
   <!-- Tab containing all parcel delivery orders created on the Application -->
-  <div class="main-content active" id="viewAllTab">
+  <div class="main-content active" id="view-all-tab">
     <h2 class="text-center">View All (Parcel Delivery Order)</h2>
-    <p class="status-report blue text-center">5 parcel orders have been created</p>
-    <!-- Parcel Info Box -->
-    <div class="box py-1 my-1">
-      <div class="parcel-box d-flex space-between mx-auto text-center">
-        <div class="w-20">
-          <span>Order:</span> <b># 100001</b>
+    <div class="alert-error mx-auto text-center mt-1" id="view-all-error"></div>  
+    <div class="alert-success mx-auto text-center mt-1" id="view-all-success"></div>
+    <div id="view-all-box"></div>
+  </div>
+  <!-- Tab containing all parcel delivery orders, pending and created by User -->
+  <div class="main-content" id="view-pending-tab">
+    <h2 class="text-center">View Pending (Parcel Delivery Order)</h2>
+    <div class="alert-error mx-auto text-center mt-1" id="view-pending-error"></div>  
+    <div class="alert-success mx-auto text-center mt-1" id="view-pending-success"></div>
+    <div id="view-pending-box"></div>
+  </div>
+  <!-- Tab containing all parcel delivery orders, pending and created by User -->
+  <div class="main-content" id="view-delivered-tab">
+    <h2 class="text-center">View Delivered (Parcel Delivery Order)</h2>
+    <div class="alert-error mx-auto text-center mt-1" id="view-delivered-error"></div>  
+    <div class="alert-success mx-auto text-center mt-1" id="view-delivered-success"></div>
+    <div id="view-delivered-box"></div>
+  </div>
+  <!-- Tab containing form for viewing or editing User Info -->
+  <div class="main-content" id="profile-tab">
+    <h2 class="text-center">My Profile</h2>
+    <div class="box py-1">
+      <br><br>
+      <div id="profile-view" class="mx-auto active">
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <div class="label">First Name</div>
+            <div class="input">Ibidapo</div>
+          </div>
+          <div class="w-40">
+            <div class="label">Last Name</div>
+            <div class="input">Rasheed</div>
+          </div>
         </div>
-        <div class="w-20">
-          <span>Status:</span> <b>In Transit</b>
+        <br><br>
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <div class="label">Mobile Number</div>
+            <div class="input">08012345678</div>
+          </div>
+          <div class="w-40">
+            <div class="label">Email</div>
+            <div class="input">dapo@example.com</div>
+          </div>
         </div>
-        <div class="w-20">
-            <span>Quote:</span> <b>&#8358; 2345</b>
-        </div>
-        <div class="w-20">
-          <span>31/10/2018</span>
-        </div>
-        <div class="w-20 icon d-flex space-evenly">
-          <a title="Click to cancel" class="red cancel-parcel"><i class="fas fa-times"></i></a>
-          <a title="Click to edit" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>
-          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>  
-        </div>
-        <div class="w-90 parcel-info d-flex space-start my-1 mx-auto text-left">
-          <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
-          <div class="w-50 mt-05">
-            <span>First Name:</span> <b>Ibidapo</b>
-          </div>
-          <div class="w-50 mt-05">
-            <span>Last Name:</span> <b>Rasheed</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05">
-            <span>Address:</span> <b>123 Ogunlana drive, Surulere, Lagos.</b>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Weight:</span> <b>12.4kg</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 address-to-parcel mt-05">
-            <span>Address:</span> <b class="address-tag">123 Herbert Macaulay, Yaba, lagos</b>
-          </div>
-          <div class="w-100 present-location-parcel mt-05">
-            <span>Present Location:</span> <b class="present-location-tag">42 Ojuelegba, Surulere, Lagos.</b>
-            <input type="text" class="present-location-input" value="" placeholder=" ">
-          </div>
-          <div class="w-100 parcel-state mt-05">
-            <span>Present state:</span>
-            <select class="parcel-state-select">
-              <option value="pending">In Transit</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Phone:</span> <b>090 0000 0000</b>
-          </div>
-          <div class="w-100 edit-parcel mt-05 text-center">
-            <button class="edit-parcel-button">save</button>
-          </div>
+        <br>
+        <div class="text-center py-1">
+          <button id="edit-profile">Edit</button>
         </div>
       </div>
-    </div>
-    <!-- Parcel Info Box -->
-    <div class="box py-1 my-1">
-      <div class="parcel-box d-flex space-between mx-auto text-center">
-        <div class="w-20">
-          <span>Order:</span> <b># 100002</b>
-        </div>
-        <div class="w-20 parcel-state">
-          <span>Status:</span> <b>In Transit</b>
-        </div>
-        <div class="w-20">
-            <span>Quote:</span> <b>&#8358; 2345</b>
+      <form id="profile-form" class="mx-auto">
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <label for="f-name" class="">First Name</label>
+            <input id="f-name" type="text" value="Ibidapo">
           </div>
-        <div class="w-20">
-          <span>30/10/2018</span>
-        </div>
-        <div class="w-20 icon d-flex space-evenly">
-          <a title="Click to cancel" class="red cancel-parcel"><i class="fas fa-times"></i></a>
-          <a title="Click to edit" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>
-          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>  
-        </div>
-        <div class="w-90 parcel-info d-flex space-start my-1 mx-auto text-left">
-          <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
-          <div class="w-50 mt-05">
-            <span>First Name:</span> <b>Ibidapo</b>
-          </div>
-          <div class="w-50 mt-05">
-            <span>Last Name:</span> <b>Rasheed</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05">
-            <span>Address:</span> <b>123 Ogunlana drive, Surulere, Lagos.</b>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Weight:</span> <b>12.4kg</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 address-to-parcel mt-05">
-            <span>Address:</span> <b class="address-tag">123 Herbert Macaulay, Yaba, lagos</b>
-          </div>
-          <div class="w-100 present-location-parcel mt-05">
-            <span>Present Location:</span> <b class="present-location-tag">42 Ojuelegba, Surulere, Lagos.</b>
-            <input type="text" class="present-location-input" value="" placeholder=" ">
-          </div>
-          <div class="w-100 parcel-state mt-05">
-            <span>Present state:</span>
-            <select class="parcel-state-select">
-              <option value="pending">In Transit</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Phone:</span> <b>090 0000 0000</b>
-          </div>
-          <div class="w-100 edit-parcel mt-05 text-center">
-            <button class="edit-parcel-button">save</button>
+          <div class="w-40">
+            <label for="l-name" class="">Last Name</label>
+            <input id="l-name" type="text" value="Rasheed">
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Parcel Info Box -->
-    <div class="box py-1 my-1">
-      <div class="parcel-box d-flex space-between mx-auto text-center">
-        <div class="w-20">
-          <span>Order:</span> <b># 100001</b>
-        </div>
-        <div class="w-20 parcel-state">
-          <span>Status:</span> <b>Delivered</b>
-        </div>
-        <div class="w-20">
-          <span>Quote:</span> <b>&#8358; 2345</b>
-        </div>
-        <div class="w-20">
-          <span>29/10/2018</span>
-        </div>
-        <div class="w-20 icon d-flex space-evenly">
-          <a class="not-allowed"><i class="fas fa-times"></i></a>
-          <a class="not-allowed"><i class="fas fa-pencil-alt"></i></a>
-          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>  
-        </div>
-        <div class="w-90 parcel-info d-flex space-start my-1 mx-auto text-left">
-          <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
-          <div class="w-50 mt-05">
-            <span>First Name:</span> <b>Ibidapo</b>
+        <br><br>
+        <div class="d-flex space-evenly">
+          <div class="w-40">
+            <label for="mobile" class="">Mobile Number</label>
+            <input id="mobile" type="number" value="08012345678">
           </div>
-          <div class="w-50 mt-05">
-            <span>Last Name:</span> <b>Rasheed</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05">
-            <span>Address:</span> <b>123 Ogunlana drive, Surulere, Lagos.</b>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Weight:</span> <b>12.4kg</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 address-to-parcel mt-05">
-            <span>Address:</span> <b class="address-tag">123 Herbert Macaulay, Yaba, lagos</b>
-          </div>
-          <div class="w-100 present-location-parcel mt-05">
-            <span>Present Location:</span> <b class="present-location-tag">42 Ojuelegba, Surulere, Lagos.</b>
-            <input type="text" class="present-location-input" value="" placeholder=" ">
-          </div>
-          <div class="w-100 parcel-state mt-05">
-            <span>Present state:</span>
-            <select class="parcel-state-select">
-              <option value="pending">In Transit</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Phone:</span> <b>090 0000 0000</b>
-          </div>
-          <div class="w-100 edit-parcel mt-05 text-center">
-            <button class="edit-parcel-button">save</button>
+          <div class="w-40">
+            <label for="email" class="">Email</label>
+            <input id="email" type="email" value="dapo@example.com">
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Parcel Info Box -->
-    <div class="box py-1 my-1">
-      <div class="parcel-box d-flex space-between mx-auto text-center">
-        <div class="w-20">
-          <span>Order:</span> <b># 100004</b>
+        <br>
+        <div class="text-center py-1">
+          <button id="save-profile">Save</button>
         </div>
-        <div class="w-20 parcel-state">
-          <span>Status:</span> <b>Delivered</b>
-        </div>
-        <div class="w-20">
-            <span>Quote:</span> <b>&#8358; 2345</b>
-          </div>
-        <div class="w-20">
-          <span>28/10/2018</span>
-        </div>
-        <div class="w-20 icon d-flex space-evenly">
-          <a class="not-allowed"><i class="fas fa-times"></i></a>
-          <a class="not-allowed"><i class="fas fa-pencil-alt"></i></a>
-          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a> 
-        </div>
-        <div class="w-90 parcel-info d-flex space-start my-1 mx-auto text-left">
-          <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
-          <div class="w-50 mt-05">
-            <span>First Name:</span> <b>Ibidapo</b>
-          </div>
-          <div class="w-50 mt-05">
-            <span>Last Name:</span> <b>Rasheed</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05">
-            <span>Address:</span> <b>123 Ogunlana drive, Surulere, Lagos.</b>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Weight:</span> <b>12.4kg</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 address-to-parcel mt-05">
-            <span>Address:</span> <b class="address-tag">123 Herbert Macaulay, Yaba, lagos</b>
-          </div>
-          <div class="w-100 present-location-parcel mt-05">
-            <span>Present Location:</span> <b class="present-location-tag">42 Ojuelegba, Surulere, Lagos.</b>
-            <input type="text" class="present-location-input" value="" placeholder=" ">
-          </div>
-          <div class="w-100 parcel-state mt-05">
-            <span>Present state:</span>
-            <select class="parcel-state-select">
-              <option value="pending">In Transit</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Phone:</span> <b>090 0000 0000</b>
-          </div>
-          <div class="w-100 edit-parcel mt-05 text-center">
-            <button class="edit-parcel-button">save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Parcel Info Box -->
-    <div class="box py-1 my-1">
-      <div class="parcel-box d-flex space-between mx-auto text-center">
-        <div class="w-20">
-          <span>Order:</span> <b># 100005</b>
-        </div>
-        <div class="w-20 parcel-state">
-          <span>Status:</span> <b>Delivered</b>
-        </div>
-        <div class="w-20">
-          <span>Quote:</span> <b>&#8358; 2345</b>
-        </div>
-        <div class="w-20">
-          <span>27/10/2018</span>
-        </div>
-        <div class="w-20 icon d-flex space-evenly">
-          <a class="not-allowed"><i class="fas fa-times"></i></a>
-          <a class="not-allowed"><i class="fas fa-pencil-alt"></i></a>
-          <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>  
-        </div>
-        <div class="w-90 parcel-info d-flex space-start my-1 mx-auto text-left">
-          <div class="w-100"><h4 class="my-05 mb-0">Sender</h4></div>
-          <div class="w-50 mt-05">
-            <span>First Name:</span> <b>Ibidapo</b>
-          </div>
-          <div class="w-50 mt-05">
-            <span>Last Name:</span> <b>Rasheed</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05">
-            <span>Address:</span> <b>123 Ogunlana drive, Surulere, Lagos.</b>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Weight:</span> <b>12.4kg</b>
-          </div>
-          <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 address-to-parcel mt-05">
-            <span>Address:</span> <b class="address-tag">123 Herbert Macaulay, Yaba, lagos</b>
-          </div>
-          <div class="w-100 present-location-parcel mt-05">
-            <span>Present Location:</span> <b class="present-location-tag">42 Ojuelegba, Surulere, Lagos.</b>
-            <input type="text" class="present-location-input" value="" placeholder=" ">
-          </div>
-          <div class="w-100 parcel-state mt-05">
-            <span>Present state:</span>
-            <select class="parcel-state-select">
-              <option value="pending">In Transit</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="w-100 mt-05">
-            <span>Phone:</span> <b>090 0000 0000</b>
-          </div>
-          <div class="w-100 edit-parcel mt-05 text-center">
-            <button class="edit-parcel-button">save</button>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
+  <!-- Modal for displaying update status -->
+  <div id="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span id="modal-close"><i class="fas fa-times-circle"></i></span>
+      <div></div>
+    </div>
+  </div>
+  <script src="js/menu.js"></script>
+  <script src="js/modal.js"></script>
   <script src="js/admin.js"></script>
 </body>    
