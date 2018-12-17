@@ -2,10 +2,6 @@
 /* eslint-env browser */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // initialize Burger Button for mobile navbar
-  const menuBtn = document.getElementById('menu');
-  const tabList = document.getElementById('list');
-
   // assign html elements to variables
   const registerTab = document.getElementById('register-tab');
   const loginTab = document.getElementById('login-tab');
