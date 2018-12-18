@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all the parcel-box elements
   let parcelInfo;
-  let parcelStatusSelectNode;
   let parcelLocationTextNode;
   let parcelLocationInputNode;
   let editBtnNode;
@@ -62,9 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkStatus = (status) => {
     if (status === 'In Transit') {
       return `
-        <a title="Click to edit" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
+        <a title="Deliver Order" class="yellow cancel-parcel"><i class="fas fa-check-square"></i></a>
+        <a title="Edit Order" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
     }
     return `
+    <a class="not-allowed"><i class="fas fa-check-square"></i></a>
     <a class="not-allowed"><i class="fas fa-pencil-alt"></i></a>`;
   }
 
@@ -93,13 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>Present Location:</span> <b>${parcel.present_location}</b>
             <input type="text" value="${parcel.present_location}">
           </div>
-          <div class="w-100 mt-05">
-            <span>Present status:</span>
-            <select>
-              <option value="In Transit">In Transit</option>
-              <option value="Delivered">Delivered</option>
-            </select>
-          </div>
           <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
         </div>
         <div class="w-100 mt-1 text-center">
@@ -108,47 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
   </div>`;
-
-  // Administer eventlisteners to expand/destination of Accordions
-  const addAccordionListeners = (mainBtns, otherBtns, txt, select, input, btn) => {
-    // Function to removing active buttons in accordions
-    const rmActiveAccordion = (btns) => {
-      btns
-        .filter((btn) => btn.classList.contains('active'))
-        .forEach((btn) => { 
-          btn.classList.remove('active')
-          const openBox =  btn.parentNode.nextElementSibling;
-          nodeDisplay(openBox, 'none');
-        })
-    };
-    //Callback function for expanding and collapse
-    const accordionCallback = (e) => {
-      parcelInfo = e.target.parentNode.parentNode.nextElementSibling;
-      parcelLocationTextNode = parcelInfo.children[1].children[2].children[1];
-      parcelLocationInputNode = parcelInfo.children[1].children[2].children[2];
-      parcelStatusSelectNode = parcelInfo.children[1].children[3];
-      editBtnNode = parcelInfo.children[2];
-      if (parcelInfo.style.display !== 'flex') {
-        rmActiveAccordion([...mainBtns, ...otherBtns]);
-        e.target.parentNode.classList.add('active');
-        nodeDisplay(parcelInfo, 'flex');
-        nodeDisplay(parcelLocationTextNode, txt);
-        nodeDisplay(parcelLocationInputNode, input);
-        nodeDisplay(parcelStatusSelectNode, select);
-        nodeDisplay(editBtnNode, btn);
-      } else {
-        rmActiveAccordion([...mainBtns, ...otherBtns]);
-      }
-    };
-    // Remove Eventlisteners for already (if any) created buttons
-    [...mainBtns].forEach((mainBtn) => {
-      mainBtn.removeEventListener('click', accordionCallback);
-    });
-    // Add Eventlisteners to dynamically created buttons
-    [...mainBtns].forEach((mainBtn) => {
-      mainBtn.addEventListener('click', accordionCallback);
-    });
-  };
 
   // Function to fetch Parcels
   const fetchParcels = (state, successId, errorId, container) => {
@@ -179,14 +132,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const viewExpandBtns = document.getElementsByClassName('view-parcel-info');
       const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
+      const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
       
-      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline-block', 'none', 'none', 'none');
-      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'block', 'inline-block', 'block');
+      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline-block', 'none', 'none');
+      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline-block', 'block');
+      editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
       const errorMsg = document.getElementById(errorId);
       errorMsg.classList.add('active');
       errorMsg.innerHTML = errors.error;
+    });
+  };
+
+  // Function to update a specific Parcels
+  const updateParcel = (el, parcelId, presentLocation) => {
+    fetch(`https://travissend-it.herokuapp.com/api/v1/parcels/${parcelId}/presentLocation`, { 
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ presentLocation }),
+     })
+    .then(validateResponse)
+    .then((data) => {
+      const { success, parcel } = data;
+      const element = el.parentNode.previousElementSibling.children[2];
+      
+      if (modal.children[0].classList.contains('alert-error')) {
+        modal.children[0].classList.remove('alert-error');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-success');
+      modal.children[0].children[1].innerHTML = success;
+      element.children[1].innerHTML = parcel.present_location;
+      element.children[2].value = parcel.present_location;
+    })
+    .catch((errors) => {
+      if (modal.children[0].classList.contains('alert-success')) {
+        modal.children[0].classList.remove('alert-success');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-error');
+      modal.children[0].children[1].innerHTML = errors.error;
+    });
+  };
+
+  // Administer eventlisteners to expand/destination of Accordions
+  const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
+    // Function to removing active buttons in accordions
+    const rmActiveAccordion = (btns) => {
+      btns
+        .filter((btn) => btn.classList.contains('active'))
+        .forEach((btn) => { 
+          btn.classList.remove('active')
+          const openBox =  btn.parentNode.nextElementSibling;
+          nodeDisplay(openBox, 'none');
+        })
+    };
+    //Callback function for expanding and collapse
+    const accordionCallback = (e) => {
+      parcelInfo = e.target.parentNode.parentNode.nextElementSibling;
+      parcelLocationTextNode = parcelInfo.children[1].children[2].children[1];
+      parcelLocationInputNode = parcelInfo.children[1].children[2].children[2];
+      editBtnNode = parcelInfo.children[2];
+      if (parcelInfo.style.display !== 'flex') {
+        rmActiveAccordion([...mainBtns, ...otherBtns]);
+        e.target.parentNode.classList.add('active');
+        nodeDisplay(parcelInfo, 'flex');
+        nodeDisplay(parcelLocationTextNode, txt);
+        nodeDisplay(parcelLocationInputNode, input);
+        nodeDisplay(editBtnNode, btn);
+      } else {
+        rmActiveAccordion([...mainBtns, ...otherBtns]);
+      }
+    };
+    // Remove Eventlisteners for already (if any) created buttons
+    [...mainBtns].forEach((mainBtn) => {
+      mainBtn.removeEventListener('click', accordionCallback);
+    });
+    // Add Eventlisteners to dynamically created buttons
+    [...mainBtns].forEach((mainBtn) => {
+      mainBtn.addEventListener('click', accordionCallback);
+    });
+  };
+
+  const editBtnListeners = (editBtns) => {
+    // Callback function for editing Parcel Destination
+    const editCallback = (e) => {
+      const node = e.target;
+      parcelId = node.parentNode.parentNode.parentNode.children[0].children[2].innerHTML;
+      presentLocationInputNode = node.parentNode.previousElementSibling.children[2].children[2].value;
+      updateParcel(node, parcelId, presentLocationInputNode);
+    };
+    // Remove Eventlisteners for already (if any) created buttons
+    [...editBtns].forEach((editBtn) => {
+      editBtn.removeEventListener('click', editCallback);
+    });
+    // Add Eventlisteners to dynamically created buttons
+    [...editBtns].forEach((editBtn) => {
+      editBtn.addEventListener('click', editCallback);
     });
   };
 

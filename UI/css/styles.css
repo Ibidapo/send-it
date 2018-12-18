@@ -90,6 +90,9 @@ body {
 .green {
   color: green;
 }
+.yellow {
+  color: #ffc107;
+}
 .not-allowed {
   color: grey;
   cursor: not-allowed !important;
