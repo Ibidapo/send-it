@@ -90,6 +90,9 @@ body {
 .green {
   color: green;
 }
+.yellow {
+  color: #ffc107;
+}
 .not-allowed {
   color: grey;
   cursor: not-allowed !important;
@@ -531,17 +534,19 @@ footer > .w-60 {
     line-height: 50px;
   }
   .main-header > #list {
-    padding-bottom: 1rem;
+    padding: 0 0.5rem 1rem 0.5rem;
   }
   .main-header > a > .logo {
     padding: 1rem;
   }
-  #menu {
-    display: block;
-  }
-  #list, .main-header > #list {
+  #list {
     display: none;
+  }
+  .main-header > #list {
     float: none;
+  }
+  #menu, .user-header > #list {
+    display: block;
   }
   .main-header > #list > ul > li{
     display: list-item;

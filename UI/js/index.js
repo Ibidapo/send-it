@@ -77,17 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     registerForm.classList.remove('active');
   });
 
-  // menu button transitions and toggles list item
-  menuBtn.addEventListener('click', () => {
-    if (menuBtn.classList.contains('active')) {
-      menuBtn.classList.remove('active');
-      tabList.classList.remove('active');
-    } else {
-      menuBtn.classList.add('active');
-      tabList.classList.add('active');
-    }
-  });
-
   [...passwordBtns].forEach((passwordBtn) => {
     passwordBtn.addEventListener('click', () => {
       if (passwordBtn.classList.contains('fa-eye-slash')) {

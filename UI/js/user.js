@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkStatus = (status) => {
     if (status === 'In Transit') {
       return `
-        <a title="Click to cancel" class="red cancel-parcel"><i class="fas fa-times"></i></a>
-        <a title="Click to edit" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
+        <a title="Cancel Order" class="red cancel-parcel"><i class="fas fa-times"></i></a>
+        <a title="Edit Order" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
     }
     return `
     <a class="not-allowed"><i class="fas fa-times"></i></a>
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="w-20"><span>${parcel.created}</span></div>
       <div class="w-20 icon d-flex space-evenly">
         ${checkStatus(parcel.status)}
-        <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>
+        <a title="View Order" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>
       </div>
       <div class="w-100 parcel-info d-flex my-1 mx-auto text-left">
         <div class="w-50">
@@ -151,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
       const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
       
-      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
-      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
+      accordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
+      accordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
       editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Function to fetch Parcels
-  const updatefetchParcel = (el, parcelId, destination) => {
+  // Function to update a specific Parcels
+  const updateParcel = (el, parcelId, destination) => {
     fetch(`https://travissend-it.herokuapp.com/api/v1/parcels/${parcelId}/destination`, { 
       method: 'PUT',
       headers,
@@ -173,7 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((data) => {
       const { success, parcel } = data;
       const element = el.parentNode.previousElementSibling.children[1];
-      console.log(element)
+      
+      if (modal.children[0].classList.contains('alert-error')) {
+        modal.children[0].classList.remove('alert-error');
+      }
+
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
@@ -181,6 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
       element.children[2].value = parcel.recipient_address;
     })
     .catch((errors) => {
+      if (modal.children[0].classList.contains('alert-success')) {
+        modal.children[0].classList.remove('alert-success');
+      }
+
       modal.classList.add('active');
       modal.children[0].classList.add('alert-error');
       modal.children[0].children[1].innerHTML = errors.error;
@@ -188,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Administer eventlisteners to expand/destination of Accordions
-  const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
+  const accordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
     // Function to removing active buttons in accordions
     const rmActiveAccordion = (btns) => {
       btns
@@ -233,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const node = e.target;
       parcelId = node.parentNode.parentNode.parentNode.children[0].children[2].innerHTML;
       addressInputNode = node.parentNode.previousElementSibling.children[1].children[2].value;
-      updatefetchParcel(node, parcelId, addressInputNode);
+      updateParcel(node, parcelId, addressInputNode);
     };
     // Remove Eventlisteners for already (if any) created buttons
     [...editBtns].forEach((editBtn) => {
