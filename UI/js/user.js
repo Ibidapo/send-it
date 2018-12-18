@@ -151,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
       const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
       
-      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
-      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
+      accordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
+      accordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
       editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
@@ -173,7 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((data) => {
       const { success, parcel } = data;
       const element = el.parentNode.previousElementSibling.children[1];
-      console.log(element)
+      
+      if (modal.children[0].classList.contains('alert-error')) {
+        modal.children[0].classList.remove('alert-error');
+      }
+
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
@@ -181,6 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
       element.children[2].value = parcel.recipient_address;
     })
     .catch((errors) => {
+      if (modal.children[0].classList.contains('alert-success')) {
+        modal.children[0].classList.remove('alert-success');
+      }
+
       modal.classList.add('active');
       modal.children[0].classList.add('alert-error');
       modal.children[0].children[1].innerHTML = errors.error;
@@ -188,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Administer eventlisteners to expand/destination of Accordions
-  const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
+  const accordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
     // Function to removing active buttons in accordions
     const rmActiveAccordion = (btns) => {
       btns
