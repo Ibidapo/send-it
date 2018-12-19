@@ -3,6 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // initialize Tab Buttons into variables
+  const dashboardTabBtn = document.getElementById('dashboard-tab-btn');
   const sendTabBtn = document.getElementById('send-tab-btn');
   const sendTabBtn2 = document.getElementById('send-tab-btn-2');
   const viewAllTabBtn = document.getElementById('view-all-tab-btn');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmOrderBtn = document.getElementById('confirm-order-btn');
 
   // initialize Tab into variables
+  const dashboardTab = document.getElementById('dashboard-tab');
   const sendTab = document.getElementById('send-tab');
   const viewAllTab = document.getElementById('view-all-tab');
   const viewPendingTab = document.getElementById('view-pending-tab');
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewProfileTab = document.getElementById('profile-view');
   const createOrderForm = document.getElementById('create-order-form');
   const confirmOrder = document.getElementById('confirm-order');
-  const arrayTab = [sendTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab,
+  const arrayTab = [dashboardTab, sendTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab, dashboardTabBtn,
     sendTabBtn, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
     
   // initialize Confirm Order Input fields as variables;
@@ -307,6 +309,12 @@ document.addEventListener('DOMContentLoaded', () => {
       cancelBtn.addEventListener('click', cancelCallback);
     });
   };
+
+  dashboardTabBtn.addEventListener('click', () => {
+    removeActiveClass(arrayTab);
+    dashboardTabBtn.classList.add('active');
+    dashboardTab.classList.add('active');
+  });
 
   // Event listening for a click event on the Create Tab
   sendTabBtn.addEventListener('click', () => {
