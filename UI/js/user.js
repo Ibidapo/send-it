@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkStatus = (status) => {
     if (status === 'In Transit') {
       return `
-        <a title="Cancel Order" class="red cancel-parcel"><i class="fas fa-times"></i></a>
+        <a title="Cancel Order" class="red cancel-parcel-btn"><i class="fas fa-times"></i></a>
         <a title="Edit Order" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
     }
     return `
@@ -149,10 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const viewExpandBtns = document.getElementsByClassName('view-parcel-info');
       const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
+      const cancelParcelBtns = document.getElementsByClassName('cancel-parcel-btn')
       const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
       
       accordionListeners(viewExpandBtns, editExpandBtns, 'inline', 'none', 'none');
       accordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline', 'block');
+      cancelBtnListeners(cancelParcelBtns);
       editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
@@ -183,6 +185,41 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.children[0].children[1].innerHTML = success;
       element.children[1].innerHTML = parcel.recipient_address;
       element.children[2].value = parcel.recipient_address;
+    })
+    .catch((errors) => {
+      if (modal.children[0].classList.contains('alert-success')) {
+        modal.children[0].classList.remove('alert-success');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-error');
+      modal.children[0].children[1].innerHTML = errors.error;
+    });
+  };
+
+  // Function to cancel a specific Parcels
+  const cancelParcel = (el, parcelId) => {
+    fetch(`https://travissend-it.herokuapp.com/api/v1/parcels/${parcelId}/cancel`, { 
+      method: 'PUT',
+      headers,
+     })
+    .then(validateResponse)
+    .then((data) => {
+      const { success, parcel } = data;
+      const element = el.parentNode.parentNode.parentNode;
+      
+      if (modal.children[0].classList.contains('alert-error')) {
+        modal.children[0].classList.remove('alert-error');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-success');
+      modal.children[0].children[1].innerHTML = success;
+      element.children[1].children[1].innerHTML = parcel.status;
+      element.children[4].children[0].className="not-allowed";
+      element.children[4].children[0].removeAttribute('title');
+      element.children[4].children[1].className="not-allowed";
+      element.children[4].children[1].removeAttribute('title');
     })
     .catch((errors) => {
       if (modal.children[0].classList.contains('alert-success')) {
@@ -250,6 +287,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add Eventlisteners to dynamically created buttons
     [...editBtns].forEach((editBtn) => {
       editBtn.addEventListener('click', editCallback);
+    });
+  };
+
+  // Administer eventlisteners for Cancel Buttons in Accordions
+  const cancelBtnListeners = (cancelBtns) => {
+    // Callback function for editing Parcel Destination
+    const cancelCallback = (e) => {
+      const node = e.target;
+      parcelId = node.parentNode.parentNode.parentNode.children[0].children[2].innerHTML;
+      cancelParcel(node, parcelId);
+    };
+    // Remove Eventlisteners for already (if any) created buttons
+    [...cancelBtns].forEach((cancelBtn) => {
+      cancelBtn.removeEventListener('click', cancelCallback);
+    });
+    // Add Eventlisteners to dynamically created buttons
+    [...cancelBtns].forEach((cancelBtn) => {
+      cancelBtn.addEventListener('click', cancelCallback);
     });
   };
 
