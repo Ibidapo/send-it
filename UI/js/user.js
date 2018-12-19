@@ -310,27 +310,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Event listening for a click on the 'Dashboard' button 
   dashboardTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     dashboardTabBtn.classList.add('active');
     dashboardTab.classList.add('active');
   });
 
-  // Event listening for a click event on the Create Tab
+  // Event listening for a click event on the 'Create' button
   sendTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     sendTabBtn.classList.add('active');
     sendTab.classList.add('active');
   });
 
-  // Event listening for a click event on the + button
+  // Event listening for a click event on the '+' button
   sendTabBtn2.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     sendTabBtn.classList.add('active');
     sendTab.classList.add('active');
   });
 
-  // Event listening for a click event on the View All Tab
+  // Event listening for a click event on the 'View All' button
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewAllTabBtn.classList.add('active');
@@ -339,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('all', 'view-all-success', 'view-all-error', viewAllBox);
   });
 
-  // Event listening for a click event on the View Pending Tab
+  // Event listening for a click event on the 'View Pending' button
   viewPendingTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewPendingTabBtn.classList.add('active');
@@ -348,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('In Transit', 'view-pending-success', 'view-pending-error', viewPendingBox);
   });
 
-  // Event listening for a click event on the View Delivered Tab
+  // Event listening for a click event on the 'View Delivered' button
   viewDeliveredTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewDeliveredTabBtn.classList.add('active');
@@ -357,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('Delivered', 'view-delivered-success', 'view-delivered-error', viewDeliveredBox);
   });
 
-  // Event listening for a click event on the Profile Tab
+  // Event listening for a click event on the 'Profile' button
   profileTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     profileTabBtn.classList.add('active');
