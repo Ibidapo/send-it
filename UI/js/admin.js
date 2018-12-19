@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkStatus = (status) => {
     if (status === 'In Transit') {
       return `
-        <a title="Deliver Order" class="yellow cancel-parcel"><i class="fas fa-check-square"></i></a>
+        <a title="Deliver Order" class="yellow deliver-parcel-btn"><i class="fas fa-check-square"></i></a>
         <a title="Edit Order" class="blue edit-parcel-info"><i class="fas fa-pencil-alt"></i></a>`;
     }
     return `
@@ -132,10 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const viewExpandBtns = document.getElementsByClassName('view-parcel-info');
       const editExpandBtns = document.getElementsByClassName('edit-parcel-info');
+      const deliverParcelBtns = document.getElementsByClassName('deliver-parcel-btn');
       const editParcelBtns = document.getElementsByClassName('edit-parcel-button');
       
-      addAccordionListeners(viewExpandBtns, editExpandBtns, 'inline-block', 'none', 'none');
-      addAccordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline-block', 'block');
+      accordionListeners(viewExpandBtns, editExpandBtns, 'inline-block', 'none', 'none');
+      accordionListeners(editExpandBtns, viewExpandBtns, 'none', 'inline-block', 'block');
+      deliverBtnListeners(deliverParcelBtns);
       editBtnListeners(editParcelBtns);
     })
     .catch((errors) => {
@@ -178,8 +180,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Function to cancel a specific Parcels
+  const deliverParcel = (el, parcelId, status) => {
+    fetch(`https://travissend-it.herokuapp.com/api/v1/parcels/${parcelId}/status`, { 
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ status }),
+     })
+    .then(validateResponse)
+    .then((data) => {
+      const { success, parcel } = data;
+      const element = el.parentNode.parentNode.parentNode;
+      
+      if (modal.children[0].classList.contains('alert-error')) {
+        modal.children[0].classList.remove('alert-error');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-success');
+      modal.children[0].children[1].innerHTML = success;
+      element.children[1].children[1].innerHTML = parcel.status;
+      element.children[4].children[0].className="not-allowed";
+      element.children[4].children[0].removeAttribute('title');
+      element.children[4].children[1].className="not-allowed";
+      element.children[4].children[1].removeAttribute('title');
+    })
+    .catch((errors) => {
+      if (modal.children[0].classList.contains('alert-success')) {
+        modal.children[0].classList.remove('alert-success');
+      }
+
+      modal.classList.add('active');
+      modal.children[0].classList.add('alert-error');
+      modal.children[0].children[1].innerHTML = errors.error;
+    });
+  };
+
   // Administer eventlisteners to expand/destination of Accordions
-  const addAccordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
+  const accordionListeners = (mainBtns, otherBtns, txt, input, btn) => {
     // Function to removing active buttons in accordions
     const rmActiveAccordion = (btns) => {
       btns
@@ -232,6 +270,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add Eventlisteners to dynamically created buttons
     [...editBtns].forEach((editBtn) => {
       editBtn.addEventListener('click', editCallback);
+    });
+  };
+
+  // Administer eventlisteners for Cancel Buttons in Accordions
+  const deliverBtnListeners = (deliverBtns) => {
+    // Callback function for editing Parcel Destination
+    const deliverCallback = (e) => {
+      const node = e.target;
+      parcelId = node.parentNode.parentNode.parentNode.children[0].children[2].innerHTML;
+      deliverParcel(node, parcelId, 'Delivered');
+    };
+    // Remove Eventlisteners for already (if any) created buttons
+    [...deliverBtns].forEach((deliverBtn) => {
+      deliverBtn.removeEventListener('click', deliverCallback);
+    });
+    // Add Eventlisteners to dynamically created buttons
+    [...deliverBtns].forEach((deliverBtn) => {
+      deliverBtn.addEventListener('click', deliverCallback);
     });
   };
 
