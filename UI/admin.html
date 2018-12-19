@@ -23,7 +23,8 @@
     <div class="px-1" id="list">
       <h3>Admin</h3>
       <ul>
-        <li><a href="#" class="active" id="view-all-tab-btn">View All</a></li>
+        <li><a href="#" class="active" id="dashboard-tab-btn">Dashboard</a></li>
+        <li><a href="#" id="view-all-tab-btn">View All</a></li>
         <li><a href="#" id="view-pending-tab-btn">View Pending</a></li>
         <li><a href="#" id="view-delivered-tab-btn">View Delivered</a></li>
       </ul>
@@ -45,8 +46,30 @@
       </ul>
     </div>
   </header>
+  <!-- Tab contain Admin dashboard -->
+  <div class="main-content active" id="dashboard-tab">
+      <h2 class="text-center">Application Dashboard</h2>
+      <div class="d-flex space-evenly w-90 mx-auto">
+        <div class="dashboard-box my-1 white text-center">
+          <div>130</div>
+          <p>All Orders</p>
+        </div>
+        <div class="dashboard-box my-1 white text-center">
+          <div>23</div>
+          <p>Pending Orders</p>
+        </div>
+        <div class="dashboard-box my-1 white text-center">
+          <div>12</div>
+          <p>Cancelled Orders</p>
+        </div>
+        <div class="dashboard-box my-1 white text-center">
+          <div>95</div>
+          <p>Delivered Orders</p>
+        </div>
+      </div>
+    </div>
   <!-- Tab containing all parcel delivery orders created on the Application -->
-  <div class="main-content active" id="view-all-tab">
+  <div class="main-content" id="view-all-tab">
     <h2 class="text-center">View All (Parcel Delivery Order)</h2>
     <div class="alert-error mx-auto text-center mt-1" id="view-all-error"></div>  
     <div class="alert-success mx-auto text-center mt-1" id="view-all-success"></div>

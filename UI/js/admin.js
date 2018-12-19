@@ -3,6 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // initialize Tab Buttons into variables
+  const dashboardTabBtn = document.getElementById('dashboard-tab-btn');
   const viewAllTabBtn = document.getElementById('view-all-tab-btn');
   const viewPendingTabBtn = document.getElementById('view-pending-tab-btn');
   const viewDeliveredTabBtn = document.getElementById('view-delivered-tab-btn');
@@ -11,13 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveProfileBtn = document.getElementById('save-profile');
 
   // initialize Tab into variables
+  const dashboardTab = document.getElementById('dashboard-tab');
   const viewAllTab = document.getElementById('view-all-tab');
   const viewPendingTab = document.getElementById('view-pending-tab');
   const viewDeliveredTab = document.getElementById('view-delivered-tab');
   const profileTab = document.getElementById('profile-tab');
   const editProfileTab = document.getElementById('profile-form');
   const viewProfileTab = document.getElementById('profile-view');
-  const arrayTab = [viewAllTab, viewPendingTab, viewDeliveredTab, profileTab, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
+  const arrayTab = [dashboardTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab, dashboardTabBtn, viewAllTabBtn, viewPendingTabBtn, viewDeliveredTabBtn, profileTabBtn];
 
   // Initialize containers for dynamically generated parcel box
   const viewAllBox = document.getElementById('view-all-box');
@@ -291,7 +293,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Event listening for a click event on the View All Tab
+  // Event listening for a click event on the 'Dasboard' button
+  dashboardTabBtn.addEventListener('click', () => {
+    removeActiveClass(arrayTab);
+    dashboardTabBtn.classList.add('active');
+    dashboardTab.classList.add('active');
+  });
+
+  // Event listening for a click event on the 'View All' button
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewAllTabBtn.classList.add('active');
@@ -300,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('all', 'view-all-success', 'view-all-error', viewAllBox);
   });
 
-  // Event listening for a click event on the View Pending Tab
+  // Event listening for a click event on the 'View Pending' button
   viewPendingTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewPendingTabBtn.classList.add('active');
@@ -309,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('In Transit', 'view-pending-success', 'view-pending-error', viewPendingBox);
   });
 
-  // Event listening for a click event on the View Delivered Tab
+  // Event listening for a click event on the 'View Delivered' button
   viewDeliveredTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     viewDeliveredTabBtn.classList.add('active');
@@ -318,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchParcels('Delivered', 'view-delivered-success', 'view-delivered-error', viewDeliveredBox);
   });
 
-  // Event listening for a click event on the Profile Tab
+  // Event listening for a click event on the 'Profile' button
   profileTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
     profileTabBtn.classList.add('active');
