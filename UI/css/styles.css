@@ -335,6 +335,9 @@ input:not([type="checkbox"]):focus {
   min-height: 1rem;
   max-width: 250px;
 } 
+#profile-view > div > div, #profile-form > div > div {
+  padding: 1rem 0;
+}
 
 /* Styling for Button */
 button {
@@ -447,7 +450,7 @@ button:disabled {
 
 /* Styling for Dashboard */
 .dashboard-box {
-  background: #4a08ef;
+  background: linear-gradient(125deg, rgba(74,8,239,1) 0%, rgba(255,193,7,0.75) 100%);
   width: 35%;
   height: 200px;
   border-radius: 1rem;
@@ -604,6 +607,9 @@ footer > .w-60 {
   }
   .login-box, .login-box > form, .alert-success, .alert-error {
     width: 90%;
+  }
+  #profile-view > div > div, #profile-form > div > div {
+    padding: 0.5rem 0;
   }
   .modal-content {
     width: 80%;
