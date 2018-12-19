@@ -22,8 +22,9 @@
     </div>
     <div class="px-1 pb-1" id="list">
       <h3>My Orders</h3>
-      <ul>
-        <li><a href="#" class="active" id="send-tab-btn">Create</a></li>
+      <ul>  
+        <li><a href="#" class="active" id="dashboard-tab-btn">Dashboard</a></li>
+        <li><a href="#" id="send-tab-btn">Create</a></li>
         <li><a href="#" id="view-all-tab-btn">View All</a></li>
         <li><a href="#" id="view-pending-tab-btn">View Pending</a></li>
         <li><a href="#" id="view-delivered-tab-btn">View Delivered</a></li>
@@ -48,8 +49,30 @@
       </ul>
     </div>
   </header>
+  <!-- Tab contain user dashboard -->
+  <div class="main-content active" id="dashboard-tab">
+    <h2 class="text-center">My Dashboard</h2>
+    <div class="d-flex space-evenly w-90 mx-auto">
+      <div class="dashboard-box my-1 white text-center">
+        <div>30</div>
+        <p>All Orders</p>
+      </div>
+      <div class="dashboard-box my-1 white text-center">
+        <div>3</div>
+        <p>Pending Orders</p>
+      </div>
+      <div class="dashboard-box my-1 white text-center">
+        <div>2</div>
+        <p>Cancelled Orders</p>
+      </div>
+      <div class="dashboard-box my-1 white text-center">
+        <div>25</div>
+        <p>Delivered Orders</p>
+      </div>
+    </div>
+  </div>
   <!-- Tab containing form for creating parcel delivery order -->
-  <div class="main-content active" id="send-tab">
+  <div class="main-content" id="send-tab">
     <h2 class="text-center">Send Parcel</h2>
     <div class="box">
       <form id="create-order-form" class="mx-auto py-1 active">

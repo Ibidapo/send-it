@@ -234,7 +234,7 @@ body {
 
 }
 
-/* Styling for Login Page */
+/* Styling for Login Form */
 .login-box {
   position: relative;
   background: white;
@@ -288,7 +288,7 @@ body {
   width: 320px;
   margin-top: 1rem;
 }
-.login-box > form.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
+.login-box > form.active, #dashboard-tab.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
  #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active, #modal.active {
   display: block;
 }
@@ -313,7 +313,6 @@ input:not([type="checkbox"]){
   border-radius: 0;
   border-width: 0 0 2px 0;
 }
-
 .input-icon input {
   padding-left: 1.75rem;
 }
@@ -379,14 +378,15 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Styling for Dashboard */
+/* Styling for User or Admin Page */
 .side-bar {
   position: fixed;
   background: white;
   top: 0;
   left: 0;
   width: 17.5%;
-  height: 100vh;
+  height: 100%;
+  overflow-y: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 #list {
@@ -420,7 +420,7 @@ button:disabled {
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
-#send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error, #view-all-error, #view-all-success, #view-pending-error, #view-pending-success, #view-delivered-error, #view-delivered-success {
+#dashboard-tab, #send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error, #view-all-error, #view-all-success, #view-pending-error, #view-pending-success, #view-delivered-error, #view-delivered-success {
   display: none;
 }
 .status-report {
@@ -443,6 +443,24 @@ button:disabled {
   border-radius: 50%;
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.25);
   vertical-align: middle;
+}
+
+/* Styling for Dashboard */
+.dashboard-box {
+  background: #4a08ef;
+  width: 35%;
+  height: 200px;
+  border-radius: 1rem;
+  box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
+}
+.dashboard-box > div {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 3rem;
+}
+.dashboard-box > p {
+  font-size: 1.25rem;
+  padding: 0 0.5rem;
 }
 
 /* Styling for Alerts */
@@ -600,6 +618,22 @@ footer > .w-60 {
     width: 100%;
     text-align: center;
   }
+
+  /* Styling for Dashboard */
+  .dashboard-box {
+    width: 40%;
+    height: 175px;
+  }
+  .dashboard-box > div {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 3rem;
+  }
+  .dashboard-box > p {
+    font-size: 1rem;
+  }
+
+  /* Stylign for Map */
   #map {
     height: 300px;
     border-radius: 1rem 1rem 0 0;
