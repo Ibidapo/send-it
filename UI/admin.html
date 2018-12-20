@@ -93,32 +93,35 @@
   <div class="main-content" id="profile-tab">
     <h2 class="text-center">My Profile</h2>
     <div class="box py-1">
-      <br><br>
+      <br>
+      <div class="alert-error mx-auto text-center mt-1" id="profile-error"></div>  
+      <div class="alert-success mx-auto text-center mt-1" id="profile-success"></div>
+      <br>
       <div id="profile-view" class="mx-auto active">
         <div class="d-flex space-evenly">
           <div class="w-40">
             <div class="label">First Name</div>
-            <div class="input">Ibidapo</div>
+            <div class="input"></div>
           </div>
           <div class="w-40">
             <div class="label">Last Name</div>
-            <div class="input">Rasheed</div>
+            <div class="input"></div>
           </div>
           <div class="w-40">
             <div class="label">Mobile Number</div>
-            <div class="input">08012345678</div>
+            <div class="input"></div>
           </div>
           <div class="w-40">
             <div class="label">Email</div>
-            <div class="input">dapo@example.com</div>
+            <div class="input"></div>
           </div>
           <div class="w-40">
             <div class="label">User ID</div>
-            <div class="input"># 1</div>
+            <div class="input"><b>#</b> <b></b></div>
           </div>
           <div class="w-40">
             <div class="label">Joined</div>
-            <div class="input">12/06/2018</div>
+            <div class="input"></div>
           </div>
         </div>
         <br>
@@ -129,28 +132,28 @@
       <form id="profile-form" class="mx-auto">
         <div class="d-flex space-evenly">
           <div class="w-40">
-            <label for="f-name" class="">First Name</label>
-            <input id="f-name" type="text" value="Ibidapo">
+            <label for="first-name" class="">First Name</label>
+            <input type="text" id="first-name">
           </div>
           <div class="w-40">
-            <label for="l-name" class="">Last Name</label>
-            <input id="l-name" type="text" value="Rasheed">
+            <label for="last-name" class="">Last Name</label>
+            <input type="text" id="last-name">
           </div>
           <div class="w-40">
             <label for="mobile" class="">Mobile Number</label>
-            <input id="mobile" type="number" value="08012345678">
+            <input id="mobile" type="profile-tel">
           </div>
           <div class="w-40">
             <div class="label">Email</div>
-            <div class="input">dapo@example.com</div>
+            <div class="input"></div>
           </div>
           <div class="w-40">
             <div class="label">User ID</div>
-            <div class="input"># 1</div>
+            <div class="input"><b>#</b> <b>1</b></div>
           </div>
           <div class="w-40">
             <div class="label">Joined</div>
-            <div class="input">12/06/2018</div>
+            <div class="input"></div>
           </div>
         </div>
         <br>
@@ -171,4 +174,5 @@
   <script src="js/menu.js"></script>
   <script src="js/modal.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/profile.js"></script>
 </body>    
