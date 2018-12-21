@@ -3,6 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize Profile input fields as variables
+  const greeting = document.getElementById('greetings');
   const firstName = document.getElementById('first-name');
   const lastName = document.getElementById('last-name');
   const editProfileBtn = document.getElementById('edit-profile');
@@ -11,6 +12,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // initialize Tab into variables
   const editProfileTab = document.getElementById('profile-form');
   const viewProfileTab = document.getElementById('profile-view');
+  const editProfileFields = editProfileTab.children[0];
+  const viewProfileFields = viewProfileTab.children[0];
+
+  // Function to assign localStorage
+  const profileStorage = (arrs, index, item) => {
+    arrs.forEach((arr) => {
+      arr.children[index].children[1].innerHTML = localStorage.getItem(item);
+    });
+  }
+
+  // Insert User/Admin name if updated
+  if (localStorage.getItem('firstName') !== 'null') {
+    greeting.children[1].innerHTML = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
+    editProfileFields.children[0].children[1].value = localStorage.getItem('firstName');
+    editProfileFields.children[1].children[1].value = localStorage.getItem('lastName');
+    editProfileFields.children[2].children[1].value = 08011223344;
+    profileStorage([viewProfileFields], 0, 'firstName');
+    profileStorage([viewProfileFields], 1, 'lastName');
+    viewProfileFields.children[2].children[1].innerHTML = '08011223344';
+  }
+
+  // profileStorage([viewProfileFields], 2, '08011223344');
+  profileStorage([viewProfileFields, editProfileFields], 3, 'email');
+  profileStorage([viewProfileFields, editProfileFields], 4, 'userId');
+  profileStorage([viewProfileFields, editProfileFields], 5, 'joined');
 
   // Initialize Error or Success Containers
   const errorMsg = document.getElementById('profile-error');
@@ -19,18 +45,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Functions to abstract Fetch API
   const getResult = (data) => {
     const { success, user } = data;
+    const { first_name, last_name } = user;
 
+    localStorage.setItem('firstName', first_name);
+    localStorage.setItem('lastName', last_name);
+    greeting.children[1].innerHTML = `${first_name} ${last_name}`;
+    editProfileFields.children[0].children[1].value = first_name;
+    editProfileFields.children[1].children[1].value = last_name;
+    profileStorage([viewProfileFields], 0, 'firstName');
+    profileStorage([viewProfileFields], 1, 'lastName');
     editProfileTab.classList.remove('active');
     viewProfileTab.classList.add('active');
     errorMsg.classList.remove('active');
     successMsg.classList.add('active');
     successMsg.innerHTML = success;
-    console.log(user);
   }
   const getError = (errors) => {
     errorMsg.classList.add('active');
     successMsg.classList.remove('active');
-    if(errors.error === undefined){
+    if (errors.error === undefined) {
       errorMsg.innerHTML = 'Network connection error occurred';
       return;
     }
@@ -73,14 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstNameVal = firstName.value.trim();
     const lastNameVal = lastName.value.trim();
 
-    if (firstNameVal === '' ||  lastNameVal === '') {
+    if (firstNameVal === '' || lastNameVal === '') {
       errorMsg.classList.add('active');
       successMsg.classList.remove('active');
       errorMsg.innerHTML = 'First or Last name cannot be empty';
       return;
     }
-    updateProfile(firstName.value, lastName.value);
-    ProfileTab.classList.remove('active');
+    updateProfile(firstNameVal, lastNameVal);
+    editProfileTab.classList.remove('active');
     viewProfileTab.classList.add('active');
   });
 });

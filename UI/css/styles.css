@@ -146,7 +146,7 @@ body {
   display: inline-table;
   padding: 0 0.5rem;
 }
-.main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, .greetings {
+.main-header > #list > ul > li:not(:last-child) > a, .user-header > #list > ul > li:not(:last-child) > a, #greetings {
   height: 90px;
   line-height: 90px;
 }
@@ -432,7 +432,7 @@ button:disabled {
 .parcel-box > .icon > a  {
   cursor: pointer;
 }
-.greetings {
+#greetings {
   position: relative;
   color: #4a08ef;
   top: 1rem;
@@ -440,7 +440,7 @@ button:disabled {
   line-height: 0;
   font-size: 1.5rem;
 }
-.greetings img {
+#greetings img {
   height: 60px;
   margin-right: 0.5rem;
   border-radius: 50%;
@@ -586,7 +586,7 @@ footer > .w-60 {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .greetings {
+  #greetings {
     left: 2rem;
     font-size: 1.25rem;
   }
@@ -614,7 +614,7 @@ footer > .w-60 {
   .modal-content {
     width: 80%;
   }
-  .greetings {
+  #greetings {
     display: block;
     left: 0;
     text-align: center;

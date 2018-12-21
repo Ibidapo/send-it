@@ -11,10 +11,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginBtn = document.getElementById('login-btn');
   const passwordBtns = document.getElementsByClassName('password');
 
+  // Function to add active class
+  addActiveClass = (arrs) => {
+    arrs.forEach((arr) => arr.classList.add('active'));
+  }
+
+  // Function to remove active class
+  removeActiveClass = (arrs) => {
+    arrs.forEach((arr) => arr.classList.remove('active'));
+  }
+
   // Functions to abstract Fetch API
   const redirectUser = (result) => {
-    const { token } = result
+    const { token, user } = result;
+    const { user_id, email, first_name, last_name, joined, is_admin } = user;
+
     localStorage.setItem('token', token);
+    localStorage.setItem('userId', user_id );
+    localStorage.setItem('email', email);
+    localStorage.setItem('firstName', first_name);
+    localStorage.setItem('lastName', last_name);
+    localStorage.setItem('joined', joined);
+
+    if (is_admin === true) {
+      window.location.replace('https://ibidapo.github.io/send-it/UI/admin.html');
+      return;
+    }
     window.location.replace('https://ibidapo.github.io/send-it/UI/user.html');
   }
   const displayError = (errors) => {
@@ -45,10 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // This event triggers the register tab and form to be active and visible
   registerTab.addEventListener('click', (event) => {
     event.preventDefault();
-    registerTab.classList.add('active');
-    registerForm.classList.add('active');
-    loginTab.classList.remove('active');
-    loginForm.classList.remove('active');
+    removeActiveClass([loginTab, loginForm]);
+    addActiveClass([registerTab, registerForm]);
   });
 
   // This event triggers the Fetch API to post the user details
@@ -71,10 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // This event triggers the login tab and form to be active and visible
   loginTab.addEventListener('click', (event) => {
     event.preventDefault();
-    loginTab.classList.add('active');
-    loginForm.classList.add('active');
-    registerTab.classList.remove('active');
-    registerForm.classList.remove('active');
+    removeActiveClass([registerTab, registerForm]);
+    addActiveClass([loginTab, loginForm]);
   });
 
   [...passwordBtns].forEach((passwordBtn) => {
