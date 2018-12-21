@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingBox = document.getElementById('view-pending-box');
   const viewDeliveredBox = document.getElementById('view-delivered-box');
 
+  // Initialize Default variable for loccalStorage
+  const userId = localStorage.getItem('userId');
+
   // Initialize all the parcel-box elements
   let parcelInfo;
   let parcelId
@@ -120,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to fetch Parcels
   const fetchParcels = (state, successId, errorId, container) => {
-    fetch('https://travissend-it.herokuapp.com/api/v1/parcels', { headers })
+    fetch(`https://travissend-it.herokuapp.com/api/v1/users/${userId}/parcels`, { headers })
     .then(validateResponse)
     .then((data) => {
       const successMsg = document.getElementById(successId);

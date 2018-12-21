@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('firstName', first_name);
     localStorage.setItem('lastName', last_name);
     localStorage.setItem('joined', joined);
+    localStorage.setItem('isAdmin', is_admin);
 
     if (is_admin === true) {
       window.location.replace('https://ibidapo.github.io/send-it/UI/admin.html');

@@ -4,8 +4,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize Profile input fields as variables
   const greeting = document.getElementById('greetings');
-  const firstName = document.getElementById('first-name');
-  const lastName = document.getElementById('last-name');
+  const firstNameInput = document.getElementById('first-name');
+  const lastNameInput = document.getElementById('last-name');
   const editProfileBtn = document.getElementById('edit-profile');
   const saveProfileBtn = document.getElementById('save-profile');
 
@@ -22,11 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Initialize variables with name contents in localStorage
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
+
   // Insert User/Admin name if updated
   if (localStorage.getItem('firstName') !== 'null') {
-    greeting.children[1].innerHTML = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
-    editProfileFields.children[0].children[1].value = localStorage.getItem('firstName');
-    editProfileFields.children[1].children[1].value = localStorage.getItem('lastName');
+    greeting.children[1].innerHTML = `${firstName} ${lastName}`;
+    editProfileFields.children[0].children[1].value = firstName;
+    editProfileFields.children[1].children[1].value = lastName;
     editProfileFields.children[2].children[1].value = 08011223344;
     profileStorage([viewProfileFields], 0, 'firstName');
     profileStorage([viewProfileFields], 1, 'lastName');
@@ -103,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // To view Profile Tab
   saveProfileBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    const firstNameVal = firstName.value.trim();
-    const lastNameVal = lastName.value.trim();
+    const firstNameVal = firstNameInput.value.trim();
+    const lastNameVal = lastNameInput.value.trim();
 
     if (firstNameVal === '' || lastNameVal === '') {
       errorMsg.classList.add('active');
