@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingTabBtn = document.getElementById('view-pending-tab-btn');
   const viewDeliveredTabBtn = document.getElementById('view-delivered-tab-btn');
   const profileTabBtn = document.getElementById('profile-tab-btn');
-  const editProfileBtn = document.getElementById('edit-profile');
-  const saveProfileBtn = document.getElementById('save-profile');
   const createOrderBtn = document.getElementById('create-order-btn');
   const confirmOrderBtn = document.getElementById('confirm-order-btn');
 
@@ -22,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewPendingTab = document.getElementById('view-pending-tab');
   const viewDeliveredTab = document.getElementById('view-delivered-tab');
   const profileTab = document.getElementById('profile-tab');
-  const editProfileTab = document.getElementById('profile-form');
-  const viewProfileTab = document.getElementById('profile-view');
   const createOrderForm = document.getElementById('create-order-form');
   const confirmOrder = document.getElementById('confirm-order');
   const arrayTab = [dashboardTab, sendTab, viewAllTab, viewPendingTab, viewDeliveredTab, profileTab, dashboardTabBtn,
@@ -363,18 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
     removeActiveClass(arrayTab);
     profileTabBtn.classList.add('active');
     profileTab.classList.add('active');
-  });
-
-  // To edit Profile Tab
-  editProfileBtn.addEventListener('click', () => {
-    editProfileTab.classList.add('active');
-    viewProfileTab.classList.remove('active');
-  });
-
-  // To view Profile Tab
-  saveProfileBtn.addEventListener('click', () => {
-    viewProfileTab.classList.add('active');
-    editProfileTab.classList.remove('active');
   });
 
   // To create order
