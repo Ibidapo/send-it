@@ -87,6 +87,25 @@ API endpoint to update present location of a parcel order
 https://travissend-it.herokuapp.com/api/v1/parcels/:id/presentLocation
 ```
 
+API endpoint to update user information
+```
+https://travissend-it.herokuapp.com/api/v1/users
+```
+
+API endpoint to verify email for forgot password
+```
+https://travissend-it.herokuapp.com/api/v1/auth/forgotPassword
+```
+
+API endpoint to reset password
+```
+https://travissend-it.herokuapp.com/api/v1/auth/resetPassword
+```
+
+API endpoint to render reset password form
+```
+https://travissend-it.herokuapp.com/api/v1/auth/resetPassword/:token
+```
 
 ## Built With
 
@@ -98,6 +117,9 @@ https://travissend-it.herokuapp.com/api/v1/parcels/:id/presentLocation
 * [Mocha](http://mochajs.org) - Javascript test framework
 * [Supertest](https://github.com/visionmedia/supertest) - Super agent driven library for testing node http servers
 * [Jest](https://jestjs.io/) - Expect Assertion library for testing
+* [JWT](https://jwt.io/) - JSON Web Token for securely transmitting information between parties as a JSON object.
+* [Nodemailer](https://nodemailer.com/) -  a module for Node.js applications to allow easy as cake email sending. 
+* [ElephantSQL](https://www.elephantsql.com/) - PostgreSQL database hosting service.
 
 ## Author
 
