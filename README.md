@@ -102,6 +102,11 @@ API endpoint to reset password
 https://travissend-it.herokuapp.com/api/v1/auth/resetPassword
 ```
 
+API endpoint to render reset password form
+```
+https://travissend-it.herokuapp.com/api/v1/auth/resetPassword/:token
+```
+
 ## Built With
 
 * [Express](https://expressjs.com/) - The web framework used
