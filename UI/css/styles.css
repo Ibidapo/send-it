@@ -289,7 +289,7 @@ body {
   margin-top: 1rem;
 }
 .login-box > form.active, #dashboard-tab.active, #send-tab.active, #view-all-tab.active, #view-pending-tab.active,
- #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active, #profile-error.active, #profile-success.active, #modal.active, #dashboard-error.active {
+ #view-delivered-tab.active, #profile-tab.active, #profile-view.active, #profile-form.active, #list.active, #create-order-form.active, #sign-error.active, #send-error.active, #confirm-success.active, #confirm-error.active, #view-all-error.active, #view-all-success.active, #view-pending-error.active, #view-pending-success.active,  #view-delivered-error.active, #view-delivered-success.active, #profile-error.active, #profile-success.active, #modal.active, #dashboard-error.active, #reset-error.active, #reset-success.active {
   display: block;
 }
 .box > form, .parcel-box, #profile-view {
@@ -423,7 +423,7 @@ button:disabled {
   box-shadow:0 2px 8px 0px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
 }
-#dashboard-tab, #send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error, #view-all-error, #view-all-success, #view-pending-error, #view-pending-success, #view-delivered-error, #view-delivered-success, #profile-error, #profile-success, #dashboard-error {
+#dashboard-tab, #send-tab, #view-all-tab, #view-pending-tab, #view-delivered-tab, #profile-tab, .parcel-info, #profile-view, #profile-form, #create-order-form, #sign-error, #send-error, #confirm-order, #confirm-success, #confirm-error, #view-all-error, #view-all-success, #view-pending-error, #view-pending-success, #view-delivered-error, #view-delivered-success, #profile-error, #profile-success, #dashboard-error, #reset-error, #reset-success {
   display: none;
 }
 .status-report {
@@ -523,6 +523,17 @@ button:disabled {
 #modal-close:hover, #modal-close:focus {
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Styling for Password Reset Page */
+.reset-page {
+  background: linear-gradient(125deg, rgba(74,8,239,1) 0%, rgba(255,193,7,0.75) 100%);
+  background-size: cover;
+  height: 100vh;
+}
+.reset-page > .login-box {
+  top: 100px;
+  margin-bottom: 3rem;
 }
 
 /* Styling for Footer */
