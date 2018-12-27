@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const editProfileFields = editProfileTab.children[0];
   const viewProfileFields = viewProfileTab.children[0];
 
+  // Initialize Avatar form
+  const avatarForm = document.forms.namedItem('avatar-form');
+
   // Function to assign localStorage
   const profileStorage = (arrs, index, item) => {
     arrs.forEach((arr) => {
@@ -25,10 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize variables with name contents in localStorage
   const firstName = localStorage.getItem('firstName');
   const lastName = localStorage.getItem('lastName');
+  const avatar = localStorage.getItem('avatar')
 
-  // Insert User/Admin name if updated
-  if (localStorage.getItem('firstName') !== 'null') {
-    greeting.children[1].innerHTML = `${firstName} ${lastName}`;
+  // Check for avatar url in localStorage
+  if (avatar !== 'null') {
+    greeting.children[1].src = `${avatar}`;
+  }
+
+  // Check for firstName in localStorage
+  if (firstName !== 'null') {
+    greeting.children[2].innerHTML = `${firstName} ${lastName}`;
     editProfileFields.children[0].children[1].value = firstName;
     editProfileFields.children[1].children[1].value = lastName;
     editProfileFields.children[2].children[1].value = 08011223344;
@@ -53,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     localStorage.setItem('firstName', first_name);
     localStorage.setItem('lastName', last_name);
-    greeting.children[1].innerHTML = `${first_name} ${last_name}`;
+    greeting.children[2].innerHTML = `${first_name} ${last_name}`;
     editProfileFields.children[0].children[1].value = first_name;
     editProfileFields.children[1].children[1].value = last_name;
     profileStorage([viewProfileFields], 0, 'firstName');
@@ -64,6 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
     successMsg.classList.add('active');
     successMsg.innerHTML = success;
   }
+  const getImage = (data) => {
+    const { success, user } = data;
+
+    greeting.children[1].src = `${user.image_url}`;
+    localStorage.setItem('avatar', user.image_url);
+    if (modal.children[0].classList.contains('alert-error')) {
+      modal.children[0].classList.remove('alert-error');
+    }
+
+    modal.classList.add('active');
+    modal.children[0].classList.add('alert-success');
+    modal.children[0].children[1].innerHTML = success;
+  }
   const getError = (errors) => {
     errorMsg.classList.add('active');
     successMsg.classList.remove('active');
@@ -72,6 +94,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     errorMsg.innerHTML = errors.error;
+  }
+  const getImageError = (errors) => {
+    if (modal.children[0].classList.contains('alert-success')) {
+      modal.children[0].classList.remove('alert-success');
+    }
+
+    modal.classList.add('active');
+    modal.children[0].classList.add('alert-error');
+    modal.children[0].children[1].innerHTML = errors.error;
   }
   const validateResponse = (response) => {
     return response.json()
@@ -96,6 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(getResult)
     .catch(getError);
   }
+
+  // To upload avatar
+  avatarForm.addEventListener('change', () => {
+    console.log('File input was clicked');
+    const form = new FormData(avatarForm);
+
+    fetch('https://travissend-it.herokuapp.com/api/v1/users/avatar', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: form,
+    })
+    .then(validateResponse)
+    .then(getImage)
+    .catch(getImageError);
+  })
   
   // To edit Profile Tab
   editProfileBtn.addEventListener('click', (event) => {

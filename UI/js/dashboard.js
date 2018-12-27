@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dashboardBox[2].children[0].innerHTML = cancelledParcels;
     dashboardBox[3].children[0].innerHTML = deliveredParcels;
   }
+
   const getError = (errors) => {
     errorMsg.classList.add('active');
     if (errors.error === undefined) {
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'Authorization': `Bearer ${localStorage.getItem('token')}`,
   };
 
-  // Function to 
+  // Function to fetch parcel information
   const fetchParcelInfo = (url) => {
     fetch(url, { headers })
     .then(validateResponse)
