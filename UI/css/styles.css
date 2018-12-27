@@ -338,6 +338,16 @@ input:not([type="checkbox"]):focus {
 #profile-view > div > div, #profile-form > div > div {
   padding: 1rem 0;
 }
+#greetings > form {
+  display: inline-block;
+  position: absolute;
+  line-height: 60px;
+  width: 200px;
+  opacity: 0;
+}
+input[type=file], input[type=file]::-webkit-file-upload-button {
+  cursor: pointer; 
+}
 
 /* Styling for Button */
 button {

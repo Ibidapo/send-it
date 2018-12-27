@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Functions to abstract Fetch API
   const redirectUser = (result) => {
     const { token, user } = result;
-    const { user_id, email, first_name, last_name, joined, is_admin } = user;
+    const { user_id, email, first_name, last_name, joined, is_admin, image_url } = user;
 
     localStorage.setItem('token', token);
     localStorage.setItem('userId', user_id );
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('lastName', last_name);
     localStorage.setItem('joined', joined);
     localStorage.setItem('isAdmin', is_admin);
+    localStorage.setItem('avatar', image_url);
 
     if (is_admin === true) {
       window.location.replace('https://ibidapo.github.io/send-it/UI/admin.html');

@@ -39,7 +39,13 @@
   </div>
   <!-- Header for Dashboarder -->
   <header class="user-header px-2">
-    <span id="greetings"><img src="images/user.png" alt="user avatar"><span>Howdy!</span></span>
+    <span id="greetings">
+      <form name="avatar-form" enctype="multipart/form-data">
+        <input type="file" name="avatar" title="Upload Avatar" accept=".png, .jpg, .jpeg" />
+      </form>
+      <img src="images/user.png" alt="user avatar">
+      <span>Howdy!</span>
+    </span>
     <div id="list">
       <ul class="m-0">
         <li>
