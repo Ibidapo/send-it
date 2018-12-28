@@ -82,7 +82,7 @@
   <div class="main-content" id="send-tab">
     <h2 class="text-center">Send Parcel</h2>
     <div class="box">
-      <form id="create-order-form" class="mx-auto py-1 active">
+      <div id="create-order-form" class="w-90 mx-auto py-1 active">
         <br>
         <div class="alert-error mx-auto text-center" id="send-error"></div> 
         <div><h3>From</h1></div>
@@ -112,7 +112,7 @@
         <div class="text-center py-1">
           <button id="create-order-btn">Create Order</button>
         </div>
-      </form>
+      </div>
       <div id="confirm-order" class="d-flex mx-auto">
         <div class="w-50">
           <div id="map"></div>
@@ -149,7 +149,8 @@
           </div>
           <br>
           <div class="text-center py-1">
-            <button id="confirm-order-btn">Confirm Order</button>
+            <button class="mx-1" id="cancel-order-btn">Go Back</button>
+            <button class="mx-1" id="confirm-order-btn">Confirm Order</button>
           </div>
         </div>
       </div>
@@ -264,6 +265,6 @@
   <script src="js/dashboard.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/user.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnu0RsjnKPO6CqZ8-Uj9dXy62hvq3_Y9I"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnu0RsjnKPO6CqZ8-Uj9dXy62hvq3_Y9I&libraries=places"></script>
 </body>    
 </html>
