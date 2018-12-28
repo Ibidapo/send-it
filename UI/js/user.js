@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="parcel-box d-flex space-between mx-auto text-center">
       <div class="w-20"><span>Order:</span> <b>#</b> <b>${parcel.parcel_id}</b></div>
       <div class="w-20"><span>Status:</span> <b>${parcel.status}</b></div>
-      <div class="w-20"><span>Quote:</span> <b>&#8358; -----</b></div>
-      <div class="w-20"><span>${parcel.created}</span></div>
+      <div class="w-20"><span>Quote:</span> <b>&#8358;</b> ${parcel.quote}</b></div>
+      <div class="w-20"><span>${parcel.created_on}</span></div>
       <div class="w-20 icon d-flex space-evenly">
         ${checkStatus(parcel.status)}
         <a title="View Order" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>
@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="w-100 parcel-info d-flex my-1 mx-auto text-left">
         <div class="w-50">
           <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.sender_address}</b></div>
+          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.origin}</b></div>
           <div class="w-90 mt-05"><span>Weight</span> <b>${parcel.parcel_kg}kg</b></div>
         </div>
         <div class="w-50">
           <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
           <div class="w-100 mt-05">
-            <span>Address:</span> <b class="address-tag">${parcel.recipient_address}</b>
-            <input type="text" value="${parcel.recipient_address}">
+            <span>Address:</span> <b class="address-tag">${parcel.destination}</b>
+            <input type="text" value="${parcel.destination}">
           </div>
           <div class="w-100 mt-05"><span>Present Location:</span> <b>${parcel.present_location}</b></div>
           <div class="w-100 mt-05"><span>Phone:</span> <b>${parcel.recipient_phone}</b></div>
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
      })
     .then(validateResponse)
     .then((data) => {
-      const { success, parcel } = data;
+      const { success, parcels } = data;
       const element = el.parentNode.previousElementSibling.children[1];
       
       if (modal.children[0].classList.contains('alert-error')) {
@@ -184,8 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
-      element.children[1].innerHTML = parcel.recipient_address;
-      element.children[2].value = parcel.recipient_address;
+      element.children[1].innerHTML = parcels.destination;
+      element.children[2].value = parcels.destination;
     })
     .catch((errors) => {
       if (modal.children[0].classList.contains('alert-success')) {
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
      })
     .then(validateResponse)
     .then((data) => {
-      const { success, parcel } = data;
+      const { success, parcels } = data;
       const element = el.parentNode.parentNode.parentNode;
       
       if (modal.children[0].classList.contains('alert-error')) {
@@ -216,7 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
-      element.children[1].children[1].innerHTML = parcel.status;
+      element.children[1].children[1].innerHTML = parcels.status;
+      console.log(element.children[4].children[0]);
       element.children[4].children[0].className="not-allowed";
       element.children[4].children[0].removeAttribute('title');
       element.children[4].children[1].className="not-allowed";
@@ -229,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       modal.classList.add('active');
       modal.children[0].classList.add('alert-error');
-      modal.children[0].children[1].innerHTML = errors.error;
+      modal.children[0].children[1].innerHTML = errors;
     });
   };
 
@@ -367,10 +368,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // To create order
   createOrderBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    const fromAddress = document.getElementById('from-address').value;
-    const toAddress = document.getElementById('to-address').value;
-    const parcelKg = document.getElementById('parcel-kg').value;
-    const toPhone = document.getElementById('to-phone').value;
+    const fromAddress = document.getElementById('from-address').value.trim();
+    const toAddress = document.getElementById('to-address').value.trim();
+    const parcelKg = document.getElementById('parcel-kg').value.trim();
+    const toPhone = document.getElementById('to-phone').value.trim();
     let errorDiv = document.getElementById('send-error');
     const phoneRegex = /^\d{11}$/;
     const weightRegex = /^\d+\.?\d*$/;
@@ -398,6 +399,10 @@ document.addEventListener('DOMContentLoaded', () => {
     destination.innerHTML = toAddress;
     weight.innerHTML = parcelKg;
     phone.innerHTML = toPhone;
+    sessionStorage.setItem('origin', fromAddress);
+    sessionStorage.setItem('destination', toAddress);
+    sessionStorage.setItem('parcelKg', parcelKg);
+    sessionStorage.setItem('toPhone', toPhone);
 
     let map;
     let marker;
@@ -423,7 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
           var results = response.rows[0].elements[0];
           distanceVal = results.distance.value;
           distance.innerHTML = results.distance.text;
-          quote.innerHTML = ((distanceVal / 1000) * 70) + (parcelKg * 20);
+          quoteVal = Math.ceil(((distanceVal / 1000) * 70) + (parcelKg * 20));
+          quote.innerHTML = quoteVal;
+          sessionStorage.setItem('quote', quoteVal);
          }
       });
     }
@@ -467,10 +474,11 @@ document.addEventListener('DOMContentLoaded', () => {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        origin: origin.innerHTML, 
-        destination: destination.innerHTML,
-        parcelKg: weight.innerHTML,
-        toPhone: phone.innerHTML,
+        origin: sessionStorage.getItem('origin'), 
+        destination: sessionStorage.getItem('destination'),
+        parcelKg: sessionStorage.getItem('parcelKg'),
+        toPhone: sessionStorage.getItem('toPhone'),
+        quote: sessionStorage.getItem('quote'),
       }),
     })
     .then(validateResponse)

@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // To upload avatar
   avatarForm.addEventListener('change', () => {
-    console.log('File input was clicked');
     const form = new FormData(avatarForm);
 
     fetch('https://travissend-it.herokuapp.com/api/v1/users/avatar', {
