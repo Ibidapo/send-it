@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   logoutBtn.addEventListener('click', () => {
     localStorage.clear();
+    sessionStorage.clear();
     window.location.replace('https://ibidapo.github.io/send-it/UI/');
   });
 });

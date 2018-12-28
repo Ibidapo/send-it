@@ -5,11 +5,11 @@
   <title>SendIT - Admin Dashboard</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <!-- <script>
-    if (!localStorage.getItem('token')) {
+  <script>
+    if (!localStorage.getItem('token') || localStorage.getItem('isAdmin') !== 'true') {
       window.location.replace('https://ibidapo.github.io/send-it/UI/');
     }
-  </script> -->
+  </script>
 </head>
 <body>
   <!-- Sidebar with links for activating the Tabs below -->

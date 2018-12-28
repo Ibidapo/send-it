@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="parcel-box d-flex space-between mx-auto text-center">
       <div class="w-20"><span>Order:</span> <b>#</b> <b>${parcel.parcel_id}</b></div>
       <div class="w-20"><span>Status:</span> <b>${parcel.status}</b></div>
-      <div class="w-20"><span>Quote:</span> <b>&#8358; -----</b></div>
-      <div class="w-20"><span>${parcel.created}</span></div>
+      <div class="w-20"><span>Quote:</span> <b>&#8358; ${parcel.quote}</b></div>
+      <div class="w-20"><span>${parcel.created_on}</span></div>
       <div class="w-20 icon d-flex space-evenly">
         ${checkStatus(parcel.status)}
         <a title="Click to view" class="green view-parcel-info"><i class="fas fa-caret-down"></i></a>
@@ -82,12 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="w-100 parcel-info d-flex space-start my-1 mx-auto text-left">
         <div class="w-50">
           <div class="w-100"><h4 class="my-05 mb-0">From</h4></div>
-          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.sender_address}</b></div>
+          <div class="w-100 mt-05"><span>User ID:</span> <b>#</b> <b>${parcel.user_id}</b></div>
+          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.origin}</b></div>
           <div class="w-100 mt-05"><span>Weight:</span> <b>${parcel.parcel_kg}kg</b></div>
         </div>
         <div class="w-50">
           <div class="w-100"><h4 class="my-05 mb-0">To</h4></div>
-          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.recipient_address}</b></div>
+          <div class="w-100 mt-05"><span>Address:</span> <b>${parcel.destination}</b></div>
           <div class="w-100 mt-05">
             <span>Present Location:</span> <b>${parcel.present_location}</b>
             <input type="text" value="${parcel.present_location}">
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
      })
     .then(validateResponse)
     .then((data) => {
-      const { success, parcel } = data;
+      const { success, parcels } = data;
       const element = el.parentNode.previousElementSibling.children[2];
       
       if (modal.children[0].classList.contains('alert-error')) {
@@ -164,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
-      element.children[1].innerHTML = parcel.present_location;
-      element.children[2].value = parcel.present_location;
+      element.children[1].innerHTML = parcels.present_location;
+      element.children[2].value = parcels.present_location;
     })
     .catch((errors) => {
       if (modal.children[0].classList.contains('alert-success')) {
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
      })
     .then(validateResponse)
     .then((data) => {
-      const { success, parcel } = data;
+      const { success, parcels } = data;
       const element = el.parentNode.parentNode.parentNode;
       
       if (modal.children[0].classList.contains('alert-error')) {
@@ -197,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('active');
       modal.children[0].classList.add('alert-success');
       modal.children[0].children[1].innerHTML = success;
-      element.children[1].children[1].innerHTML = parcel.status;
+      element.children[1].children[1].innerHTML = parcels.status;
       element.children[4].children[0].className="not-allowed";
       element.children[4].children[0].removeAttribute('title');
       element.children[4].children[1].className="not-allowed";

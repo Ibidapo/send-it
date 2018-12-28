@@ -2,6 +2,9 @@
 /* eslint-env browser */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // initialize Tab Buttons into variables
+  const dashboardTabBtn = document.getElementById('dashboard-tab-btn');
+
   // Initialize Profile input fields as variables
   const dashboardBox = document.getElementsByClassName('dashboard-box');
   const errorMsg = document.getElementById('dashboard-error');
@@ -56,9 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(getError);
   }
 
-  if (isAdmin === 'true') {
-    fetchParcelInfo(adminEndpoint);
-  } else {
-    fetchParcelInfo(userEndpoint);
+  // Function to check for user type and fetch dashboard info
+  const displayDashboard = () => {
+    if (isAdmin === 'true') {
+      fetchParcelInfo(adminEndpoint);
+    } else {
+      fetchParcelInfo(userEndpoint);
+    }
   }
+
+  displayDashboard();
+
+  dashboardTabBtn.addEventListener('click', () => {
+    displayDashboard();
+  })
 });
