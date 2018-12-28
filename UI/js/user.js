@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profileTabBtn = document.getElementById('profile-tab-btn');
   const createOrderBtn = document.getElementById('create-order-btn');
   const confirmOrderBtn = document.getElementById('confirm-order-btn');
+  const cancelOrderBtn = document.getElementById('cancel-order-btn');
 
   // initialize Tab into variables
   const dashboardTab = document.getElementById('dashboard-tab');
@@ -59,6 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
       .filter(button => button.classList.contains('active'))
       .forEach(button => button.classList.remove('active'));
   };
+
+  const addActiveClass = (elements) => {
+    elements.forEach(element => element.classList.add('active'));
+  }
 
   // Variable for abstracting Fetch API
   const validateResponse = (response) => {
@@ -310,99 +315,128 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Callback function for create Tab
+  const sendCallBack = () => {
+    removeActiveClass(arrayTab);
+    addActiveClass([sendTabBtn, sendTab]);
+
+    const initMapPlaces = () => {
+      const origin = document.getElementById('from-address');
+      const destination = document.getElementById('to-address');
+      const errorMsg = document.getElementById('send-error');
+      const placeOptions = { componentRestrictions: { country: 'ng' } };
+      const autocompleteOrigin = new google.maps.places.Autocomplete(origin, placeOptions);
+      const autocompleteDestination = new google.maps.places.Autocomplete(destination, placeOptions);
+
+      // Set the data fields to return when the user selects a place.
+      autocompleteOrigin.setFields(['place_id']);
+      autocompleteDestination.setFields(['place_id']);
+
+      const checkPlace = (element) => {
+        // Place Details request failed
+        if (!element.place_id) {
+          errorMsg.classList.add('active');
+          errorMsg.innerHTML = 'Type and select Addresses from suggestion list';
+          return;
+        }
+      }
+
+      autocompleteOrigin.addListener('place_changed', () => {
+        const place = autocompleteOrigin.getPlace();
+        checkPlace(place);
+        sessionStorage.setItem('selectOrigin',  true);
+      });
+      autocompleteDestination.addListener('place_changed', () => {
+        const place = autocompleteDestination.getPlace();
+        checkPlace(place);
+        sessionStorage.setItem('selectDestination',  true);
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initMapPlaces());
+  } 
+
   // Event listening for a click on the 'Dashboard' button 
   dashboardTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
-    dashboardTabBtn.classList.add('active');
-    dashboardTab.classList.add('active');
+    addActiveClass([dashboardTabBtn, dashboardTab]);
   });
 
-  // Event listening for a click event on the 'Create' button
-  sendTabBtn.addEventListener('click', () => {
-    removeActiveClass(arrayTab);
-    sendTabBtn.classList.add('active');
-    sendTab.classList.add('active');
-  });
-
-  // Event listening for a click event on the '+' button
-  sendTabBtn2.addEventListener('click', () => {
-    removeActiveClass(arrayTab);
-    sendTabBtn.classList.add('active');
-    sendTab.classList.add('active');
-  });
+  // Event listening for a click event on the 'Create' and '+' button
+  sendTabBtn.addEventListener('click', sendCallBack);
+  sendTabBtn2.addEventListener('click', sendCallBack);
 
   // Event listening for a click event on the 'View All' button
   viewAllTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
-    viewAllTabBtn.classList.add('active');
-    viewAllTab.classList.add('active');
-
+    addActiveClass([viewAllTabBtn, viewAllTab]);
     fetchParcels('all', 'view-all-success', 'view-all-error', viewAllBox);
   });
 
   // Event listening for a click event on the 'View Pending' button
   viewPendingTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
-    viewPendingTabBtn.classList.add('active');
-    viewPendingTab.classList.add('active');
-
+    addActiveClass([viewPendingTabBtn, viewPendingTab]);
     fetchParcels('In Transit', 'view-pending-success', 'view-pending-error', viewPendingBox);
   });
 
   // Event listening for a click event on the 'View Delivered' button
   viewDeliveredTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
-    viewDeliveredTabBtn.classList.add('active');
-    viewDeliveredTab.classList.add('active');
-
+    addActiveClass([viewDeliveredTabBtn, viewDeliveredTab]);
     fetchParcels('Delivered', 'view-delivered-success', 'view-delivered-error', viewDeliveredBox);
   });
 
   // Event listening for a click event on the 'Profile' button
   profileTabBtn.addEventListener('click', () => {
     removeActiveClass(arrayTab);
-    profileTabBtn.classList.add('active');
-    profileTab.classList.add('active');
+    addActiveClass([profileTabBtn, profileTab]);
   });
 
   // To create order
   createOrderBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    const fromAddress = document.getElementById('from-address').value.trim();
-    const toAddress = document.getElementById('to-address').value.trim();
+    const originValue = document.getElementById('from-address').value.trim();
+    const destinationValue = document.getElementById('to-address').value.trim();
     const parcelKg = document.getElementById('parcel-kg').value.trim();
     const toPhone = document.getElementById('to-phone').value.trim();
-    let errorDiv = document.getElementById('send-error');
+    const errorMsg = document.getElementById('send-error');
     const phoneRegex = /^\d{11}$/;
     const weightRegex = /^\d+\.?\d*$/;
     let distanceVal;
     
-    if (fromAddress === '' ||  toAddress === '') {
-      errorDiv.classList.add('active');
-      errorDiv.innerHTML = 'Origin or Destination address cannot be empty';
+    if (originValue === '' ||  destinationValue === '' || sessionStorage.getItem('selectOrigin') !== 'true' || sessionStorage.getItem('selectDestination') !== 'true') {
+      errorMsg.classList.add('active');
+      errorMsg.innerHTML = 'Type and select Addresses from suggestion list';
       return;
     }
 
     if (!phoneRegex.test(toPhone)) {
-      errorDiv.classList.add('active');
-      errorDiv.innerHTML = 'Phone number must be 11 digits';
+      errorMsg.classList.add('active');
+      errorMsg.innerHTML = 'Phone number must be 11 digits';
       return;
     }
 
     if (!weightRegex.test(parcelKg)) {
-      errorDiv.classList.add('active');
-      errorDiv.innerHTML = 'Parcel weight must be a number';
+      errorMsg.classList.add('active');
+      errorMsg.innerHTML = 'Parcel weight must be a number';
       return;
     }
 
-    origin.innerHTML = fromAddress;
-    destination.innerHTML = toAddress;
+    sessionStorage.removeItem('selectOrigin');
+    sessionStorage.removeItem('selectDestination');
+    origin.innerHTML = originValue;
+    destination.innerHTML = destinationValue;
     weight.innerHTML = parcelKg;
     phone.innerHTML = toPhone;
-    sessionStorage.setItem('origin', fromAddress);
-    sessionStorage.setItem('destination', toAddress);
+    sessionStorage.setItem('origin', originValue);
+    sessionStorage.setItem('destination', destinationValue);
     sessionStorage.setItem('parcelKg', parcelKg);
     sessionStorage.setItem('toPhone', toPhone);
+
+    console.log(sessionStorage.getItem('origin'),
+    sessionStorage.getItem('destination'),
+    sessionStorage.getItem('parcelKg'),
+    sessionStorage.getItem('toPhone'));
 
     let map;
     let marker;
@@ -413,12 +447,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       var geocoder = new google.maps.Geocoder();
-      geocodeAddress(geocoder, map, fromAddress, toAddress);
+      geocodeAddress(geocoder, map, originValue, destinationValue);
 
       var service = new google.maps.DistanceMatrixService();
       service.getDistanceMatrix({
-        origins: [fromAddress],
-        destinations: [toAddress],
+        origins: [originValue],
+        destinations: [destinationValue],
         travelMode: 'DRIVING',
         unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
@@ -452,7 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
               title: markerTitle,
             });
           } else {
-            console.log(`Geocode was not successful for the following reason: ${status}`);
+            errorMsg.classList.add('active');
+            errorMsg.innerHTML = `Geocode was not successful. Try again`;
           }
         });
       });
@@ -462,6 +497,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createOrderForm.classList.remove('active');
     confirmOrder.classList.add('active');
+  });
+
+  // To cancel order
+  cancelOrderBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    document.getElementById('from-address').value = '';
+    document.getElementById('to-address').value = '';
+    document.getElementById('parcel-kg').value = '';
+    document.getElementById('to-phone').value = '';
+    document.getElementById('send-error').remove('active');
+    confirmOrder.classList.remove('active');
+    createOrderForm.classList.add('active');
   });
 
   // To confirm order

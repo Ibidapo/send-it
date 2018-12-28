@@ -348,6 +348,13 @@ input:not([type="checkbox"]):focus {
 input[type=file], input[type=file]::-webkit-file-upload-button {
   cursor: pointer; 
 }
+input::placeholder {
+  color: #d3d3d3;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
 /* Styling for Button */
 button {
