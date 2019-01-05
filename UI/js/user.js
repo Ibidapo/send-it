@@ -507,8 +507,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('parcel-kg').value = '';
     document.getElementById('to-phone').value = '';
     document.getElementById('send-error').remove('active');
+    document.getElementById('confirm-error').remove('active');
+    document.getElementById('confirm-success').remove('active');
     confirmOrder.classList.remove('active');
     createOrderForm.classList.add('active');
+    confirmOrderBtn.disabled = false;
   });
 
   // To confirm order
