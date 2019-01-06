@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const redirectUser = (result) => {
     const { token, user } = result;
     const { 
-      user_id, email, first_name, last_name, joined_on, is_admin, image_url 
+      user_id, email, first_name, last_name, joined_on, is_admin, image_url, phone 
     } = user;
 
     localStorage.setItem('token', token);
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('email', email);
     localStorage.setItem('firstName', first_name);
     localStorage.setItem('lastName', last_name);
+    localStorage.setItem('phoneNos', phone);
     localStorage.setItem('joined', joined_on);
     localStorage.setItem('isAdmin', is_admin);
     localStorage.setItem('avatar', image_url);
@@ -46,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const displayError = (errors) => {
     const errorMsg = document.getElementById('sign-error');
     errorMsg.classList.add('active');
+    registerBtn.disabled = false;
+    loginBtn.disabled = false;
+    if (errors.error === undefined) {
+      errorMsg.innerHTML = 'Network connection error occurred';
+      return;
+    }
     errorMsg.innerHTML = errors.error;
   }
   const validateResponse = (response) => {
@@ -78,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // This event triggers the Fetch API to post the user details
   registerBtn.addEventListener('click', (event) => {
     event.preventDefault();
+    registerBtn.disabled = true;
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-pass').value;
 
@@ -86,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loginBtn.addEventListener('click', (event) => {
     event.preventDefault();
+    loginBtn.disabled = true;
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-pass').value;
 
